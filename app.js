@@ -392,3 +392,49 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 });
+
+
+
+
+
+/* =========================================================
+   CVPILOT PREMIUM LOADER
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const loader = document.getElementById("cvpilotLoader");
+
+    const letters = document.querySelectorAll(
+        ".loader-logo span"
+    );
+
+    if (!loader) return;
+
+
+    /* =========================
+       LETTER REVEAL
+    ========================= */
+
+    letters.forEach((letter, index) => {
+
+        setTimeout(() => {
+
+            letter.classList.add("show");
+
+        }, 120 + (index * 90));
+
+    });
+
+
+    /* =========================
+       HIDE LOADER
+    ========================= */
+
+    setTimeout(() => {
+
+        loader.classList.add("loaded");
+
+    }, 1200);
+
+});
