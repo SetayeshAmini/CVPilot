@@ -1,0 +1,327 @@
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+
+    /* Background */
+
+    --bg-main: #080D16;
+    --bg-dark: #0B111C;
+    --bg-navy: #101927;
+
+    /* Surfaces */
+
+    --surface: #162235;
+    --surface-light: #1B2A40;
+    --surface-hover: #203149;
+
+    /* Orange */
+
+    --primary: #E85D3F;
+    --primary-dark: #B83E2B;
+    --primary-light: #F08A4B;
+
+    /* Text */
+
+    --text-primary: #F5F1E8;
+    --text-secondary: #C3CBD6;
+    --text-muted: #9AA5B5;
+
+    /* Borders */
+
+    --border: #293548;
+    --border-light: rgba(245, 241, 232, 0.10);
+    --border-orange: rgba(232, 93, 63, 0.35);
+
+    /* Gradients */
+
+    --gradient-primary:
+        linear-gradient(
+            135deg,
+            #B83E2B 0%,
+            #E85D3F 50%,
+            #F08A4B 100%
+        );
+
+    --gradient-bg:
+        linear-gradient(
+            135deg,
+            #080D16 0%,
+            #101927 55%,
+            #111827 100%
+        );
+
+    /* Effects */
+
+    --glow-orange:
+        0 0 60px rgba(232, 93, 63, 0.12);
+
+    --glow-orange-strong:
+        0 10px 35px rgba(184, 62, 43, 0.28);
+
+    /* Radius */
+
+    --radius-sm: 10px;
+    --radius-md: 18px;
+    --radius-lg: 26px;
+    --radius-xl: 32px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    font-family: "DM Sans", sans-serif;
+
+    background:
+        var(--gradient-bg);
+
+    color: var(--text-primary);
+
+    overflow-x: hidden;
+
+    position: relative;
+    min-height: 100vh;
+
+
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+    font-family: "Space Grotesk", sans-serif;
+
+    color: var(--text-primary);
+}
+
+a {
+    text-decoration: none;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+/* =====================================================
+   ANIMATED BACKGROUND
+===================================================== */
+
+.animated-background {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+    background: linear-gradient(
+        135deg,
+        #080D16 0%,
+        #0B111C 45%,
+        #101927 100%
+    );
+}
+
+/* Gradient Orbs */
+.gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.18;
+    will-change: transform;
+}
+
+/* Orange Orb */
+.orb-1 {
+    width: 500px;
+    height: 500px;
+    top: -180px;
+    left: -120px;
+    background: #B83E2B;
+    animation: floatOrb1 14s ease-in-out infinite alternate;
+}
+
+/* Warm Orange Orb */
+.orb-2 {
+    width: 450px;
+    height: 450px;
+    right: -150px;
+    top: 25%;
+    background: #E85D3F;
+    opacity: 0.12;
+    animation: floatOrb2 18s ease-in-out infinite alternate;
+}
+
+/* Soft Orange Orb */
+.orb-3 {
+    width: 550px;
+    height: 550px;
+    bottom: -250px;
+    left: 35%;
+    background: #F08A4B;
+    opacity: 0.08;
+    animation: floatOrb3 20s ease-in-out infinite alternate;
+}
+
+
+/* =====================================================
+   ORB ANIMATIONS
+===================================================== */
+
+@keyframes floatOrb1 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(120px, 80px) scale(1.1);
+    }
+
+    100% {
+        transform: translate(220px, 30px) scale(0.95);
+    }
+}
+
+@keyframes floatOrb2 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-100px, 100px) scale(1.12);
+    }
+
+    100% {
+        transform: translate(-180px, -50px) scale(0.95);
+    }
+}
+
+@keyframes floatOrb3 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-100px, -80px) scale(1.08);
+    }
+
+    100% {
+        transform: translate(100px, -120px) scale(0.95);
+    }
+}
+
+
+/* =====================================================
+   SUBTLE GRID
+===================================================== */
+
+.background-grid {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(245, 241, 232, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(245, 241, 232, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 70px 70px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        black 0%,
+        transparent 85%
+    );
+
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        black 0%,
+        transparent 85%
+    );
+}
+
+
+/* =====================================================
+   DARK OVERLAY
+===================================================== */
+
+.animated-background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            transparent 0%,
+            rgba(8, 13, 22, 0.25) 70%,
+            rgba(8, 13, 22, 0.7) 100%
+        );
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .gradient-orb {
+        filter: blur(80px);
+    }
+
+    .orb-1 {
+        width: 320px;
+        height: 320px;
+    }
+
+    .orb-2 {
+        width: 300px;
+        height: 300px;
+    }
+
+    .orb-3 {
+        width: 350px;
+        height: 350px;
+    }
+
+    .background-grid {
+        background-size: 50px 50px;
+    }
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .gradient-orb {
+        animation: none;
+    }
+}
