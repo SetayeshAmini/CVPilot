@@ -4,18 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        const navType = performance.getEntriesByType("navigation")[0]?.type;
 
-        if (navType === "reload") {
-            sessionStorage.removeItem("cvpilotLoaderSeen");
-        }
-
-        if (sessionStorage.getItem("cvpilotLoaderSeen") === "true") {
-            document.documentElement.classList.add("hide-cvpilot-loader");
-        }
-    </script>
-    </script>
     <title>CVPilot | Create your CV</title>
 
     <!-- Bootstrap 5 -->
@@ -31,36 +20,12 @@
     <link rel="icon" type="image/png" href="LOGO/b9b70786-351e-4d10-bf0b-5dc078e55898-removebg-preview.png">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./templats.css">
 </head>
 
 
 <body>
-
-
-
-    <!-- ================= CVPILOT LOADER ================= -->
-    <div class="cvpilot-loader" id="cvpilotLoader">
-
-        <div class="loader-center">
-
-            <div class="loader-ring"></div>
-
-            <div class="loader-logo">
-                <span>C</span>
-                <span>V</span>
-                <span>P</span>
-                <span>i</span>
-                <span>l</span>
-                <span>o</span>
-                <span>t</span>
-            </div>
-
-        </div>
-
-    </div>
-
-
+    
     <!-- ================= PARTICLES BACKGROUND ================= -->
     <div id="particles-background"></div>
 
@@ -96,7 +61,7 @@
 
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link " href="./index.html">
                             <i class="bi bi-house-door"></i>
                             <span>Home</span>
                         </a>
@@ -123,8 +88,8 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link active" href="./templates.html">
+                    <li class="nav-item ">
+                        <a class="nav-link active" href="#">
                             <i class="bi bi-info-circle"></i>
                             <span>Templates</span>
                         </a>
@@ -160,7 +125,7 @@
     </script>
 
     <!-- ================= CUSTOM JS ================= -->
-    <script src="app.js"></script>
+    <script src="./templats.js"></script>
 
     <script>
         AOS.init({
