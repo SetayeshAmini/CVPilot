@@ -665,3 +665,96 @@ cvs.forEach((profile) => {
   portrait.src = profile.photo;
 });
 
+
+/* =========================================================
+   WHY CVPILOT INTERACTION
+========================================================= */
+
+(() => {
+
+    const whyCards = [...document.querySelectorAll(".why-card")];
+
+    if (!whyCards.length) return;
+
+    const whyCounter = document.getElementById("counter");
+    const whyProgress = document.getElementById("progress");
+
+    let whyActive = 0;
+    let whyTimer = null;
+
+    function activateWhyCard(index) {
+
+        whyActive =
+            (index + whyCards.length) % whyCards.length;
+
+        whyCards.forEach((card, i) => {
+            card.classList.toggle(
+                "active",
+                i === whyActive
+            );
+        });
+
+        if (whyCounter) {
+            whyCounter.textContent =
+                `${String(whyActive + 1).padStart(2, "0")} / 03`;
+        }
+
+        if (whyProgress) {
+            whyProgress.style.width =
+                `${((whyActive + 1) / whyCards.length) * 100}%`;
+        }
+    }
+
+    function restartWhyAuto() {
+
+        clearInterval(whyTimer);
+
+        whyTimer = setInterval(() => {
+            activateWhyCard(whyActive + 1);
+        }, 5200);
+    }
+
+    whyCards.forEach((card, index) => {
+
+        card.addEventListener("click", event => {
+
+            if (event.target.closest(".card-button")) {
+                return;
+            }
+
+            activateWhyCard(index);
+            restartWhyAuto();
+        });
+
+        card.addEventListener("mousemove", event => {
+
+            if (window.innerWidth < 901) return;
+
+            const rect =
+                card.getBoundingClientRect();
+
+            const x =
+                (event.clientX - rect.left) /
+                rect.width - 0.5;
+
+            const y =
+                (event.clientY - rect.top) /
+                rect.height - 0.5;
+
+            const lift =
+                index === 1 ? 5 : -6;
+
+            card.style.transform =
+                `translateY(${lift}px) perspective(1000px) rotateX(${y * -1.1}deg) rotateY(${x * 1.5}deg)`;
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "";
+        });
+
+    });
+
+    activateWhyCard(0);
+    restartWhyAuto();
+
+})();
