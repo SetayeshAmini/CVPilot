@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Build CV | CVPilot</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="LOGO/b9b70786-351e-4d10-bf0b-5dc078e55898-removebg-preview.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="buildCV-style.css">
+</head>
+
+
+<body>
+
+    <!-- ================= PARTICLES BACKGROUND (unchanged) ================= -->
+    <div id="particles-background"></div>
+
+    <!-- ================= DECORATIVE BACKGROUND LAYER ================= -->
+    <div class="cp-build-bg-decor" aria-hidden="true">
+        <span class="cp-build-decor-blob cp-build-decor-blob-1"></span>
+        <span class="cp-build-decor-blob cp-build-decor-blob-2"></span>
+        <span class="cp-build-decor-blob cp-build-decor-blob-3"></span>
+
+        <span class="cp-build-decor-line cp-build-decor-line-1"></span>
+        <span class="cp-build-decor-line cp-build-decor-line-2"></span>
+
+        <span class="cp-build-decor-dot cp-build-decor-dot-1"></span>
+        <span class="cp-build-decor-dot cp-build-decor-dot-2"></span>
+        <span class="cp-build-decor-dot cp-build-decor-dot-3"></span>
+        <span class="cp-build-decor-dot cp-build-decor-dot-4"></span>
+        <span class="cp-build-decor-dot cp-build-decor-dot-5"></span>
+        <span class="cp-build-decor-dot cp-build-decor-dot-6"></span>
+
+        <span class="cp-build-decor-crescent cp-build-decor-crescent-1"></span>
+        <span class="cp-build-decor-crescent cp-build-decor-crescent-2"></span>
+
+        <!-- NEW: extra moon + wave for a livelier background -->
+        <span class="cp-build-decor-crescent cp-build-decor-crescent-3"></span>
+        <span class="cp-build-decor-wave cp-build-decor-wave-1"></span>
+    </div>
+
+
+    <!-- ================= NAVBAR (DO NOT MODIFY) ================= -->
+    <nav class="navbar navbar-expand-lg cv-navbar" id="mainNavbar">
+
+        <div class="container">
+
+            <a class="navbar-brand cv-logo" href="#">
+                <div class="logo-box">
+                    <img src="LOGO/b9b70786-351e-4d10-bf0b-5dc078e55898-removebg-preview.png" alt="CVPilot Logo">
+                </div>
+                <span class="logo-text">
+                    CV<span>Pilot</span>
+                </span>
+            </a>
+
+            <button class="navbar-toggler cv-toggler" type="button" id="navbarToggle" aria-label="Toggle navigation"
+                aria-expanded="false" aria-controls="navbarMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-house-door"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="bi bi-file-earmark-plus"></i>
+                            <span>Build CV</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-book"></i>
+                            <span>CV Guide</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-stars"></i>
+                            <span>AI Review</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-info-circle"></i>
+                            <span>About</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="nav-cta">
+                    <a href="#" class="btn-start">
+                        <span>Start Building</span>
+                        <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ============================================================
+         BUILD CV PAGE
+    ============================================================= -->
+
+    <main class="cp-build-page" id="cpBuildPage">
+
+
+        <!-- ================= HERO ================= -->
+        <section class="cp-build-hero" aria-labelledby="cpBuildHeroTitle">
+
+            <div class="container">
+
+                <div class="cp-build-hero-inner" data-aos="fade-up">
+
+                    <div class="cp-build-hero-text">
+
+                        <span class="cp-build-hero-badge">
+                            <i class="bi bi-magic" aria-hidden="true"></i>
+                            Interactive CV Builder
+                        </span>
+
+                        <h1 class="cp-build-hero-title" id="cpBuildHeroTitle">
+                            Build Your <span>CV</span><br>
+                            Like a Real Product.
+                        </h1>
+
+                        <p class="cp-build-hero-subtitle">
+                            Create a professional CV step by step and see it come to life instantly.
+                            No account. No sign-up. Everything saved locally on your device.
+                        </p>
+
+                        <ul class="cp-build-hero-points" aria-label="Key features">
+                            <li><i class="bi bi-check2-circle" aria-hidden="true"></i> Real-time live preview</li>
+                            <li><i class="bi bi-check2-circle" aria-hidden="true"></i> Smart completion tracking</li>
+                            <li><i class="bi bi-check2-circle" aria-hidden="true"></i> Print-ready A4 layout</li>
+                        </ul>
+
+                    </div>
+
+                    <!-- RIGHT: layered CV visual with varied floating cards -->
+                    <div class="cp-build-hero-visual" aria-hidden="true">
+
+                        <!-- floating skill chip (accent tone) -->
+                        <div class="cp-build-hero-float cp-build-hero-float-skill">
+                            <i class="bi bi-lightning-charge-fill"></i>
+                            <span>React</span>
+                        </div>
+
+                        <!-- floating language chip (dark tone) -->
+                        <div class="cp-build-hero-float cp-build-hero-float-lang">
+                            <i class="bi bi-translate"></i>
+                            <span>English · Fluent</span>
+                        </div>
+
+                        <!-- NEW floating status chip (cream tone) -->
+                        <div class="cp-build-hero-float cp-build-hero-float-note">
+                            <i class="bi bi-file-earmark-check"></i>
+                            <span>A4 · Ready</span>
+                        </div>
+
+                        <!-- main layered CV card -->
+                        <div class="cp-build-hero-card">
+                            <div class="cp-build-hero-card-back"></div>
+                            <div class="cp-build-hero-card-back-2"></div>
+
+                            <article class="cp-build-hero-card-front">
+                                <header class="cp-build-hero-cv-head">
+                                    <div class="cp-build-hero-cv-avatar">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                    <div>
+                                        <h3>Amina Rahimi</h3>
+                                        <p>Frontend Developer</p>
+                                    </div>
+                                </header>
+
+                                <div class="cp-build-hero-cv-line cp-build-hero-cv-line-lg"></div>
+                                <div class="cp-build-hero-cv-line"></div>
+                                <div class="cp-build-hero-cv-line cp-build-hero-cv-line-sm"></div>
+
+                                <div class="cp-build-hero-cv-section">
+                                    <span class="cp-build-hero-cv-dot"></span>
+                                    <span class="cp-build-hero-cv-bar"></span>
+                                </div>
+                                <div class="cp-build-hero-cv-line"></div>
+                                <div class="cp-build-hero-cv-line cp-build-hero-cv-line-sm"></div>
+
+                                <div class="cp-build-hero-cv-tags">
+                                    <span>React</span>
+                                    <span>TypeScript</span>
+                                    <span>UI</span>
+                                    <span>Figma</span>
+                                </div>
+                            </article>
+                        </div>
+
+                    </div>
+
+                    <!-- Progress card -->
+                    <aside class="cp-build-progress-card" aria-label="CV completion status">
+
+                        <div class="cp-build-progress-head">
+
+                            <div class="cp-build-progress-ring" id="cpBuildProgressRing" style="--cp-build-progress: 0;">
+                                <svg viewBox="0 0 120 120" aria-hidden="true">
+                                    <circle class="cp-build-ring-track" cx="60" cy="60" r="52" />
+                                    <circle class="cp-build-ring-fill" cx="60" cy="60" r="52" />
+                                </svg>
+                                <span class="cp-build-ring-label" id="cpBuildProgressRingLabel">0%</span>
+                            </div>
+
+                            <div class="cp-build-progress-meta">
+                                <span class="cp-build-progress-eyebrow">Completion</span>
+                                <h3 class="cp-build-progress-title">Your CV is building</h3>
+                                <p class="cp-build-progress-note" id="cpBuildProgressNote">
+                                    Start with your personal details.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="cp-build-progress-bar-wrap">
+                            <div class="cp-build-progress-bar" role="progressbar"
+                                aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+                                aria-label="CV form completion" id="cpBuildProgressBar">
+                                <span class="cp-build-progress-bar-fill" id="cpBuildProgressBarFill" style="width:0%"></span>
+                            </div>
+                            <div class="cp-build-progress-bar-meta">
+                                <span id="cpBuildProgressPercentText">0% complete</span>
+                                <span class="cp-build-save-status" id="cpBuildSaveStatus" aria-live="polite"></span>
+                            </div>
+                        </div>
+
+                    </aside>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= MOBILE EDIT / PREVIEW TOGGLE ================= -->
+        <div class="cp-build-mobile-toggle" id="cpBuildMobileToggle" role="tablist" aria-label="Builder view">
+            <button type="button" class="cp-build-mobile-toggle-btn is-active" data-cp-build-view="editor"
+                role="tab" aria-selected="true" aria-controls="cpBuildEditor">
+                <i class="bi bi-pencil-square" aria-hidden="true"></i>
+                <span>Edit CV</span>
+            </button>
+            <button type="button" class="cp-build-mobile-toggle-btn" data-cp-build-view="preview"
+                role="tab" aria-selected="false" aria-controls="cpBuildPreviewPane">
+                <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
+                <span>Preview CV</span>
+            </button>
+        </div>
+
+
+        <!-- ================= BUILDER SHELL ================= -->
+        <section class="cp-build-shell" aria-label="CV builder">
+
+            <div class="container">
+
+                <!-- Two-zone layout:
+                     Row 1: Builder Nav (left) + Live Preview (right)
+                     Row 2: Editor cards in horizontal rows -->
+                <div class="cp-build-layout">
+
+                    <!-- ===== TOP ROW ===== -->
+                    <div class="cp-build-top-row">
+
+                        <!-- ===== BUILDER NAV ===== -->
+                        <aside class="cp-build-nav" id="cpBuildNav" aria-label="Builder sections">
+
+                            <div class="cp-build-nav-head">
+                                <span class="cp-build-nav-eyebrow">Sections</span>
+                                <h2 class="cp-build-nav-title">Build it step by step</h2>
+                            </div>
+
+                            <ol class="cp-build-nav-list" id="cpBuildNavList">
+
+                                <li class="cp-build-nav-item is-active" data-cp-build-target="personal">
+                                    <button type="button" class="cp-build-nav-link">
+                                        <span class="cp-build-nav-icon"><i class="bi bi-person-badge" aria-hidden="true"></i></span>
+                                        <span class="cp-build-nav-text">
+                                            <span class="cp-build-nav-label">Personal Info</span>
+                                            <span class="cp-build-nav-status" data-cp-build-status="personal">Not started</span>
+                                        </span>
+                                        <span class="cp-build-nav-check" aria-hidden="true"><i class="bi bi-check2"></i></span>
+                                    </button>
+                                </li>
+
+                                <li class="cp-build-nav-item" data-cp-build-target="summary">
+                                    <button type="button" class="cp-build-nav-link">
+                                        <span class="cp-build-nav-icon"><i class="bi bi-card-text" aria-hidden="true"></i></span>
+                                        <span class="cp-build-nav-text">
+                                            <span class="cp-build-nav-label">Summary</span>
+                                            <span class="cp-build-nav-status" data-cp-build-status="summary">Not started</span>
+                                        </span>
+                                        <span class="cp-build-nav-check" aria-hidden="true"><i class="bi bi-check2"></i></span>
+                                    </button>
+                                </li>
+
+                                <li class="cp-build-nav-item" data-cp-build-target="experience">
+                                    <button type="button" class="cp-build-nav-link">
+                                        <span class="cp-build-nav-icon"><i class="bi bi-briefcase" aria-hidden="true"></i></span>
+                                        <span class="cp-build-nav-text">
+                                            <span class="cp-build-nav-label">Experience</span>
+                                            <span class="cp-build-nav-status" data-cp-build-status="experience">Not started</span>
+                                        </span>
+                                        <span class="cp-build-nav-check" aria-hidden="true"><i class="bi bi-check2"></i></span>
+                                    </button>
+                                </li>
+
+                                <li class="cp-build-nav-item" data-cp-build-target="education">
+                                    <button type="button" class="cp-build-nav-link">
+                                        <span class="cp-build-nav-icon"><i class="bi bi-mortarboard" aria-hidden="true"></i></span>
+                                        <span class="cp-build-nav-text">
+                                            <span class="cp-build-nav-label">Education</span>
+                                            <span class="cp-build-nav-status" data-cp-build-status="education">Not started</span>
+                                        </span>
+                                        <span class="cp-build-nav-check" aria-hidden="true"><i class="bi bi-check2"></i></span>
+                                    </button>
+                                </li>
+
+                                <li class="cp-build-nav-item" data-cp-build-target="skills">
+                                    <button type="button" class="cp-build-nav-link">
+                                        <span class="cp-build-nav-icon"><i class="bi bi-lightning-charge" aria-hidden="true"></i></span>
+                                        <span class="cp-build-nav-text">
+                                            <span class="cp-build-nav-label">Skills</span>
+                                            <span class="cp-build-nav-status" data-cp-build-status="skills">Not started</span>
+                                        </span>
+                                        <span class="cp-build-nav-check" aria-hidden="true"><i class="bi bi-check2"></i></span>
+                                    </button>
+                                </li>
+
+                                <li class="cp-build-nav-item" data-cp-build-target="projects">
+                                    <button type="button" class="cp-build-nav-link">
+                                        <span class="cp-build-nav-icon"><i class="bi bi-kanban" aria-hidden="true"></i></span>
+                                        <span class="cp-build-nav-text">
+                                            <span class="cp-build-nav-label">Projects</span>
+                                            <span class="cp-build-nav-status" data-cp-build-status="projects">Not started</span>
+                                        </span>
+                                        <span class="cp-build-nav-check" aria-hidden="true"><i class="bi bi-check2"></i></span>
+                                    </button>
+                                </li>
+
+                                <li class="cp-build-nav-item" data-cp-build-target="languages">
+                                    <button type="button" class="cp-build-nav-link">
+                                        <span class="cp-build-nav-icon"><i class="bi bi-translate" aria-hidden="true"></i></span>
+                                        <span class="cp-build-nav-text">
+                                            <span class="cp-build-nav-label">Languages</span>
+                                            <span class="cp-build-nav-status" data-cp-build-status="languages">Not started</span>
+                                        </span>
+                                        <span class="cp-build-nav-check" aria-hidden="true"><i class="bi bi-check2"></i></span>
+                                    </button>
+                                </li>
+
+                            </ol>
+
+                            <div class="cp-build-nav-foot">
+                                <button type="button" class="cp-build-btn cp-build-btn-ghost cp-build-btn-block"
+                                    id="cpBuildClearAll">
+                                    <i class="bi bi-trash3" aria-hidden="true"></i>
+                                    <span>Clear Form</span>
+                                </button>
+                            </div>
+
+                        </aside>
+
+
+                        <!-- ===== LIVE PREVIEW ===== -->
+                        <aside class="cp-build-preview" id="cpBuildPreviewPane" aria-label="Live CV preview">
+
+                            <div class="cp-build-preview-sticky">
+
+                                <div class="cp-build-preview-head">
+                                    <div>
+                                        <span class="cp-build-preview-eyebrow">Live Preview</span>
+                                        <h2 class="cp-build-preview-title">Your CV</h2>
+                                    </div>
+                                    <span class="cp-build-preview-badge">
+                                        <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
+                                        A4
+                                    </span>
+                                </div>
+
+                                <div class="cp-build-preview-scroll">
+
+                                    <article class="cp-build-cv" id="cpBuildCv" aria-label="CV document preview">
+
+                                        <header class="cp-build-cv-head">
+                                            <h1 class="cp-build-cv-name" id="cpBuildCvName" data-cp-build-placeholder="Your Name">Your Name</h1>
+                                            <p class="cp-build-cv-title" id="cpBuildCvTitle" data-cp-build-placeholder="Professional Title">Professional Title</p>
+
+                                            <ul class="cp-build-cv-contact" id="cpBuildCvContact">
+                                                <li data-cp-build-cv-contact="email" hidden><i class="bi bi-envelope" aria-hidden="true"></i><span></span></li>
+                                                <li data-cp-build-cv-contact="phone" hidden><i class="bi bi-telephone" aria-hidden="true"></i><span></span></li>
+                                                <li data-cp-build-cv-contact="location" hidden><i class="bi bi-geo-alt" aria-hidden="true"></i><span></span></li>
+                                                <li data-cp-build-cv-contact="linkedin" hidden><i class="bi bi-linkedin" aria-hidden="true"></i><span></span></li>
+                                                <li data-cp-build-cv-contact="github" hidden><i class="bi bi-github" aria-hidden="true"></i><span></span></li>
+                                            </ul>
+                                        </header>
+
+                                        <section class="cp-build-cv-block" data-cp-build-cv-section="summary">
+                                            <h2 class="cp-build-cv-block-title">Summary</h2>
+                                            <p class="cp-build-cv-summary" id="cpBuildCvSummary" data-cp-build-placeholder="Your professional summary will appear here.">Your professional summary will appear here.</p>
+                                        </section>
+
+                                        <section class="cp-build-cv-block" data-cp-build-cv-section="experience">
+                                            <h2 class="cp-build-cv-block-title">Experience</h2>
+                                            <div class="cp-build-cv-list" id="cpBuildCvExperience"></div>
+                                            <p class="cp-build-cv-empty" data-cp-build-cv-empty="experience">Your experience will appear here.</p>
+                                        </section>
+
+                                        <section class="cp-build-cv-block" data-cp-build-cv-section="education">
+                                            <h2 class="cp-build-cv-block-title">Education</h2>
+                                            <div class="cp-build-cv-list" id="cpBuildCvEducation"></div>
+                                            <p class="cp-build-cv-empty" data-cp-build-cv-empty="education">Your education will appear here.</p>
+                                        </section>
+
+                                        <section class="cp-build-cv-block" data-cp-build-cv-section="skills">
+                                            <h2 class="cp-build-cv-block-title">Skills</h2>
+                                            <div class="cp-build-cv-tags" id="cpBuildCvSkills"></div>
+                                            <p class="cp-build-cv-empty" data-cp-build-cv-empty="skills">Your skills will appear here.</p>
+                                        </section>
+
+                                        <section class="cp-build-cv-block" data-cp-build-cv-section="projects">
+                                            <h2 class="cp-build-cv-block-title">Projects</h2>
+                                            <div class="cp-build-cv-list" id="cpBuildCvProjects"></div>
+                                            <p class="cp-build-cv-empty" data-cp-build-cv-empty="projects">Your projects will appear here.</p>
+                                        </section>
+
+                                        <section class="cp-build-cv-block" data-cp-build-cv-section="languages">
+                                            <h2 class="cp-build-cv-block-title">Languages</h2>
+                                            <div class="cp-build-cv-tags" id="cpBuildCvLanguages"></div>
+                                            <p class="cp-build-cv-empty" data-cp-build-cv-empty="languages">Your languages will appear here.</p>
+                                        </section>
+
+                                    </article>
+
+                                </div>
+
+                                <div class="cp-build-preview-actions">
+                                    <button type="button" class="cp-build-btn cp-build-btn-ghost" id="cpBuildPrint">
+                                        <i class="bi bi-printer" aria-hidden="true"></i>
+                                        <span>Print</span>
+                                    </button>
+                                    <button type="button" class="cp-build-btn cp-build-btn-primary" id="cpBuildDownload">
+                                        <i class="bi bi-download" aria-hidden="true"></i>
+                                        <span>Download CV</span>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </aside>
+
+                    </div>
+                    <!-- ===== /TOP ROW ===== -->
+
+
+                    <!-- ===== EDITOR (horizontal card rows) ===== -->
+                    <section class="cp-build-editor" id="cpBuildEditor" aria-label="CV editor">
+
+                        <div class="cp-build-editor-grid">
+
+                            <!-- ============ ROW 1 ============ -->
+
+                            <!-- PERSONAL — DARK -->
+                            <article class="cp-build-section cp-build-section-tone-dark cp-build-section-span-lg"
+                                id="cpBuildSectionPersonal"
+                                data-cp-build-section="personal"
+                                data-cp-build-size="wide"
+                                data-aos="fade-up">
+
+                                <header class="cp-build-section-head">
+                                    <div class="cp-build-section-title-wrap">
+                                        <span class="cp-build-section-icon"><i class="bi bi-person-badge" aria-hidden="true"></i></span>
+                                        <div>
+                                            <h2 class="cp-build-section-title">Personal Information</h2>
+                                            <p class="cp-build-section-sub">Start with the essentials — name, title and contact.</p>
+                                        </div>
+                                    </div>
+                                    <span class="cp-build-section-tag" data-cp-build-section-tag="personal">Not started</span>
+                                </header>
+
+                                <div class="cp-build-section-body">
+
+                                    <div class="row g-3">
+
+                                        <div class="col-md-6">
+                                            <label class="cp-build-field" for="cpBuildFullName">
+                                                <span class="cp-build-field-label">Full Name <em>*</em></span>
+                                                <span class="cp-build-field-input">
+                                                    <i class="bi bi-person" aria-hidden="true"></i>
+                                                    <input type="text" id="cpBuildFullName" name="fullName"
+                                                        placeholder="e.g. Amina Rahimi" autocomplete="name" required>
+                                                </span>
+                                                <span class="cp-build-field-error" data-cp-build-error="fullName"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="cp-build-field" for="cpBuildTitle">
+                                                <span class="cp-build-field-label">Professional Title <em>*</em></span>
+                                                <span class="cp-build-field-input">
+                                                    <i class="bi bi-award" aria-hidden="true"></i>
+                                                    <input type="text" id="cpBuildTitle" name="title"
+                                                        placeholder="e.g. Frontend Developer" required>
+                                                </span>
+                                                <span class="cp-build-field-error" data-cp-build-error="title"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="cp-build-field" for="cpBuildEmail">
+                                                <span class="cp-build-field-label">Email <em>*</em></span>
+                                                <span class="cp-build-field-input">
+                                                    <i class="bi bi-envelope" aria-hidden="true"></i>
+                                                    <input type="email" id="cpBuildEmail" name="email"
+                                                        placeholder="you@example.com" autocomplete="email" required>
+                                                </span>
+                                                <span class="cp-build-field-error" data-cp-build-error="email"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="cp-build-field" for="cpBuildPhone">
+                                                <span class="cp-build-field-label">Phone</span>
+                                                <span class="cp-build-field-input">
+                                                    <i class="bi bi-telephone" aria-hidden="true"></i>
+                                                    <input type="tel" id="cpBuildPhone" name="phone"
+                                                        placeholder="+93 700 000 000" autocomplete="tel">
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="cp-build-field" for="cpBuildLocation">
+                                                <span class="cp-build-field-label">Location</span>
+                                                <span class="cp-build-field-input">
+                                                    <i class="bi bi-geo-alt" aria-hidden="true"></i>
+                                                    <input type="text" id="cpBuildLocation" name="location"
+                                                        placeholder="Kabul, Afghanistan" autocomplete="address-level2">
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="cp-build-field" for="cpBuildLinkedin">
+                                                <span class="cp-build-field-label">LinkedIn</span>
+                                                <span class="cp-build-field-input">
+                                                    <i class="bi bi-linkedin" aria-hidden="true"></i>
+                                                    <input type="url" id="cpBuildLinkedin" name="linkedin"
+                                                        placeholder="linkedin.com/in/username">
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="cp-build-field" for="cpBuildGithub">
+                                                <span class="cp-build-field-label">GitHub</span>
+                                                <span class="cp-build-field-input">
+                                                    <i class="bi bi-github" aria-hidden="true"></i>
+                                                    <input type="url" id="cpBuildGithub" name="github"
+                                                        placeholder="github.com/username">
+                                                </span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- SUMMARY — CREAM -->
+                            <article class="cp-build-section cp-build-section-tone-cream"
+                                id="cpBuildSectionSummary"
+                                data-cp-build-section="summary"
+                                data-cp-build-size="compact"
+                                data-aos="fade-up">
+
+                                <header class="cp-build-section-head">
+                                    <div class="cp-build-section-title-wrap">
+                                        <span class="cp-build-section-icon"><i class="bi bi-card-text" aria-hidden="true"></i></span>
+                                        <div>
+                                            <h2 class="cp-build-section-title">Professional Summary</h2>
+                                            <p class="cp-build-section-sub">A short paragraph introducing who you are and what you do.</p>
+                                        </div>
+                                    </div>
+                                    <span class="cp-build-section-tag" data-cp-build-section-tag="summary">Not started</span>
+                                </header>
+
+                                <div class="cp-build-section-body">
+
+                                    <label class="cp-build-field cp-build-field-editor" for="cpBuildSummary">
+                                        <span class="cp-build-field-label">Summary</span>
+                                        <span class="cp-build-field-textarea">
+                                            <textarea id="cpBuildSummary" name="summary" rows="5" maxlength="600"
+                                                placeholder="Frontend developer with 3+ years of experience building accessible, performant web interfaces..."></textarea>
+                                        </span>
+                                        <span class="cp-build-field-helper">
+                                            <span id="cpBuildSummaryCount">0</span> / 600 characters
+                                        </span>
+                                    </label>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- ============ ROW 2 ============ -->
+
+                            <!-- EXPERIENCE — DARK -->
+                            <article class="cp-build-section cp-build-section-tone-dark cp-build-section-span-lg"
+                                id="cpBuildSectionExperience"
+                                data-cp-build-section="experience"
+                                data-cp-build-size="wide"
+                                data-aos="fade-up">
+
+                                <header class="cp-build-section-head">
+                                    <div class="cp-build-section-title-wrap">
+                                        <span class="cp-build-section-icon"><i class="bi bi-briefcase" aria-hidden="true"></i></span>
+                                        <div>
+                                            <h2 class="cp-build-section-title">Experience</h2>
+                                            <p class="cp-build-section-sub">Add your work history — most recent first.</p>
+                                        </div>
+                                    </div>
+                                    <span class="cp-build-section-tag" data-cp-build-section-tag="experience">Not started</span>
+                                </header>
+
+                                <div class="cp-build-section-body">
+
+                                    <div class="cp-build-repeater" id="cpBuildExperienceList" data-cp-build-list="experience"></div>
+
+                                    <div class="cp-build-empty" data-cp-build-empty="experience">
+                                        <span class="cp-build-empty-icon"><i class="bi bi-briefcase" aria-hidden="true"></i></span>
+                                        <p class="cp-build-empty-title">No experience added yet</p>
+                                        <p class="cp-build-empty-sub">Add your first role to make your CV stand out.</p>
+                                    </div>
+
+                                    <button type="button" class="cp-build-add-btn" data-cp-build-add="experience">
+                                        <span class="cp-build-add-btn-icon"><i class="bi bi-plus-lg" aria-hidden="true"></i></span>
+                                        <span>Add Experience</span>
+                                    </button>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- EDUCATION — CREAM -->
+                            <article class="cp-build-section cp-build-section-tone-cream"
+                                id="cpBuildSectionEducation"
+                                data-cp-build-section="education"
+                                data-cp-build-size="compact"
+                                data-aos="fade-up">
+
+                                <header class="cp-build-section-head">
+                                    <div class="cp-build-section-title-wrap">
+                                        <span class="cp-build-section-icon"><i class="bi bi-mortarboard" aria-hidden="true"></i></span>
+                                        <div>
+                                            <h2 class="cp-build-section-title">Education</h2>
+                                            <p class="cp-build-section-sub">Degrees, diplomas and certifications.</p>
+                                        </div>
+                                    </div>
+                                    <span class="cp-build-section-tag" data-cp-build-section-tag="education">Not started</span>
+                                </header>
+
+                                <div class="cp-build-section-body">
+
+                                    <div class="cp-build-repeater" id="cpBuildEducationList" data-cp-build-list="education"></div>
+
+                                    <div class="cp-build-empty" data-cp-build-empty="education">
+                                        <span class="cp-build-empty-icon"><i class="bi bi-mortarboard" aria-hidden="true"></i></span>
+                                        <p class="cp-build-empty-title">No education added yet</p>
+                                        <p class="cp-build-empty-sub">Add a degree or course to complete your profile.</p>
+                                    </div>
+
+                                    <button type="button" class="cp-build-add-btn" data-cp-build-add="education">
+                                        <span class="cp-build-add-btn-icon"><i class="bi bi-plus-lg" aria-hidden="true"></i></span>
+                                        <span>Add Education</span>
+                                    </button>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- ============ ROW 3 ============ -->
+
+                            <!-- SKILLS — DARK (compact) -->
+                            <article class="cp-build-section cp-build-section-tone-dark"
+                                id="cpBuildSectionSkills"
+                                data-cp-build-section="skills"
+                                data-cp-build-size="compact"
+                                data-aos="fade-up">
+
+                                <header class="cp-build-section-head">
+                                    <div class="cp-build-section-title-wrap">
+                                        <span class="cp-build-section-icon"><i class="bi bi-lightning-charge" aria-hidden="true"></i></span>
+                                        <div>
+                                            <h2 class="cp-build-section-title">Skills</h2>
+                                            <p class="cp-build-section-sub">Type a skill and press Enter — suggestions will help you.</p>
+                                        </div>
+                                    </div>
+                                    <span class="cp-build-section-tag" data-cp-build-section-tag="skills">Not started</span>
+                                </header>
+
+                                <div class="cp-build-section-body">
+
+                                    <div class="cp-build-tagger" id="cpBuildSkillsTagger">
+                                        <div class="cp-build-tagger-input">
+                                            <i class="bi bi-lightning" aria-hidden="true"></i>
+                                            <input type="text" id="cpBuildSkillInput"
+                                                placeholder="Add a skill — e.g. React, Git, Bootstrap"
+                                                autocomplete="off"
+                                                role="combobox"
+                                                aria-expanded="false"
+                                                aria-autocomplete="list"
+                                                aria-controls="cpBuildSkillSuggest">
+                                            <button type="button" class="cp-build-tagger-add" id="cpBuildSkillAdd" aria-label="Add skill">
+                                                <i class="bi bi-plus-lg" aria-hidden="true"></i>
+                                            </button>
+                                            <div class="cp-build-suggest" id="cpBuildSkillSuggest" role="listbox" hidden></div>
+                                        </div>
+                                        <div class="cp-build-tags" id="cpBuildSkillsTags" aria-live="polite"></div>
+                                    </div>
+
+                                    <div class="cp-build-empty cp-build-empty-inline" data-cp-build-empty="skills">
+                                        <span class="cp-build-empty-icon"><i class="bi bi-lightning-charge" aria-hidden="true"></i></span>
+                                        <p class="cp-build-empty-title">Your skills will appear here</p>
+                                        <p class="cp-build-empty-sub">Add at least 3 skills for a stronger CV.</p>
+                                    </div>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- PROJECTS — CREAM (wider) -->
+                            <article class="cp-build-section cp-build-section-tone-cream cp-build-section-span-lg"
+                                id="cpBuildSectionProjects"
+                                data-cp-build-section="projects"
+                                data-cp-build-size="wide"
+                                data-aos="fade-up">
+
+                                <header class="cp-build-section-head">
+                                    <div class="cp-build-section-title-wrap">
+                                        <span class="cp-build-section-icon"><i class="bi bi-kanban" aria-hidden="true"></i></span>
+                                        <div>
+                                            <h2 class="cp-build-section-title">Projects</h2>
+                                            <p class="cp-build-section-sub">Showcase the work you are proud of.</p>
+                                        </div>
+                                    </div>
+                                    <span class="cp-build-section-tag" data-cp-build-section-tag="projects">Not started</span>
+                                </header>
+
+                                <div class="cp-build-section-body">
+
+                                    <div class="cp-build-repeater" id="cpBuildProjectsList" data-cp-build-list="projects"></div>
+
+                                    <div class="cp-build-empty" data-cp-build-empty="projects">
+                                        <span class="cp-build-empty-icon"><i class="bi bi-kanban" aria-hidden="true"></i></span>
+                                        <p class="cp-build-empty-title">Your projects will appear here</p>
+                                        <p class="cp-build-empty-sub">Add a project to demonstrate your skills in action.</p>
+                                    </div>
+
+                                    <button type="button" class="cp-build-add-btn" data-cp-build-add="projects">
+                                        <span class="cp-build-add-btn-icon"><i class="bi bi-plus-lg" aria-hidden="true"></i></span>
+                                        <span>Add Project</span>
+                                    </button>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- ============ ROW 4 ============ -->
+
+                            <!-- LANGUAGES — DARK (full width) -->
+                            <article class="cp-build-section cp-build-section-tone-dark cp-build-section-span-full"
+                                id="cpBuildSectionLanguages"
+                                data-cp-build-section="languages"
+                                data-cp-build-size="full"
+                                data-aos="fade-up">
+
+                                <header class="cp-build-section-head">
+                                    <div class="cp-build-section-title-wrap">
+                                        <span class="cp-build-section-icon"><i class="bi bi-translate" aria-hidden="true"></i></span>
+                                        <div>
+                                            <h2 class="cp-build-section-title">Languages</h2>
+                                            <p class="cp-build-section-sub">Languages you speak and your proficiency level.</p>
+                                        </div>
+                                    </div>
+                                    <span class="cp-build-section-tag" data-cp-build-section-tag="languages">Not started</span>
+                                </header>
+
+                                <div class="cp-build-section-body">
+
+                                    <div class="cp-build-repeater" id="cpBuildLanguagesList" data-cp-build-list="languages"></div>
+
+                                    <div class="cp-build-empty" data-cp-build-empty="languages">
+                                        <span class="cp-build-empty-icon"><i class="bi bi-translate" aria-hidden="true"></i></span>
+                                        <p class="cp-build-empty-title">No languages added yet</p>
+                                        <p class="cp-build-empty-sub">Multilingual? Let employers know.</p>
+                                    </div>
+
+                                    <button type="button" class="cp-build-add-btn" data-cp-build-add="languages">
+                                        <span class="cp-build-add-btn-icon"><i class="bi bi-plus-lg" aria-hidden="true"></i></span>
+                                        <span>Add Language</span>
+                                    </button>
+
+                                </div>
+
+                            </article>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CONFIRM MODAL ================= -->
+        <div class="cp-build-modal" id="cpBuildConfirmModal" role="dialog" aria-modal="true" aria-labelledby="cpBuildConfirmTitle" hidden>
+            <div class="cp-build-modal-backdrop" data-cp-build-modal-close></div>
+            <div class="cp-build-modal-card" role="document">
+                <div class="cp-build-modal-icon">
+                    <i class="bi bi-exclamation-triangle" aria-hidden="true"></i>
+                </div>
+                <h3 class="cp-build-modal-title" id="cpBuildConfirmTitle">Clear the entire form?</h3>
+                <p class="cp-build-modal-text">
+                    This will permanently remove all CV data saved on this device.
+                    You cannot undo this action.
+                </p>
+                <div class="cp-build-modal-actions">
+                    <button type="button" class="cp-build-btn cp-build-btn-ghost" data-cp-build-modal-close>
+                        Cancel
+                    </button>
+                    <button type="button" class="cp-build-btn cp-build-btn-danger" id="cpBuildConfirmClear">
+                        Yes, clear form
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ============ END BUILD CV PAGE ============ -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/tsparticles@3/tsparticles.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="app.js"></script>
+    <script src="buildCV-app.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 700,
+            once: true
+        });
+    </script>
+
+</body>
+
+</html>
