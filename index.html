@@ -136,6 +136,167 @@
 
     </nav>
 
+    <main class="hero">
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <div class="hero-stars"></div>
+
+    <div class="container-fluid hero-container">
+      <div class="row align-items-center hero-row">
+
+        <!-- LEFT -->
+        <div class="col-lg-5 hero-content">
+          <div class="eyebrow">
+            <i></i>
+            CAREER, REIMAGINED
+            <i></i>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="title-line">Your CV should</span>
+            <span class="title-line accent">tell your story.</span>
+          </h1>
+
+          <p class="hero-text">
+            Build a CV that feels as strong as the career you're building.
+            Create, refine and present your experience with clarity.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#cv-showcase" class="lux-btn primary-btn" id="buildBtn">
+              <span>Build My CV</span>
+              <b class="btn-arrow">↗</b>
+            </a>
+
+            <button class="lux-btn glass-btn" id="reviewBtn" type="button">
+              <span class="spark">✦</span>
+              <span>Review My CV</span>
+            </button>
+          </div>
+
+          <div class="trust-row">
+            <span><b>✓</b> Professional templates</span>
+            <span><b>✦</b> AI-powered review</span>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col-lg-7">
+          <section class="cv-showcase" id="cv-showcase" aria-label="Interactive CV showcase">
+
+            <div class="showcase-halo"></div>
+            <div class="showcase-ring ring-a"></div>
+            <div class="showcase-ring ring-b"></div>
+
+            <!-- Connected feature cards -->
+            <button class="feature-card card-summary" data-section="summary" type="button">
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 12.2a4.1 4.1 0 1 0 0-8.2 4.1 4.1 0 0 0 0 8.2Zm-7 8.3c.7-3.6 3.2-5.4 7-5.4s6.3 1.8 7 5.4"/></svg>
+              </span>
+              <span class="feature-copy"><span class="feature-meta"><b>01</b><i></i></span><strong>Summary</strong><small>Personal story</small></span>
+              <em></em>
+            </button>
+
+            <button class="feature-card card-experience" data-section="experience" type="button">
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 8.5h16v10.2H4zM8 8.5V6.8A1.8 1.8 0 0 1 9.8 5h4.4A1.8 1.8 0 0 1 16 6.8v1.7M4 12.5h16M10 12.5v2h4v-2"/></svg>
+              </span>
+              <span class="feature-copy"><span class="feature-meta"><b>02</b><i></i></span><strong>Experience</strong><small>Career impact</small></span>
+              <em></em>
+            </button>
+
+            <button class="feature-card card-skills" data-section="skills" type="button">
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m13.2 2.8-8.1 10h6.1l-.5 8.4 8.2-11h-6.1z"/></svg>
+              </span>
+              <span class="feature-copy"><span class="feature-meta"><b>03</b><i></i></span><strong>Skills</strong><small>Core abilities</small></span>
+              <em></em>
+            </button>
+
+            <button class="feature-card card-projects" data-section="projects" type="button">
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg>
+              </span>
+              <span class="feature-copy"><span class="feature-meta"><b>04</b><i></i></span><strong>Projects</strong><small>Selected work</small></span>
+              <em></em>
+            </button>
+
+            <div class="cv-scene">
+              <div class="paper-shadow"></div>
+              <div class="back-paper back-one"></div>
+              <div class="back-paper back-two"></div>
+
+              <article class="cv-paper" id="cvPaper">
+                <div class="paper-top"></div>
+
+                <header class="cv-header">
+                  <img id="cvPhoto" class="cv-photo" src="https://i.pravatar.cc/180?img=47" alt="Profile" loading="eager" decoding="async" fetchpriority="high">
+                  <div>
+                    <span class="cv-label">PROFESSIONAL PROFILE</span>
+                    <h2 id="cvName">Shakiba Amini</h2>
+                    <p id="cvRole">Frontend Developer</p>
+                  </div>
+                </header>
+
+                <div class="cv-contact">
+                  <span>⌖ Kabul, Afghanistan</span>
+                  <span>✉ hello@careerpilot.dev</span>
+                </div>
+
+                <section class="cv-block" data-cv-section="summary">
+                  <div class="block-title">SUMMARY</div>
+                  <p id="cvSummary">Frontend developer focused on creating elegant, accessible and high-performing digital experiences.</p>
+                </section>
+
+                <section class="cv-block" data-cv-section="experience">
+                  <div class="block-title">EXPERIENCE</div>
+                  <div class="job-line">
+                    <strong id="cvCompany">Frontend Developer</strong>
+                    <span id="cvDate">2022 — Present</span>
+                  </div>
+                  <p id="cvExperience">Built responsive interfaces, improved design systems and collaborated with product teams to ship polished user experiences.</p>
+                </section>
+
+                <section class="cv-block" data-cv-section="education">
+                  <div class="block-title">EDUCATION</div>
+                  <p id="cvEducation">B.Sc. Computer Science · Kabul University · 2018 — 2022</p>
+                </section>
+
+                <section class="cv-block" data-cv-section="skills">
+                  <div class="block-title">SKILLS</div>
+                  <div class="skill-list" id="cvSkills"></div>
+                </section>
+
+                <section class="cv-block project-block" data-cv-section="projects">
+                  <div class="block-title">SELECTED PROJECT</div>
+                  <div class="project-divider"></div>
+                  <p id="cvProject">CareerPilot Dashboard · UX & Frontend System</p>
+                </section>
+
+                <footer class="cv-footer" aria-label="CV page number">
+                  <span class="cv-page-count" id="cvCounter">01 / 03</span>
+                </footer>
+              </article>
+            </div>
+
+            <!-- Clean controls, no "Explore CVs" -->
+            <div class="cv-live-status"><span></span> LIVE PREVIEW</div>
+            <div class="cv-controls">
+              <button class="nav-arrow" id="prevBtn" type="button" aria-label="Previous CV">←</button>
+              <div class="slide-progress"><span id="slideProgress"></span></div>
+              <div class="dots" id="dots">
+                <button class="dot active" data-index="0" aria-label="Shakiba Amini"></button>
+                <button class="dot" data-index="1" aria-label="Morsal Amini"></button>
+                <button class="dot" data-index="2" aria-label="Setayesh Amini"></button>
+              </div>
+              <button class="nav-arrow" id="nextBtn" type="button" aria-label="Next CV">→</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+
 
      <!-- ================= TSPARTICLES ================= -->
     <script
