@@ -1,13 +1,10 @@
 /* =========================================================
    CVPILOT — BUILD CV PAGE
-   Client-side only. No API, no Firebase, no database.
+   Client-side only. No API, no Firebase, no database,
+   no localStorage / sessionStorage.
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    /* =====================================================
-       STATE
-    ===================================================== */
 
     const state = {
         personal: {
@@ -24,20 +21,66 @@ document.addEventListener("DOMContentLoaded", () => {
         education: [],
         projects: [],
         skills: [],
-        languages: []
+        languages: [],
+        template: "minimal"
     };
 
+    const TEMPLATE_LABELS = {
+        minimal: "Minimal",
+        modern: "Modern",
+        professional: "Professional",
+        elegant: "Elegant",
+        creative: "Creative"
+    };
 
-    /* =====================================================
-       HELPERS
-    ===================================================== */
+    const LOCATIONS = [
+        "London", "Los Angeles", "Londonderry", "Berlin", "Bern", "Boston",
+        "Barcelona", "Bangkok", "Beijing", "Bucharest", "Budapest", "Brussels",
+        "Amsterdam", "Athens", "Austin", "Atlanta", "Abu Dhabi", "Ankara",
+        "Cairo", "Copenhagen", "Chicago", "Calgary", "Canberra", "Colombo",
+        "Dubai", "Dublin", "Delhi", "Doha", "Dallas", "Denver", "Damascus",
+        "Edinburgh", "Frankfurt", "Florence", "Geneva", "Hamburg", "Helsinki",
+        "Herat", "Istanbul", "Islamabad", "Jakarta", "Jerusalem", "Karachi",
+        "Kabul", "Kandahar", "Kuala Lumpur", "Lagos", "Lisbon", "Liverpool",
+        "Madrid", "Manchester", "Melbourne", "Mexico City", "Milan", "Montreal",
+        "Moscow", "Mumbai", "Munich", "Nairobi", "New York", "Oslo", "Ottawa",
+        "Paris", "Prague", "Riyadh", "Rome", "Seoul", "Singapore", "Stockholm",
+        "Sydney", "Tokyo", "Toronto", "Tehran", "Vienna", "Warsaw", "Zurich"
+    ];
+
+    const DEGREES = [
+        "High School Diploma", "Associate Degree",
+        "Bachelor's Degree", "Bachelor of Science (BSc)", "Bachelor of Arts (BA)",
+        "Bachelor of Engineering (BEng)", "Bachelor of Business Administration (BBA)",
+        "Master's Degree", "Master of Science (MSc)", "Master of Arts (MA)",
+        "Master of Business Administration (MBA)", "Doctor of Philosophy (PhD)",
+        "Diploma", "Certificate"
+    ];
+
+    const SKILLS = [
+        "HTML", "HTML5", "CSS", "CSS3", "JavaScript", "TypeScript", "React",
+        "Vue.js", "Angular", "Bootstrap", "Tailwind CSS", "Sass", "Less",
+        "Python", "Java", "C++", "C#", "PHP", "Ruby", "Go", "Rust",
+        "Node.js", "Express", "Next.js", "Git", "GitHub", "GitLab",
+        "WordPress", "Figma", "Adobe XD", "Photoshop", "Illustrator",
+        "UI/UX Design", "Responsive Design", "REST API", "GraphQL",
+        "SQL", "MySQL", "PostgreSQL", "MongoDB", "Firebase", "Redis",
+        "Testing", "QA Testing", "Selenium", "Jest", "Cypress",
+        "Communication", "Teamwork", "Problem Solving",
+        "Project Management", "Agile", "Scrum"
+    ];
+
+    const LANGUAGES = [
+        "English", "German", "Dari", "Persian", "Pashto", "French", "Spanish",
+        "Italian", "Arabic", "Turkish", "Russian", "Chinese",
+        "Japanese", "Korean", "Portuguese", "Hindi"
+    ];
 
     const $  = (sel, root = document) => root.querySelector(sel);
     const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
     let idCounter = 0;
     const nextId = () => `id-${++idCounter}-${Date.now()}`;
-
 
     const escapeHTML = (str = "") =>
         String(str)
@@ -47,14 +90,12 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#39;");
 
-
     const safeURL = (url = "") => {
         if (!url) return "";
         const trimmed = url.trim();
         if (/^https?:\/\//i.test(trimmed)) return trimmed;
         return "https://" + trimmed.replace(/^\/+/, "");
     };
-
 
     const humanRange = (start, end) => {
         const s = (start || "").trim();
@@ -65,10 +106,145 @@ document.addEventListener("DOMContentLoaded", () => {
         return `${s} — ${e}`;
     };
 
+    const initialsOf = (name = "") => {
+        const parts = String(name).trim().split(/\s+/).filter(Boolean);
+        if (!parts.length) return "CV";
+        const first = parts[0][0] || "";
+        const last  = parts.length > 1 ? parts[parts.length - 1][0] : "";
+        return (first + last).toUpperCase();
+    };
 
-    /* =====================================================
-       PERSONAL + SUMMARY BINDING
-    ===================================================== */
+    function attachAutocomplete(input, data, opts = {}) {
+        if (!input || !Array.isArray(data)) return;
+
+        const max = opts.max || 8;
+
+        let wrap = input.parentElement;
+        if (!wrap || !wrap.classList.contains("bcv-autocomplete")) {
+            wrap = document.createElement("div");
+            wrap.className = "bcv-autocomplete";
+            input.parentNode.insertBefore(wrap, input);
+            wrap.appendChild(input);
+        }
+
+        const panel = document.createElement("div");
+        panel.className = "bcv-suggest";
+        panel.setAttribute("role", "listbox");
+        panel.setAttribute("aria-hidden", "true");
+        wrap.appendChild(panel);
+
+        let items = [];
+        let focusedIndex = -1;
+
+        const close = () => {
+            panel.classList.remove("is-open");
+            panel.setAttribute("aria-hidden", "true");
+            items = [];
+            focusedIndex = -1;
+            panel.innerHTML = "";
+        };
+
+        const render = (results) => {
+            if (!results.length) { close(); return; }
+
+            items = results;
+            focusedIndex = -1;
+
+            panel.innerHTML = results
+                .map((value, i) => {
+                    const q = input.value.trim();
+                    let label = escapeHTML(value);
+                    if (q) {
+                        const idx = value.toLowerCase().indexOf(q.toLowerCase());
+                        if (idx >= 0) {
+                            const before = escapeHTML(value.slice(0, idx));
+                            const match  = escapeHTML(value.slice(idx, idx + q.length));
+                            const after  = escapeHTML(value.slice(idx + q.length));
+                            label = `${before}<strong>${match}</strong>${after}`;
+                        }
+                    }
+                    return `<button type="button" class="bcv-suggest__item"
+                        role="option" data-index="${i}">${label}</button>`;
+                })
+                .join("");
+
+            panel.classList.add("is-open");
+            panel.setAttribute("aria-hidden", "false");
+
+            $$(".bcv-suggest__item", panel).forEach((btn) => {
+                btn.addEventListener("mousedown", (e) => {
+                    e.preventDefault();
+                    select(parseInt(btn.dataset.index, 10));
+                });
+            });
+        };
+
+        const select = (i) => {
+            if (i < 0 || i >= items.length) return;
+            const value = items[i];
+            input.value = value;
+
+            if (typeof opts.onSelect === "function") {
+                opts.onSelect(value);
+            } else {
+                input.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+
+            close();
+        };
+
+        input.addEventListener("input", () => {
+            const q = input.value.trim().toLowerCase();
+            if (!q) { close(); return; }
+
+            const matches = data
+                .filter((v) => v.toLowerCase().includes(q))
+                .sort((a, b) => {
+                    const ap = a.toLowerCase().startsWith(q) ? 0 : 1;
+                    const bp = b.toLowerCase().startsWith(q) ? 0 : 1;
+                    if (ap !== bp) return ap - bp;
+                    return a.length - b.length;
+                })
+                .slice(0, max);
+
+            render(matches);
+        });
+
+        input.addEventListener("keydown", (e) => {
+            if (!panel.classList.contains("is-open")) return;
+
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                focusedIndex = Math.min(focusedIndex + 1, items.length - 1);
+                updateFocus();
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                focusedIndex = Math.max(focusedIndex - 1, 0);
+                updateFocus();
+            } else if (e.key === "Enter") {
+                if (focusedIndex >= 0) {
+                    e.preventDefault();
+                    select(focusedIndex);
+                }
+            } else if (e.key === "Escape") {
+                e.preventDefault();
+                close();
+            }
+        });
+
+        function updateFocus() {
+            $$(".bcv-suggest__item", panel).forEach((el, i) => {
+                el.classList.toggle("is-focused", i === focusedIndex);
+                if (i === focusedIndex) el.scrollIntoView({ block: "nearest" });
+            });
+        }
+
+        input.addEventListener("blur", () => setTimeout(close, 120));
+
+        document.addEventListener("mousedown", (e) => {
+            if (!wrap.contains(e.target)) close();
+        });
+    }
 
     ["fullName", "proTitle", "email", "phone", "location", "linkedin", "github"].forEach((id) => {
         const input = document.getElementById(id);
@@ -79,7 +255,6 @@ document.addEventListener("DOMContentLoaded", () => {
             renderPreview();
         });
     });
-
 
     const summaryInput  = document.getElementById("summaryInput");
     const summaryHelper = document.getElementById("summaryHelper");
@@ -99,22 +274,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-
-    /* =====================================================
-       REPEATABLE ENTRY BUILDER
-    ===================================================== */
-
     function buildEntry(type, data = {}) {
         const wrapper = document.createElement("div");
         wrapper.className = "bcv-entry";
         wrapper.dataset.id = data.id || nextId();
         wrapper.dataset.type = type;
 
-        const labels = {
-            experience: "Experience",
-            education: "Education",
-            project: "Project"
-        };
+        const labels = { experience: "Experience", education: "Education", project: "Project" };
 
         const fields = {
             experience: [
@@ -149,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const control =
                 kind === "textarea"
                     ? `<textarea data-key="${key}" rows="3" placeholder="${placeholder}">${escapeHTML(value)}</textarea>`
-                    : `<input type="text" data-key="${key}" value="${escapeHTML(value)}" placeholder="${placeholder}">`;
+                    : `<input type="text" data-key="${key}" value="${escapeHTML(value)}" placeholder="${placeholder}" autocomplete="off">`;
 
             return `
                 <div class="bcv-field${full}">
@@ -185,9 +351,18 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
+        if (type === "experience") {
+            const locInput = $('[data-key="location"]', wrapper);
+            if (locInput) attachAutocomplete(locInput, LOCATIONS);
+        }
+
+        if (type === "education") {
+            const degreeInput = $('[data-key="degree"]', wrapper);
+            if (degreeInput) attachAutocomplete(degreeInput, DEGREES);
+        }
+
         return wrapper;
     }
-
 
     function addEntry(type, data = {}) {
         const entry = { id: data.id || nextId(), ...data };
@@ -206,7 +381,6 @@ document.addEventListener("DOMContentLoaded", () => {
         renderPreview();
     }
 
-
     function removeEntry(type, id) {
         const map = { experience: "experience", education: "education", project: "projects" };
         const key = map[type];
@@ -214,7 +388,6 @@ document.addEventListener("DOMContentLoaded", () => {
         state[key] = state[key].filter((e) => e.id !== id);
         renderPreview();
     }
-
 
     function updateEntryField(type, id, key, value) {
         const map = { experience: "experience", education: "education", project: "projects" };
@@ -224,7 +397,6 @@ document.addEventListener("DOMContentLoaded", () => {
         renderPreview();
     }
 
-
     const addExpBtn = document.getElementById("addExperience");
     const addEduBtn = document.getElementById("addEducation");
     const addPrjBtn = document.getElementById("addProject");
@@ -232,11 +404,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (addExpBtn) addExpBtn.addEventListener("click", () => addEntry("experience"));
     if (addEduBtn) addEduBtn.addEventListener("click", () => addEntry("education"));
     if (addPrjBtn) addPrjBtn.addEventListener("click", () => addEntry("project"));
-
-
-    /* =====================================================
-       SKILLS & LANGUAGES
-    ===================================================== */
 
     function addTag(kind, value) {
         const clean = String(value || "").trim();
@@ -252,7 +419,6 @@ document.addEventListener("DOMContentLoaded", () => {
         renderPreview();
     }
 
-
     function removeTag(kind, value) {
         if (kind === "skill") {
             state.skills = state.skills.filter((s) => s !== value);
@@ -263,7 +429,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         renderPreview();
     }
-
 
     function renderTags(kind) {
         const list = kind === "skill" ? state.skills : state.languages;
@@ -287,7 +452,6 @@ document.addEventListener("DOMContentLoaded", () => {
             container.appendChild(tag);
         });
     }
-
 
     const skillInput    = document.getElementById("skillInput");
     const languageInput = document.getElementById("languageInput");
@@ -318,6 +482,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 skillInput.value = "";
             }
         });
+
+        attachAutocomplete(skillInput, SKILLS, {
+            onSelect: (value) => {
+                addTag("skill", value);
+                skillInput.value = "";
+                skillInput.focus();
+            }
+        });
     }
 
     if (languageInput) {
@@ -328,137 +500,185 @@ document.addEventListener("DOMContentLoaded", () => {
                 languageInput.value = "";
             }
         });
+
+        attachAutocomplete(languageInput, LANGUAGES, {
+            onSelect: (value) => {
+                addTag("language", value);
+                languageInput.value = "";
+                languageInput.focus();
+            }
+        });
     }
 
+    const templateCards = $$(".tpl-card");
+    const tplActiveLabel = document.getElementById("tplActiveLabel");
+    const cvPreview = document.getElementById("cvPreview");
+    const previewSection = document.getElementById("preview");
+
+    function setActiveTemplate(id) {
+        const known = TEMPLATE_LABELS[id] ? id : "minimal";
+        state.template = known;
+
+        templateCards.forEach((card) => {
+            const isActive = card.dataset.template === known;
+            card.classList.toggle("is-selected", isActive);
+            card.setAttribute("aria-checked", isActive ? "true" : "false");
+        });
+
+        if (tplActiveLabel) {
+            tplActiveLabel.textContent = TEMPLATE_LABELS[known] || "Minimal";
+        }
+
+        if (cvPreview) {
+            cvPreview.dataset.template = known;
+        }
+
+        renderPreview();
+    }
+
+    templateCards.forEach((card) => {
+        const activate = () => setActiveTemplate(card.dataset.template);
+
+        card.addEventListener("click", activate);
+
+        card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                activate();
+            }
+        });
+    });
 
     /* =====================================================
-       PREVIEW RENDERING
+       "REAL DATA" DETECTION
+       Used only to toggle the compact empty-preview state.
+       Live Preview is ALWAYS visible.
     ===================================================== */
-
-    function renderPreview() {
-        renderPreviewHead();
-        renderPreviewContacts();
-        renderPreviewSummary();
-        renderPreviewExperience();
-        renderPreviewEducation();
-        renderPreviewProjects();
-        renderPreviewTags();
-    }
-
-
-    function setSectionVisible(sectionEl, hasContent) {
-        if (!sectionEl) return;
-        sectionEl.classList.toggle("is-empty", !hasContent);
-    }
-
-
-    function renderPreviewHead() {
-        const name  = state.personal.fullName.trim();
-        const title = state.personal.proTitle.trim();
-
-        const nameEl  = document.getElementById("prevName");
-        const titleEl = document.getElementById("prevTitle");
-
-        if (nameEl)  nameEl.textContent  = name  || "Your Name";
-        if (titleEl) titleEl.textContent = title || "Professional Title";
-    }
-
-
-    function renderPreviewContacts() {
-        const el = document.getElementById("prevContacts");
-        if (!el) return;
-
+    function hasRealData() {
         const p = state.personal;
+
+        if ((p.fullName || "").trim())  return true;
+        if ((p.proTitle || "").trim())  return true;
+        if ((p.email || "").trim())     return true;
+        if ((p.phone || "").trim())     return true;
+        if ((p.location || "").trim())  return true;
+        if ((p.linkedin || "").trim())  return true;
+        if ((p.github || "").trim())    return true;
+        if ((state.summary || "").trim()) return true;
+
+        if (state.skills.length)    return true;
+        if (state.languages.length) return true;
+
+        if (state.experience.some((e) =>
+            (e.jobTitle && e.jobTitle.trim()) ||
+            (e.company && e.company.trim()) ||
+            (e.description && e.description.trim())
+        )) return true;
+
+        if (state.education.some((e) =>
+            (e.degree && e.degree.trim()) ||
+            (e.institution && e.institution.trim()) ||
+            (e.description && e.description.trim())
+        )) return true;
+
+        if (state.projects.some((pr) =>
+            (pr.name && pr.name.trim()) ||
+            (pr.description && pr.description.trim()) ||
+            (pr.technologies && pr.technologies.trim())
+        )) return true;
+
+        return false;
+    }
+
+    function updatePreviewVisibility() {
+        if (!previewSection) return;
+        if (hasRealData()) {
+            previewSection.classList.remove("is-empty-preview");
+        } else {
+            previewSection.classList.add("is-empty-preview");
+        }
+    }
+
+/* === CONTINUE IN PART 2/2 === *//* === CONTINUED FROM PART 1/2 === */
+
+    function buildContactsList(personal) {
         const items = [];
-
-        if (p.email)    items.push(`<li><i class="bi bi-envelope"></i> ${escapeHTML(p.email)}</li>`);
-        if (p.phone)    items.push(`<li><i class="bi bi-telephone"></i> ${escapeHTML(p.phone)}</li>`);
-        if (p.location) items.push(`<li><i class="bi bi-geo-alt"></i> ${escapeHTML(p.location)}</li>`);
-        if (p.linkedin) items.push(`<li><i class="bi bi-linkedin"></i> ${escapeHTML(p.linkedin)}</li>`);
-        if (p.github)   items.push(`<li><i class="bi bi-github"></i> ${escapeHTML(p.github)}</li>`);
-
-        el.innerHTML = items.join("");
+        if (personal.email)    items.push(`<li><i class="bi bi-envelope"></i><span>${escapeHTML(personal.email)}</span></li>`);
+        if (personal.phone)    items.push(`<li><i class="bi bi-telephone"></i><span>${escapeHTML(personal.phone)}</span></li>`);
+        if (personal.location) items.push(`<li><i class="bi bi-geo-alt"></i><span>${escapeHTML(personal.location)}</span></li>`);
+        if (personal.linkedin) items.push(`<li><i class="bi bi-linkedin"></i><span>${escapeHTML(personal.linkedin)}</span></li>`);
+        if (personal.github)   items.push(`<li><i class="bi bi-github"></i><span>${escapeHTML(personal.github)}</span></li>`);
+        return items;
     }
 
-
-    function renderPreviewSummary() {
-        const el      = document.getElementById("prevSummary");
-        const section = document.getElementById("prevSummarySection");
-        if (!el || !section) return;
-
-        const text = state.summary.trim();
-        el.textContent = text;
-        setSectionVisible(section, !!text);
-    }
-
-
-    function renderPreviewExperience() {
-        const el      = document.getElementById("prevExperience");
-        const section = document.getElementById("prevExperienceSection");
-        if (!el || !section) return;
-
-        const items = state.experience.filter((e) =>
-            e.jobTitle || e.company || e.description
+    function experienceItems() {
+        return state.experience.filter((e) =>
+            (e.jobTitle && e.jobTitle.trim()) ||
+            (e.company && e.company.trim()) ||
+            (e.description && e.description.trim())
         );
+    }
 
-        el.innerHTML = items.map((e) => {
-            const range = humanRange(e.startDate, e.endDate);
-            const companyLine = [e.company, e.location].filter(Boolean).join(" · ");
+    function educationItems() {
+        return state.education.filter((e) =>
+            (e.degree && e.degree.trim()) ||
+            (e.institution && e.institution.trim()) ||
+            (e.description && e.description.trim())
+        );
+    }
+
+    function projectItems() {
+        return state.projects.filter((p) =>
+            (p.name && p.name.trim()) ||
+            (p.description && p.description.trim()) ||
+            (p.technologies && p.technologies.trim())
+        );
+    }
+
+    function renderExperienceMarkup(items, className = "cv-item") {
+        return items.map((e) => {
+            const dates = humanRange(e.startDate, e.endDate);
+            const company  = (e.company  || "").trim();
+            const location = (e.location || "").trim();
+
+            const subParts = [];
+            if (company)  subParts.push(escapeHTML(company));
+            if (location) subParts.push(`<span class="cv-item__loc">${escapeHTML(location)}</span>`);
 
             return `
-                <div class="cv-item">
-                    <div class="cv-item__top">
-                        <strong>${escapeHTML(e.jobTitle || "")}</strong>
-                        ${range ? `<span>${escapeHTML(range)}</span>` : ""}
+                <div class="${className}">
+                    <div class="cv-item__head">
+                        <h3 class="cv-item__title">${escapeHTML(e.jobTitle || "")}</h3>
+                        ${dates ? `<span class="cv-item__dates">${escapeHTML(dates)}</span>` : ""}
                     </div>
-                    ${companyLine ? `<p class="cv-item__sub">${escapeHTML(companyLine)}</p>` : ""}
+                    ${subParts.length
+                        ? `<p class="cv-item__sub">${subParts.join('<span class="cv-item__sep">·</span>')}</p>`
+                        : ""}
                     ${e.description ? `<p>${escapeHTML(e.description)}</p>` : ""}
                 </div>
             `;
         }).join("");
-
-        setSectionVisible(section, items.length > 0);
     }
 
-
-    function renderPreviewEducation() {
-        const el      = document.getElementById("prevEducation");
-        const section = document.getElementById("prevEducationSection");
-        if (!el || !section) return;
-
-        const items = state.education.filter((e) =>
-            e.degree || e.institution || e.description
-        );
-
-        el.innerHTML = items.map((e) => {
-            const range = humanRange(e.startDate, e.endDate);
+    function renderEducationMarkup(items, className = "cv-item") {
+        return items.map((e) => {
+            const dates = humanRange(e.startDate, e.endDate);
 
             return `
-                <div class="cv-item">
-                    <div class="cv-item__top">
-                        <strong>${escapeHTML(e.degree || "")}</strong>
-                        ${range ? `<span>${escapeHTML(range)}</span>` : ""}
+                <div class="${className}">
+                    <div class="cv-item__head">
+                        <h3 class="cv-item__title">${escapeHTML(e.degree || "")}</h3>
+                        ${dates ? `<span class="cv-item__dates">${escapeHTML(dates)}</span>` : ""}
                     </div>
                     ${e.institution ? `<p class="cv-item__sub">${escapeHTML(e.institution)}</p>` : ""}
                     ${e.description ? `<p>${escapeHTML(e.description)}</p>` : ""}
                 </div>
             `;
         }).join("");
-
-        setSectionVisible(section, items.length > 0);
     }
 
-
-    function renderPreviewProjects() {
-        const el      = document.getElementById("prevProjects");
-        const section = document.getElementById("prevProjectsSection");
-        if (!el || !section) return;
-
-        const items = state.projects.filter((p) =>
-            p.name || p.description || p.technologies
-        );
-
-        el.innerHTML = items.map((p) => {
+    function renderProjectsMarkup(items, className = "cv-item") {
+        return items.map((p) => {
             const links = [];
             if (p.github)
                 links.push(
@@ -470,50 +690,444 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
             return `
-                <div class="cv-item">
-                    <div class="cv-item__top">
-                        <strong>${escapeHTML(p.name || "")}</strong>
+                <div class="${className}">
+                    <div class="cv-item__head">
+                        <h3 class="cv-item__title">${escapeHTML(p.name || "")}</h3>
                     </div>
-                    ${p.technologies ? `<p class="cv-item__sub">${escapeHTML(p.technologies)}</p>` : ""}
                     ${p.description ? `<p>${escapeHTML(p.description)}</p>` : ""}
+                    ${p.technologies ? `<p class="cv-item__tech"><strong>Technologies:</strong> ${escapeHTML(p.technologies)}</p>` : ""}
                     ${links.length ? `<div class="cv-item__links">${links.join("")}</div>` : ""}
                 </div>
             `;
         }).join("");
-
-        setSectionVisible(section, items.length > 0);
     }
 
-
-    function renderPreviewTags() {
-        const skillsEl      = document.getElementById("prevSkills");
-        const skillsSection = document.getElementById("prevSkillsSection");
-        const langEl        = document.getElementById("prevLanguages");
-        const langSection   = document.getElementById("prevLanguagesSection");
-
-        if (skillsEl && skillsSection) {
-            skillsEl.innerHTML = state.skills
-                .map((s) => `<span>${escapeHTML(s)}</span>`)
-                .join("");
-            setSectionVisible(skillsSection, state.skills.length > 0);
-        }
-
-        if (langEl && langSection) {
-            langEl.innerHTML = state.languages
-                .map((s) => `<span>${escapeHTML(s)}</span>`)
-                .join("");
-            setSectionVisible(langSection, state.languages.length > 0);
-        }
+    function renderSkillsMarkup() {
+        if (!state.skills.length) return "";
+        return state.skills.map((s) => `<span>${escapeHTML(s)}</span>`).join("");
     }
 
+    function renderLanguagesMarkup() {
+        if (!state.languages.length) return "";
+        return state.languages.map((s) => `<span>${escapeHTML(s)}</span>`).join("");
+    }
 
-    /* =====================================================
-       QUICK FILTERS + SCROLL SPY
-    ===================================================== */
+    function renderMinimal() {
+        const p = state.personal;
+        const name  = (p.fullName || "").trim();
+        const title = (p.proTitle || "").trim();
+        const contacts = buildContactsList(p);
+
+        const expItems = experienceItems();
+        const eduItems = educationItems();
+        const prjItems = projectItems();
+
+        const summaryHTML = state.summary.trim()
+            ? `<section class="cv-section">
+                    <h2>Summary</h2>
+                    <p>${escapeHTML(state.summary.trim())}</p>
+               </section>`
+            : "";
+
+        const contactsHTML = contacts.length
+            ? `<ul class="cv-contacts">${contacts.join("")}</ul>`
+            : "";
+
+        return `
+            <div class="cv-minimal">
+                <header class="cv-head">
+                    <h1 class="cv-name">${escapeHTML(name || "Your Name")}</h1>
+                    ${title ? `<p class="cv-title">${escapeHTML(title)}</p>` : ""}
+                    ${contactsHTML}
+                </header>
+
+                ${summaryHTML}
+
+                ${expItems.length ? `
+                    <section class="cv-section">
+                        <h2>Experience</h2>
+                        ${renderExperienceMarkup(expItems)}
+                    </section>
+                ` : ""}
+
+                ${eduItems.length ? `
+                    <section class="cv-section">
+                        <h2>Education</h2>
+                        ${renderEducationMarkup(eduItems)}
+                    </section>
+                ` : ""}
+
+                ${state.skills.length ? `
+                    <section class="cv-section">
+                        <h2>Skills</h2>
+                        <div class="cv-tags">${renderSkillsMarkup()}</div>
+                    </section>
+                ` : ""}
+
+                ${prjItems.length ? `
+                    <section class="cv-section">
+                        <h2>Projects</h2>
+                        ${renderProjectsMarkup(prjItems)}
+                    </section>
+                ` : ""}
+
+                ${state.languages.length ? `
+                    <section class="cv-section">
+                        <h2>Languages</h2>
+                        <div class="cv-langs">${renderLanguagesMarkup()}</div>
+                    </section>
+                ` : ""}
+            </div>
+        `;
+    }
+
+    function renderModern() {
+        const p = state.personal;
+        const name  = (p.fullName || "").trim();
+        const title = (p.proTitle || "").trim();
+        const initials = initialsOf(name);
+
+        const expItems = experienceItems();
+        const eduItems = educationItems();
+        const prjItems = projectItems();
+
+        const contacts = [];
+        if (p.email)    contacts.push(`<li><i class="bi bi-envelope"></i><span>${escapeHTML(p.email)}</span></li>`);
+        if (p.phone)    contacts.push(`<li><i class="bi bi-telephone"></i><span>${escapeHTML(p.phone)}</span></li>`);
+        if (p.location) contacts.push(`<li><i class="bi bi-geo-alt"></i><span>${escapeHTML(p.location)}</span></li>`);
+        if (p.linkedin) contacts.push(`<li><i class="bi bi-linkedin"></i><span>${escapeHTML(p.linkedin)}</span></li>`);
+        if (p.github)   contacts.push(`<li><i class="bi bi-github"></i><span>${escapeHTML(p.github)}</span></li>`);
+
+        const skillsHTML = state.skills.length
+            ? `<div class="cv-modern__chips">${renderSkillsMarkup()}</div>`
+            : "";
+
+        const langsHTML = state.languages.length
+            ? `<ul class="cv-modern__langs">${state.languages.map((s) => `<li>${escapeHTML(s)}</li>`).join("")}</ul>`
+            : "";
+
+        return `
+            <div class="cv-modern">
+                <aside class="cv-modern__side">
+                    <div class="cv-modern__side-head">
+                        <div class="cv-modern__avatar">${escapeHTML(initials)}</div>
+                        <h1>${escapeHTML(name || "Your Name")}</h1>
+                        ${title ? `<p class="cv-modern__role">${escapeHTML(title)}</p>` : ""}
+                    </div>
+
+                    ${contacts.length ? `
+                        <div class="cv-modern__side-section">
+                            <h2>Contact</h2>
+                            <ul>${contacts.join("")}</ul>
+                        </div>
+                    ` : ""}
+
+                    ${skillsHTML ? `
+                        <div class="cv-modern__side-section">
+                            <h2>Skills</h2>
+                            ${skillsHTML}
+                        </div>
+                    ` : ""}
+
+                    ${langsHTML ? `
+                        <div class="cv-modern__side-section">
+                            <h2>Languages</h2>
+                            ${langsHTML}
+                        </div>
+                    ` : ""}
+                </aside>
+
+                <div class="cv-modern__main">
+                    ${state.summary.trim() ? `
+                        <section class="cv-section">
+                            <h2>Summary</h2>
+                            <p>${escapeHTML(state.summary.trim())}</p>
+                        </section>
+                    ` : ""}
+
+                    ${expItems.length ? `
+                        <section class="cv-section">
+                            <h2>Experience</h2>
+                            ${renderExperienceMarkup(expItems)}
+                        </section>
+                    ` : ""}
+
+                    ${eduItems.length ? `
+                        <section class="cv-section">
+                            <h2>Education</h2>
+                            ${renderEducationMarkup(eduItems)}
+                        </section>
+                    ` : ""}
+
+                    ${prjItems.length ? `
+                        <section class="cv-section">
+                            <h2>Projects</h2>
+                            ${renderProjectsMarkup(prjItems)}
+                        </section>
+                    ` : ""}
+                </div>
+            </div>
+        `;
+    }
+
+    function renderProfessional() {
+        const p = state.personal;
+        const name  = (p.fullName || "").trim();
+        const title = (p.proTitle || "").trim();
+
+        const expItems = experienceItems();
+        const eduItems = educationItems();
+        const prjItems = projectItems();
+
+        const contacts = [];
+        if (p.email)    contacts.push(`<li><i class="bi bi-envelope"></i> ${escapeHTML(p.email)}</li>`);
+        if (p.phone)    contacts.push(`<li><i class="bi bi-telephone"></i> ${escapeHTML(p.phone)}</li>`);
+        if (p.location) contacts.push(`<li><i class="bi bi-geo-alt"></i> ${escapeHTML(p.location)}</li>`);
+        if (p.linkedin) contacts.push(`<li><i class="bi bi-linkedin"></i> ${escapeHTML(p.linkedin)}</li>`);
+        if (p.github)   contacts.push(`<li><i class="bi bi-github"></i> ${escapeHTML(p.github)}</li>`);
+
+        return `
+            <div class="cv-professional">
+                <div class="cv-professional__band">
+                    <h1 class="cv-professional__name">${escapeHTML(name || "Your Name")}</h1>
+                    ${title ? `<p class="cv-professional__role">${escapeHTML(title)}</p>` : ""}
+                    ${contacts.length ? `<ul class="cv-professional__contacts">${contacts.join("")}</ul>` : ""}
+                </div>
+
+                <div class="cv-professional__body">
+                    ${state.summary.trim() ? `
+                        <section class="cv-section">
+                            <h2>Professional Summary</h2>
+                            <p>${escapeHTML(state.summary.trim())}</p>
+                        </section>
+                    ` : ""}
+
+                    ${expItems.length ? `
+                        <section class="cv-section">
+                            <h2>Experience</h2>
+                            ${renderExperienceMarkup(expItems)}
+                        </section>
+                    ` : ""}
+
+                    ${eduItems.length ? `
+                        <section class="cv-section">
+                            <h2>Education</h2>
+                            ${renderEducationMarkup(eduItems)}
+                        </section>
+                    ` : ""}
+
+                    ${state.skills.length ? `
+                        <section class="cv-section">
+                            <h2>Skills</h2>
+                            <div class="cv-tags">${renderSkillsMarkup()}</div>
+                        </section>
+                    ` : ""}
+
+                    ${prjItems.length ? `
+                        <section class="cv-section">
+                            <h2>Projects</h2>
+                            ${renderProjectsMarkup(prjItems)}
+                        </section>
+                    ` : ""}
+
+                    ${state.languages.length ? `
+                        <section class="cv-section">
+                            <h2>Languages</h2>
+                            <div class="cv-langs">${renderLanguagesMarkup()}</div>
+                        </section>
+                    ` : ""}
+                </div>
+            </div>
+        `;
+    }
+
+    function renderElegant() {
+        const p = state.personal;
+        const name  = (p.fullName || "").trim();
+        const title = (p.proTitle || "").trim();
+
+        const expItems = experienceItems();
+        const eduItems = educationItems();
+        const prjItems = projectItems();
+
+        const contacts = [];
+        if (p.email)    contacts.push(`<li>${escapeHTML(p.email)}</li>`);
+        if (p.phone)    contacts.push(`<li>${escapeHTML(p.phone)}</li>`);
+        if (p.location) contacts.push(`<li>${escapeHTML(p.location)}</li>`);
+        if (p.linkedin) contacts.push(`<li>${escapeHTML(p.linkedin)}</li>`);
+        if (p.github)   contacts.push(`<li>${escapeHTML(p.github)}</li>`);
+
+        return `
+            <div class="cv-elegant">
+                <header class="cv-elegant__head">
+                    <h1 class="cv-elegant__name">${escapeHTML(name || "Your Name")}</h1>
+                    ${title ? `<p class="cv-elegant__role">${escapeHTML(title)}</p>` : ""}
+                    ${contacts.length ? `<ul class="cv-elegant__contacts">${contacts.join("")}</ul>` : ""}
+                </header>
+
+                <div class="cv-elegant__body">
+                    ${state.summary.trim() ? `
+                        <section class="cv-section">
+                            <h2>Summary</h2>
+                            <p>${escapeHTML(state.summary.trim())}</p>
+                        </section>
+                    ` : ""}
+
+                    ${expItems.length ? `
+                        <section class="cv-section">
+                            <h2>Experience</h2>
+                            ${renderExperienceMarkup(expItems)}
+                        </section>
+                    ` : ""}
+
+                    ${eduItems.length ? `
+                        <section class="cv-section">
+                            <h2>Education</h2>
+                            ${renderEducationMarkup(eduItems)}
+                        </section>
+                    ` : ""}
+
+                    ${state.skills.length ? `
+                        <section class="cv-section">
+                            <h2>Skills</h2>
+                            <div class="cv-tags">${renderSkillsMarkup()}</div>
+                        </section>
+                    ` : ""}
+
+                    ${prjItems.length ? `
+                        <section class="cv-section">
+                            <h2>Projects</h2>
+                            ${renderProjectsMarkup(prjItems)}
+                        </section>
+                    ` : ""}
+
+                    ${state.languages.length ? `
+                        <section class="cv-section">
+                            <h2>Languages</h2>
+                            <div class="cv-langs">${renderLanguagesMarkup()}</div>
+                        </section>
+                    ` : ""}
+                </div>
+            </div>
+        `;
+    }
+
+    function renderCreative() {
+        const p = state.personal;
+        const name  = (p.fullName || "").trim();
+        const title = (p.proTitle || "").trim();
+        const initials = initialsOf(name);
+
+        const expItems = experienceItems();
+        const eduItems = educationItems();
+        const prjItems = projectItems();
+
+        const contacts = [];
+        if (p.email)    contacts.push(`<li><i class="bi bi-envelope"></i>${escapeHTML(p.email)}</li>`);
+        if (p.phone)    contacts.push(`<li><i class="bi bi-telephone"></i>${escapeHTML(p.phone)}</li>`);
+        if (p.location) contacts.push(`<li><i class="bi bi-geo-alt"></i>${escapeHTML(p.location)}</li>`);
+        if (p.linkedin) contacts.push(`<li><i class="bi bi-linkedin"></i>${escapeHTML(p.linkedin)}</li>`);
+        if (p.github)   contacts.push(`<li><i class="bi bi-github"></i>${escapeHTML(p.github)}</li>`);
+
+        return `
+            <div class="cv-creative">
+                <header class="cv-creative__head">
+                    <div class="cv-creative__avatar">${escapeHTML(initials)}</div>
+                    <div>
+                        <h1 class="cv-creative__name">${escapeHTML(name || "Your Name")}</h1>
+                        ${title ? `<p class="cv-creative__role">${escapeHTML(title)}</p>` : ""}
+                        ${contacts.length ? `<ul class="cv-creative__contacts">${contacts.join("")}</ul>` : ""}
+                    </div>
+                </header>
+
+                <div class="cv-creative__body">
+                    <div>
+                        ${state.summary.trim() ? `
+                            <section class="cv-section">
+                                <h2>Summary</h2>
+                                <p>${escapeHTML(state.summary.trim())}</p>
+                            </section>
+                        ` : ""}
+
+                        ${expItems.length ? `
+                            <section class="cv-section">
+                                <h2>Experience</h2>
+                                ${renderExperienceMarkup(expItems)}
+                            </section>
+                        ` : ""}
+
+                        ${eduItems.length ? `
+                            <section class="cv-section">
+                                <h2>Education</h2>
+                                ${renderEducationMarkup(eduItems)}
+                            </section>
+                        ` : ""}
+
+                        ${prjItems.length ? `
+                            <section class="cv-section">
+                                <h2>Projects</h2>
+                                ${renderProjectsMarkup(prjItems)}
+                            </section>
+                        ` : ""}
+                    </div>
+
+                    <aside>
+                        ${state.skills.length ? `
+                            <section class="cv-section">
+                                <h2>Skills</h2>
+                                <div class="cv-creative__chips">${renderSkillsMarkup()}</div>
+                            </section>
+                        ` : ""}
+
+                        ${state.languages.length ? `
+                            <section class="cv-section">
+                                <h2>Languages</h2>
+                                <div class="cv-creative__langs">${renderLanguagesMarkup()}</div>
+                            </section>
+                        ` : ""}
+                    </aside>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderPreview() {
+        const cvPreviewEl = document.getElementById("cvPreview");
+        if (!cvPreviewEl) return;
+
+        const tpl = TEMPLATE_LABELS[state.template] ? state.template : "minimal";
+
+        cvPreviewEl.classList.remove(
+            "cv-paper--minimal",
+            "cv-paper--modern",
+            "cv-paper--professional",
+            "cv-paper--elegant",
+            "cv-paper--creative"
+        );
+
+        cvPreviewEl.classList.add(`cv-paper--${tpl}`);
+
+        let html = "";
+        switch (tpl) {
+            case "modern":       html = renderModern(); break;
+            case "professional": html = renderProfessional(); break;
+            case "elegant":      html = renderElegant(); break;
+            case "creative":     html = renderCreative(); break;
+            case "minimal":
+            default:             html = renderMinimal(); break;
+        }
+
+        cvPreviewEl.innerHTML = html;
+
+        cvPreviewEl.style.animation = "none";
+        void cvPreviewEl.offsetWidth;
+        cvPreviewEl.style.animation = "";
+
+        updatePreviewVisibility(); /* toggles the compact empty state */
+    }
 
     const filterButtons = $$(".bcv-filter");
     const sectionCards  = $$("[data-section]");
-
 
     function setActiveSection(sectionId) {
         filterButtons.forEach((btn) => {
@@ -525,9 +1139,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-
-    /* Click → smooth scroll + activate */
-
     filterButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
             const id = btn.dataset.target;
@@ -536,17 +1147,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const target = document.querySelector(`[data-section="${id}"]`);
             if (!target) return;
 
-            target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
             setActiveSection(id);
         });
     });
-
-
-    /* Scroll Spy via IntersectionObserver */
 
     if ("IntersectionObserver" in window && sectionCards.length) {
 
@@ -582,13 +1186,6 @@ document.addEventListener("DOMContentLoaded", () => {
         sectionCards.forEach((card) => observer.observe(card));
     }
 
-
-    /* =====================================================
-       DOWNLOAD CV
-       Client-side only: opens a print view in a new tab
-       and triggers the browser's print dialog (Save as PDF).
-    ===================================================== */
-
     const downloadBtn = document.getElementById("downloadCV");
 
     if (downloadBtn) {
@@ -597,8 +1194,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!preview) return;
 
             const clone = preview.cloneNode(true);
-
-            /* Hide sections that are empty in the print version too */
             clone.querySelectorAll(".is-empty").forEach((el) => el.remove());
 
             const doc = `
@@ -609,83 +1204,95 @@ document.addEventListener("DOMContentLoaded", () => {
                     <title>CV — ${escapeHTML(state.personal.fullName || "My CV")}</title>
                     <style>
                         * { box-sizing: border-box; }
+                        html, body { margin: 0; padding: 0; background: #ffffff; }
                         body {
                             font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
                             color: #1a1f2b;
-                            background: #ffffff;
-                            padding: 40px;
-                            max-width: 900px;
-                            margin: 0 auto;
+                            padding: 40px; max-width: 900px;
+                            margin: 0 auto; line-height: 1.6;
                         }
-                        h1 { margin: 0 0 6px; font-size: 32px; color: #10182a; }
-                        h2 {
-                            font-size: 12px;
-                            letter-spacing: 2px;
-                            text-transform: uppercase;
-                            color: #B83E2B;
-                            border-bottom: 1px solid rgba(16,24,42,0.12);
-                            padding-bottom: 6px;
-                            margin: 26px 0 12px;
-                        }
-                        p { line-height: 1.7; color: #2a3247; margin: 0; }
-                        .cv-paper {
-                            padding: 0;
-                            border: none;
-                            background: #ffffff;
-                            box-shadow: none;
-                            border-radius: 0;
-                        }
-                        .cv-paper__head {
-                            padding-bottom: 18px;
-                            margin-bottom: 22px;
-                            border-bottom: 2px solid #E85D3F;
-                            display: flex;
-                            justify-content: space-between;
-                            flex-wrap: wrap;
-                            gap: 12px;
-                        }
-                        .cv-paper__title { color: #B83E2B; font-weight: 600; margin: 4px 0 0; }
-                        .cv-paper__contacts {
-                            list-style: none;
-                            padding: 0;
-                            margin: 0;
-                            display: flex;
-                            flex-direction: column;
-                            gap: 4px;
-                            font-size: 13px;
-                            color: #4a5468;
-                            text-align: right;
-                        }
-                        .cv-paper__contacts li { justify-content: flex-end; }
-                        .cv-paper__contacts i { display: none; }
-                        .cv-paper__body {
-                            display: grid;
-                            grid-template-columns: 1.7fr 1fr;
-                            gap: 40px;
-                        }
-                        .cv-paper__main,
-                        .cv-paper__side { display: flex; flex-direction: column; gap: 22px; }
-                        .cv-item { margin-top: 14px; }
-                        .cv-item__top {
-                            display: flex;
-                            justify-content: space-between;
-                            gap: 12px;
-                            flex-wrap: wrap;
-                        }
-                        .cv-item__top strong { font-size: 15px; color: #10182a; }
-                        .cv-item__top span { font-size: 12px; color: #6a7183; }
-                        .cv-item__sub { font-size: 13px; color: #4a5468; font-weight: 600; margin: 2px 0 6px; }
-                        .cv-paper__tags { display: flex; flex-wrap: wrap; gap: 8px; }
-                        .cv-paper__tags span {
-                            padding: 5px 12px;
-                            border-radius: 999px;
-                            font-size: 12px;
-                            font-weight: 600;
-                            color: #10182a;
-                            background: rgba(232,93,63,0.14);
-                            border: 1px solid rgba(232,93,63,0.35);
-                        }
+                        h1, h2, h3, p, ul, li { margin: 0; padding: 0; }
+                        ul { list-style: none; }
                         a { color: #B83E2B; text-decoration: none; }
+                        .cv-paper { padding: 0; border: none; background: #ffffff; box-shadow: none; border-radius: 0; }
+                        .cv-section h2 { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #B83E2B; border-bottom: 1.5px solid rgba(184,62,43,0.35); padding-bottom: 6px; margin: 24px 0 12px; }
+                        .cv-item + .cv-item { margin-top: 18px; padding-top: 18px; border-top: 1px dashed rgba(16,24,42,0.14); }
+                        .cv-item__head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+                        .cv-item__title { font-size: 15px; font-weight: 700; color: #0B111C; }
+                        .cv-item__dates { font-size: 12px; color: #6a7183; font-weight: 600; }
+                        .cv-item__sub   { font-size: 13px; color: #4a5468; margin: 3px 0 8px; font-weight: 500; }
+                        .cv-item p      { font-size: 13px; line-height: 1.65; color: #2a3247; margin: 0; }
+                        .cv-item__tech  { font-size: 13px; color: #4a5468; margin-top: 8px; }
+                        .cv-item__tech strong { color: #0B111C; }
+                        .cv-item__links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; font-size: 13px; }
+                        .cv-item__links a { font-weight: 600; }
+
+                        .cv-minimal .cv-head { padding-bottom: 18px; margin-bottom: 20px; border-bottom: 1.5px solid rgba(16,24,42,0.14); }
+                        .cv-minimal .cv-name { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; color: #0B111C; margin-bottom: 4px; }
+                        .cv-minimal .cv-title { font-size: 15px; color: #4a5468; font-weight: 500; margin-bottom: 10px; }
+                        .cv-minimal .cv-contacts { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: #4a5468; }
+                        .cv-minimal .cv-contacts i { display: none; }
+                        .cv-minimal .cv-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+                        .cv-minimal .cv-tags span { font-size: 12px; color: #2a3247; padding: 3px 10px; border-radius: 4px; background: rgba(16,24,42,0.05); border: 1px solid rgba(16,24,42,0.08); }
+                        .cv-minimal .cv-langs { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: #2a3247; }
+
+                        .cv-modern { display: grid; grid-template-columns: 34% 66%; }
+                        .cv-modern__side { background: linear-gradient(180deg, rgba(232,93,63,0.92), rgba(184,62,43,0.92)); padding: 30px 22px; color: #ffffff; }
+                        .cv-modern__avatar { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 18px; color: #B83E2B; background: rgba(255,255,255,0.92); margin-bottom: 10px; }
+                        .cv-modern__side h1 { font-size: 20px; font-weight: 800; line-height: 1.15; color: #ffffff; }
+                        .cv-modern__role { font-size: 13px; color: rgba(255,255,255,0.88); margin-top: 4px; }
+                        .cv-modern__side-section { margin-top: 20px; }
+                        .cv-modern__side-section h2 { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; color: rgba(255,255,255,0.85); padding-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.25); margin-bottom: 8px; }
+                        .cv-modern__side-section ul { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: rgba(255,255,255,0.95); }
+                        .cv-modern__side-section ul li { display: flex; align-items: center; gap: 8px; }
+                        .cv-modern__side-section ul li i { display: none; }
+                        .cv-modern__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+                        .cv-modern__chips span { padding: 3px 9px; border-radius: 4px; font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.25); color: #ffffff; }
+                        .cv-modern__langs { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: rgba(255,255,255,0.95); }
+                        .cv-modern__main { padding: 32px 28px; }
+                        .cv-modern__main .cv-section h2 { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #B83E2B; border-bottom: 1.5px solid rgba(232,93,63,0.35); padding-bottom: 5px; margin: 22px 0 10px; }
+                        .cv-modern__main .cv-section:first-child h2 { margin-top: 0; }
+
+                        .cv-professional__band { padding: 26px 32px 20px; background: linear-gradient(135deg, #0B111C 0%, #1B2A40 100%); color: #ffffff; }
+                        .cv-professional__name { font-size: 28px; font-weight: 800; letter-spacing: 0.01em; color: #ffffff; }
+                        .cv-professional__role { font-size: 14px; color: rgba(255,255,255,0.85); margin-top: 4px; }
+                        .cv-professional__contacts { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 12px; padding-top: 12px; font-size: 12px; color: rgba(255,255,255,0.85); border-top: 1px solid rgba(255,255,255,0.18); }
+                        .cv-professional__contacts i { display: none; }
+                        .cv-professional__body { padding: 26px 32px 32px; }
+                        .cv-professional__body .cv-section h2 { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #0B111C; border-bottom: 1.5px solid #0B111C; padding-bottom: 5px; margin: 22px 0 12px; display: inline-block; }
+                        .cv-professional__body .cv-item { padding-left: 14px; border-left: 2px solid rgba(232,93,63,0.45); }
+                        .cv-professional__body .cv-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+                        .cv-professional__body .cv-tags span { font-size: 12px; color: #0B111C; padding: 3px 10px; border-radius: 3px; background: rgba(232,93,63,0.10); border: 1px solid rgba(232,93,63,0.28); font-weight: 600; }
+                        .cv-professional__body .cv-langs { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: #2a3247; }
+
+                        .cv-elegant { font-family: "Georgia", "Times New Roman", serif; padding: 30px 36px; }
+                        .cv-elegant__head { text-align: center; padding-bottom: 22px; margin-bottom: 24px; border-bottom: 1px solid rgba(184,62,43,0.45); }
+                        .cv-elegant__name { font-size: 28px; font-weight: 700; letter-spacing: 0.02em; color: #0B111C; }
+                        .cv-elegant__role { font-size: 14px; color: #4a5468; font-style: italic; margin-top: 4px; }
+                        .cv-elegant__contacts { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; font-size: 12px; color: #4a5468; margin-top: 10px; font-family: Inter, system-ui, sans-serif; }
+                        .cv-elegant__body .cv-section h2 { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #0B111C; text-align: center; padding-bottom: 6px; margin: 26px 0 14px; border-bottom: none; position: relative; }
+                        .cv-elegant__body .cv-section h2::after { content: ""; display: block; width: 30px; height: 1px; margin: 6px auto 0; background: rgba(184,62,43,0.55); }
+                        .cv-elegant__body .cv-section p { text-align: center; }
+                        .cv-elegant__body .cv-item p { text-align: left; }
+                        .cv-elegant__body .cv-tags { display: flex; flex-wrap: wrap; gap: 6px 8px; justify-content: center; }
+                        .cv-elegant__body .cv-tags span { font-size: 12px; color: #0B111C; font-family: Inter, system-ui, sans-serif; padding: 2px 8px; border-bottom: 1px solid rgba(184,62,43,0.35); }
+                        .cv-elegant__body .cv-langs { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; font-size: 13px; color: #2a3247; font-style: italic; }
+
+                        .cv-creative { padding: 26px 28px; }
+                        .cv-creative__head { display: flex; align-items: center; gap: 18px; padding-bottom: 20px; margin-bottom: 22px; border-bottom: 2px solid #E85D3F; }
+                        .cv-creative__avatar { width: 58px; height: 58px; border-radius: 16px; display: grid; place-items: center; font-weight: 800; font-size: 20px; color: #ffffff; background: linear-gradient(135deg, #E85D3F, #F08A4B); }
+                        .cv-creative__name { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: #0B111C; }
+                        .cv-creative__role { font-size: 14px; color: #B83E2B; font-weight: 600; margin-top: 3px; }
+                        .cv-creative__contacts { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12px; color: #4a5468; margin-top: 8px; }
+                        .cv-creative__contacts i { display: none; }
+                        .cv-creative__body { display: grid; grid-template-columns: 1.6fr 1fr; gap: 26px; }
+                        .cv-creative__body .cv-section h2 { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #0B111C; border-bottom: none; padding-bottom: 0; margin: 20px 0 10px; display: flex; align-items: center; gap: 8px; }
+                        .cv-creative__body .cv-section h2::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #E85D3F; }
+                        .cv-creative__body .cv-item { padding: 10px 12px; border-radius: 10px; background: rgba(232,93,63,0.06); border-left: 3px solid #E85D3F; }
+                        .cv-creative__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+                        .cv-creative__chips span { font-size: 12px; color: #0B111C; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: rgba(232,93,63,0.12); border: 1px solid rgba(232,93,63,0.30); }
+                        .cv-creative__langs { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13px; color: #2a3247; }
+
                         @media print { body { padding: 0; } }
                     </style>
                 </head>
@@ -712,12 +1319,109 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    const clearBtn     = document.getElementById("clearCV");
+    const modal        = document.getElementById("clearModal");
+    const modalCancel  = document.getElementById("clearCancel");
+    const modalConfirm = document.getElementById("clearConfirm");
 
-    /* =====================================================
-       INITIAL STATE
-    ===================================================== */
+    function openClearModal() {
+        if (!modal) return;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        if (modalCancel) modalCancel.focus();
+    }
 
-    renderPreview();
+    function closeClearModal() {
+        if (!modal) return;
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        if (clearBtn) clearBtn.focus();
+    }
+
+    if (clearBtn) clearBtn.addEventListener("click", openClearModal);
+    if (modalCancel) modalCancel.addEventListener("click", closeClearModal);
+
+    if (modal) {
+        modal.addEventListener("click", (e) => {
+            if (e.target.dataset && e.target.dataset.close === "true") {
+                closeClearModal();
+            }
+        });
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal && modal.classList.contains("is-open")) {
+            closeClearModal();
+        }
+    });
+
+    function clearAll() {
+        const currentTemplate = state.template;
+
+        state.personal = {
+            fullName: "", proTitle: "", email: "", phone: "",
+            location: "", linkedin: "", github: ""
+        };
+        state.summary = "";
+        state.experience = [];
+        state.education = [];
+        state.projects = [];
+        state.skills = [];
+        state.languages = [];
+        state.template = currentTemplate;
+
+        ["fullName", "proTitle", "email", "phone", "location", "linkedin", "github"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.value = "";
+        });
+
+        if (summaryInput) summaryInput.value = "";
+        if (summaryHelper) summaryHelper.textContent = "0 characters";
+
+        if (skillInput) skillInput.value = "";
+        if (languageInput) languageInput.value = "";
+
+        const expList = document.getElementById("experienceList");
+        const eduList = document.getElementById("educationList");
+        const prjList = document.getElementById("projectList");
+
+        if (expList) expList.innerHTML = "";
+        if (eduList) eduList.innerHTML = "";
+        if (prjList) prjList.innerHTML = "";
+
+        renderTags("skill");
+        renderTags("language");
+
+        renderPreview();
+        setActiveSection("personal");
+
+        seedInitialEntries();
+        updatePreviewVisibility();
+    }
+
+    if (modalConfirm) {
+        modalConfirm.addEventListener("click", () => {
+            clearAll();
+            closeClearModal();
+
+            const builder = document.getElementById("builder");
+            if (builder) builder.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+    }
+
+    function seedInitialEntries() {
+        if (state.experience.length === 0) {
+            addEntry("experience");
+        }
+        if (state.education.length === 0) {
+            addEntry("education");
+        }
+    }
+
+    setActiveTemplate(state.template);
     setActiveSection("personal");
+    seedInitialEntries();
+    renderPreview();
+    updatePreviewVisibility();
 
 });
