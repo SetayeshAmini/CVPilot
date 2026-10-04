@@ -549,11 +549,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    /* =====================================================
-       "REAL DATA" DETECTION
-       Used only to toggle the compact empty-preview state.
-       Live Preview is ALWAYS visible.
-    ===================================================== */
     function hasRealData() {
         const p = state.personal;
 
@@ -598,8 +593,6 @@ document.addEventListener("DOMContentLoaded", () => {
             previewSection.classList.add("is-empty-preview");
         }
     }
-
-/* === CONTINUE IN PART 2/2 === *//* === CONTINUED FROM PART 1/2 === */
 
     function buildContactsList(personal) {
         const items = [];
@@ -1123,7 +1116,7 @@ document.addEventListener("DOMContentLoaded", () => {
         void cvPreviewEl.offsetWidth;
         cvPreviewEl.style.animation = "";
 
-        updatePreviewVisibility(); /* toggles the compact empty state */
+        updatePreviewVisibility();
     }
 
     const filterButtons = $$(".bcv-filter");
