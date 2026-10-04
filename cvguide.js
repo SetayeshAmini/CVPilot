@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 background: {
                     color: {
-                        value: "#080D16"
+                        value: "transparent"
                     }
                 },
 
@@ -491,8 +491,9 @@ document.addEventListener("DOMContentLoaded", () => {
       do: "Use a professional email, location and relevant portfolio links.",
       dont: "Adding unnecessary personal details such as age, marital status or a full home address.",
       preview: "01", label: "PERSONAL INFO",
+      previewHtml: `<div class="preview-name">MORSAL AMINI</div><div class="preview-role">Frontend Developer</div><div class="preview-contact"><span>hello@email.com</span><span>Berlin, DE</span><span>linkedin.com/in/morsal</span></div><div class="preview-highlight">Make contact details useful — not noisy.</div>`,
       exampleTitle: "Personal Information",
-      example: "<strong>SATAYESH AMINI</strong><br>Frontend Developer<br><br>hello@email.com · Berlin, DE · linkedin.com/in/satayesh",
+      example: "<strong>MORSAL AMINI</strong><br>Frontend Developer<br><br>hello@email.com · Berlin, DE · linkedin.com/in/morsal",
       tip: "Your contact block should make it effortless to reach you. Test every link before sending the CV."
     },
     summary: {
@@ -501,6 +502,7 @@ document.addEventListener("DOMContentLoaded", () => {
       do: "Mention the role you are targeting and connect it to your strongest evidence.",
       dont: "Opening with empty phrases such as “hard-working” or “motivated” without proof.",
       preview: "02", label: "SUMMARY",
+      previewHtml: `<div class="preview-title">Professional Summary</div><div class="preview-subtitle">FRONTEND DEVELOPER</div><div class="preview-lines"><span></span><span></span><span class="short"></span></div><div class="preview-highlight">Responsive interfaces · JavaScript · Accessible UX</div>`,
       exampleTitle: "Professional Summary",
       example: "<strong>Frontend Developer</strong><br><br>Frontend developer focused on responsive interfaces, JavaScript and accessible user experiences, with hands-on experience building practical web projects.",
       tip: "Write the summary after the rest of your CV. It is easier to summarize strong evidence than to invent generic claims."
@@ -511,6 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
       do: "Use action verbs and include outcomes, scale, tools or measurable results when available.",
       dont: "Copying a job description or listing responsibilities with no evidence of contribution.",
       preview: "03", label: "EXPERIENCE",
+      previewHtml: `<div class="preview-title">Experience</div><div class="preview-education"><strong>Frontend Developer — Company</strong><small>2024 — Present</small></div><div class="preview-bullet">Developed responsive interfaces with JavaScript and CSS.</div><div class="preview-bullet">Created reusable components to reduce repeated UI work.</div>`,
       exampleTitle: "Experience",
       example: "<strong>Frontend Developer — Company</strong><br>• Developed responsive interfaces with JavaScript and CSS.<br>• Reduced repeated UI work by creating reusable components.",
       tip: "If you have no formal job experience, projects, internships, freelance work and meaningful volunteering can demonstrate relevant skills."
@@ -521,6 +524,7 @@ document.addEventListener("DOMContentLoaded", () => {
       do: "Include degree or program, institution, dates and relevant distinctions or coursework when useful.",
       dont: "Adding long descriptions for old or unrelated education.",
       preview: "04", label: "EDUCATION",
+      previewHtml: `<div class="preview-title">Education</div><div class="preview-education"><strong>B.Sc. Computer Science</strong><small>Example University · 2022 — 2026</small></div><div class="preview-lines"><span></span><span class="short"></span></div><div class="preview-highlight">Web Development · Databases · Software Engineering</div>`,
       exampleTitle: "Education",
       example: "<strong>B.Sc. Computer Science</strong><br>Example University · 2022 — 2026<br><br>Relevant: Web Development, Databases, Software Engineering",
       tip: "For recent graduates, education can sit higher on the page. As professional experience grows, it usually becomes less prominent."
@@ -531,6 +535,7 @@ document.addEventListener("DOMContentLoaded", () => {
       do: "Group skills logically and prioritize those that match the role.",
       dont: "Adding a huge keyword wall or rating yourself with stars and percentage bars.",
       preview: "05", label: "SKILLS",
+      previewHtml: `<div class="preview-title">Skills</div><div class="preview-chips"><span>JavaScript</span><span>HTML</span><span>CSS</span><span>React</span><span>Git</span><span>Figma</span></div><div class="preview-lines"><span></span><span></span><span class="short"></span></div>`,
       exampleTitle: "Skills",
       example: "<strong>Frontend</strong> JavaScript · HTML · CSS · React<br><strong>Tools</strong> Git · GitHub · Figma<br><strong>Practices</strong> Responsive UI · Accessibility",
       tip: "A skill becomes more convincing when the reader can find where you used it elsewhere in the CV."
@@ -541,6 +546,7 @@ document.addEventListener("DOMContentLoaded", () => {
       do: "Mention your role, key technologies, meaningful functionality and outcome.",
       dont: "Writing only “Built a website” without explaining what makes the project valuable.",
       preview: "06", label: "PROJECTS",
+      previewHtml: `<div class="preview-title">Projects</div><div class="preview-project"><strong>PetTrace Platform</strong><small>JavaScript · CSS · Responsive UI</small></div><div class="preview-bullet">Search, reporting and case-tracking interactions.</div><div class="preview-bullet">Responsive lost-and-found pet platform.</div>`,
       exampleTitle: "Projects",
       exampleTitle: "Projects",
       example: "<strong>PetTrace Platform</strong><br>Built a responsive lost-and-found pet platform using JavaScript and CSS, with search, reporting and case-tracking interactions.",
@@ -552,6 +558,7 @@ document.addEventListener("DOMContentLoaded", () => {
       do: "Use familiar labels such as Native, C1, B2 or conversational when accurate.",
       dont: "Using vague visual bars that imply false precision.",
       preview: "07", label: "LANGUAGES",
+      previewHtml: `<div class="preview-title">Languages</div><div class="preview-language"><strong>English — C1</strong><small>Professional working proficiency</small></div><div class="preview-language"><strong>German — B2</strong><small>Independent user</small></div><div class="preview-language"><strong>Dari — Native</strong><small>Native proficiency</small></div>`,
       exampleTitle: "Languages",
       example: "<strong>English</strong> — C1<br><strong>German</strong> — B2<br><strong>Dari</strong> — Native",
       tip: "Only claim a level you can confidently demonstrate in a real conversation or professional context."
@@ -560,11 +567,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateAnatomy(key) {
     const d = anatomyData[key];
-    ["anatomyCount","anatomyKicker","anatomyTitle","anatomyText","anatomyDo","anatomyDont","previewLabel"].forEach(id => {
-      const el = $(`#${id}`);
-      if (el) el.classList.remove("fade-swap");
-    });
     const card = $(".anatomy-card");
+    const preview = $("#anatomyPreview");
+    const previewBody = $("#previewBody");
+
     card.classList.remove("fade-swap");
     void card.offsetWidth;
     card.classList.add("fade-swap");
@@ -576,8 +582,14 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#anatomyDo").textContent = d.do;
     $("#anatomyDont").textContent = d.dont;
     $("#previewLabel").textContent = d.preview;
-    $(".preview-header span").textContent = d.label;
-    const preview = $("#anatomyPreview");
+    $("#previewSectionLabel").textContent = d.label;
+
+    previewBody.classList.add("preview-changing");
+    setTimeout(() => {
+      previewBody.innerHTML = d.previewHtml;
+      previewBody.classList.remove("preview-changing");
+    }, 120);
+
     preview.classList.remove("flash");
     void preview.offsetWidth;
     preview.classList.add("flash");
@@ -593,16 +605,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const guideModal = new bootstrap.Modal($("#guideModal"));
-  $("#anatomyExampleBtn").addEventListener("click", () => {
+  const guideModalEl = $("#guideModal");
+  const guideModal = bootstrap.Modal.getOrCreateInstance(guideModalEl, { backdrop: true, keyboard: true, focus: true });
+  let anatomyScrollY = 0;
+
+  $("#anatomyExampleBtn").addEventListener("click", (event) => {
+    event.preventDefault();
     const key = $(".anatomy-tab.active").dataset.section;
     const d = anatomyData[key];
+    anatomyScrollY = window.scrollY;
     $("#modalTitle").textContent = d.exampleTitle || d.title;
     $("#modalText").textContent = d.text;
     $("#modalExample").innerHTML = d.example;
     $("#modalTip").textContent = d.tip;
     guideModal.show();
   });
+
+  guideModalEl.addEventListener("shown.bs.modal", () => window.scrollTo(0, anatomyScrollY));
+  guideModalEl.addEventListener("hidden.bs.modal", () => window.scrollTo(0, anatomyScrollY));
 
   // ---------- Mistakes ----------
   const mistakes = {
