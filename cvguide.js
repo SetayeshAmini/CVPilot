@@ -793,12 +793,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#checklist").scrollIntoView({ behavior: "smooth", block: "center" });
   });
 
-  // ---------- Back to top ----------
-  const backTop = $("#backTop");
-  window.addEventListener("scroll", () => {
-    backTop.classList.toggle("show", window.scrollY > 650);
-  }, { passive: true });
-  backTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
 
   // ---------- Mini CV parallax ----------
   const miniCv = $("#miniCv");

@@ -864,10 +864,10 @@ body:before{
 
 h1,h2,h3,h4,.eyebrow,.card-number,.detail-kicker,.ba-label,.problem-badge,.mini-score,.preview-header,.modal-eyebrow{font-family:"Space Grotesk",sans-serif}
 button{font:inherit}
-.section-tight{padding:76px 0}
+.section-tight{padding:50px 0}
 .container-xl{max-width:1180px}
 
-.guide-hero{padding-top:64px;padding-bottom:58px}
+.guide-hero{padding-top:25px;padding-bottom:25px}
 .hero-grid{display:grid;grid-template-columns:1.03fr .97fr;align-items:center;gap:70px;min-height:590px}
 .eyebrow{font-size:11px;letter-spacing:.19em;color:var(--primary-light);font-weight:700;display:flex;align-items:center;gap:9px}
 .eyebrow-dot{width:7px;height:7px;background:var(--primary);border-radius:50%;box-shadow:0 0 15px rgba(232,93,63,.8);display:inline-block}
