@@ -398,7 +398,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+const cvpHero = document.querySelector(".cvp-templates-hero");
+const cvpVisual = document.querySelector(".cvp-hero-visual");
 
+if (cvpHero && cvpVisual) {
+
+    cvpHero.addEventListener("mousemove", (e) => {
+
+        const rect = cvpHero.getBoundingClientRect();
+
+        const x =
+            (e.clientX - rect.left) / rect.width - 0.5;
+
+        const y =
+            (e.clientY - rect.top) / rect.height - 0.5;
+
+        const moveX = x * 12;
+        const moveY = y * 12;
+
+        cvpVisual.style.transform =
+            `translate(${moveX}px, ${moveY}px)`;
+
+    });
+
+
+    cvpHero.addEventListener("mouseleave", () => {
+
+        cvpVisual.style.transform =
+            "translate(0, 0)";
+
+    });
+
+}
 
 
 
