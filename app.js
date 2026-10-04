@@ -419,7 +419,7 @@ const cvs = [
     project: "Finance App · Product Experience"
   },
   {
-    name: "Setayesh Amini",
+    name: "Charistin Nekto",
     role: "Software Engineer",
     photo: "https://i.pravatar.cc/180?img=49&v=6",
     summary: "Software engineer building reliable digital products with a strong focus on clean architecture and delightful interfaces.",
@@ -1237,10 +1237,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         {
-            name: "Satayesh Amini",
+            name: "Charistin Nekto",
             role: "Full-Stack Developer",
             location: "Baku, Azerbaijan",
-            email: "satayesh.amini@example.com",
+            email: "Charistin.nek1@example.com",
 
             photo:
                 "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=90",
