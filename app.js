@@ -201,9 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* Initialize Bootstrap Collapse Instance to avoid native script conflicts */
-    const bsCollapse = new bootstrap.Collapse(menu, {
-        toggle: false
-    });
+
 
     const navLinks =
         document.querySelectorAll(
@@ -1007,8 +1005,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function closeMenu() {
         
         /* Safely hide the Bootstrap collapse menu */
-        bsCollapse.hide();
-        
+menu.classList.remove("show");        
         toggle.classList.remove("active");
         
         toggle.setAttribute(
