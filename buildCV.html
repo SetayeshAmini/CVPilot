@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CVPilot | Build CV</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="LOGO/b9b70786-351e-4d10-bf0b-5dc078e55898-removebg-preview.png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="buildCV-style.css">
+</head>
+
+
+<body>
+
+    <!-- ================= PARTICLES BACKGROUND ================= -->
+    <div id="particles-background"></div>
+
+
+    <!-- ================= NAVBAR (UNCHANGED) ================= -->
+    <nav class="navbar navbar-expand-lg cv-navbar" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand cv-logo" href="#">
+                <div class="logo-box">
+                    <img src="LOGO/b9b70786-351e-4d10-bf0b-5dc078e55898-removebg-preview.png" alt="CVPilot Logo">
+                </div>
+                <span class="logo-text">CV<span>Pilot</span></span>
+            </a>
+
+            <button class="navbar-toggler cv-toggler" type="button" id="navbarToggle" aria-label="Toggle navigation"
+                aria-expanded="false" aria-controls="navbarMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-house-door"></i><span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="bi bi-file-earmark-plus"></i><span>Build CV</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-book"></i><span>CV Guide</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-stars"></i><span>AI Review</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-info-circle"></i><span>About</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="nav-cta">
+                    <a href="#builder" class="btn-start">
+                        <span>Start Building</span>
+                        <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- =============================================================
+         BUILD CV PAGE
+    ============================================================== -->
+    <main class="buildcv-page" id="builder">
+
+        <!-- ================= PERMANENT ANIMATED BACKGROUND ================= -->
+        <div class="buildcv-bg" aria-hidden="true">
+            <span class="bg-orb bg-orb--1"></span>
+            <span class="bg-orb bg-orb--2"></span>
+            <span class="bg-orb bg-orb--3"></span>
+            <span class="bg-orb bg-orb--4"></span>
+            <span class="bg-orb bg-orb--5"></span>
+
+            <span class="bg-circle bg-circle--1"></span>
+            <span class="bg-circle bg-circle--2"></span>
+            <span class="bg-circle bg-circle--3"></span>
+            <span class="bg-circle bg-circle--4"></span>
+            <span class="bg-circle bg-circle--5"></span>
+            <span class="bg-circle bg-circle--6"></span>
+
+            <span class="bg-dot bg-dot--1"></span>
+            <span class="bg-dot bg-dot--2"></span>
+            <span class="bg-dot bg-dot--3"></span>
+            <span class="bg-dot bg-dot--4"></span>
+            <span class="bg-dot bg-dot--5"></span>
+            <span class="bg-dot bg-dot--6"></span>
+            <span class="bg-dot bg-dot--7"></span>
+            <span class="bg-dot bg-dot--8"></span>
+
+            <span class="bg-particle bg-particle--1"></span>
+            <span class="bg-particle bg-particle--2"></span>
+            <span class="bg-particle bg-particle--3"></span>
+            <span class="bg-particle bg-particle--4"></span>
+            <span class="bg-particle bg-particle--5"></span>
+            <span class="bg-particle bg-particle--6"></span>
+        </div>
+
+
+        <!-- ================= HERO (UNCHANGED) ================= -->
+        <section class="buildcv-hero">
+            <div class="buildcv-container buildcv-hero__inner">
+
+                <div class="buildcv-hero__content" data-aos="fade-right">
+                    <span class="buildcv-eyebrow">
+                        <i class="bi bi-stars"></i>
+                        Build it. Improve it. Move forward.
+                    </span>
+
+                    <h1 class="buildcv-hero__title">
+                        Create a CV that
+                        <span class="accent">opens doors.</span>
+                    </h1>
+
+                    <p class="buildcv-hero__text">
+                        Fill in your details once and watch your professional CV come to
+                        life in real time. Clean structure, elegant typography, and a
+                        downloadable result — all in your browser.
+                    </p>
+
+                    <div class="buildcv-hero__cta">
+                        <a href="#templates" class="bcv-btn bcv-btn--primary">
+                            <i class="bi bi-magic"></i>
+                            Start Building
+                        </a>
+                        <a href="#preview" class="bcv-btn bcv-btn--ghost">
+                            <i class="bi bi-eye"></i>
+                            Live Preview
+                        </a>
+                    </div>
+
+                    <ul class="buildcv-hero__meta">
+                        <li><i class="bi bi-check2-circle"></i> No login required</li>
+                        <li><i class="bi bi-check2-circle"></i> Works offline</li>
+                        <li><i class="bi bi-check2-circle"></i> Instant download</li>
+                    </ul>
+                </div>
+
+                <div class="buildcv-hero__preview" data-aos="fade-left">
+                    <div class="hero-stack">
+                        <div class="hero-card hero-card--back-2" aria-hidden="true">
+                            <div class="hero-card__strip"></div>
+                            <div class="hero-card__lines">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+
+                        <div class="hero-card hero-card--back-1" aria-hidden="true">
+                            <div class="hero-card__strip"></div>
+                            <div class="hero-card__lines">
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+
+                        <div class="hero-cv glass-card">
+                            <div class="hero-cv__head">
+                                <div class="hero-cv__avatar">AR</div>
+                                <div>
+                                    <h3>Aria Rahman</h3>
+                                    <p>Front-End Developer</p>
+                                </div>
+                            </div>
+
+                            <div class="hero-cv__divider"></div>
+
+                            <div class="hero-cv__block">
+                                <h4>Summary</h4>
+                                <p>
+                                    Front-end developer focused on building accessible,
+                                    performant interfaces with modern web standards.
+                                </p>
+                            </div>
+
+                            <div class="hero-cv__block">
+                                <h4>Experience</h4>
+                                <div class="hero-cv__row">
+                                    <strong>Front-End Developer</strong>
+                                    <span>2023 — Present</span>
+                                </div>
+                                <p class="hero-cv__muted">Nova Studio · Remote</p>
+                            </div>
+
+                            <div class="hero-cv__block">
+                                <h4>Skills</h4>
+                                <div class="hero-cv__chips">
+                                    <span>HTML</span>
+                                    <span>CSS</span>
+                                    <span>JavaScript</span>
+                                    <span>Git</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= TEMPLATE SELECTION (UNCHANGED) ================= -->
+        <section class="buildcv-templates" id="templates">
+            <div class="buildcv-container">
+
+                <header class="buildcv-section-head" data-aos="fade-up">
+                    <span class="buildcv-eyebrow">
+                        <i class="bi bi-layers"></i>
+                        Step 1 · Pick a design
+                    </span>
+                    <h2>Choose Your CV Template</h2>
+                    <p>
+                        Start with a design you like. You can change it anytime without
+                        losing your information.
+                    </p>
+                </header>
+
+
+                <div class="tpl-gallery" role="radiogroup" aria-label="CV template selection" data-aos="fade-up">
+
+                    <article class="tpl-card glass-card is-selected" data-template="minimal" tabindex="0"
+                        role="radio" aria-checked="true" aria-label="Minimal template, clean and simple">
+                        <div class="tpl-card__preview">
+                            <div class="tpl-mini tpl-mini--minimal">
+                                <div class="tpl-mini__name">Alex Morgan</div>
+                                <div class="tpl-mini__title">Front-End Developer</div>
+                                <div class="tpl-mini__line"></div>
+                                <div class="tpl-mini__h">Summary</div>
+                                <div class="tpl-mini__p"></div>
+                                <div class="tpl-mini__p tpl-mini__p--short"></div>
+                                <div class="tpl-mini__h">Experience</div>
+                                <div class="tpl-mini__row">
+                                    <span class="tpl-mini__strong">Senior Front-End Developer</span>
+                                    <span class="tpl-mini__date">2023 – Present</span>
+                                </div>
+                                <div class="tpl-mini__muted">Creative Studio</div>
+                                <div class="tpl-mini__h">Education</div>
+                                <div class="tpl-mini__row">
+                                    <span class="tpl-mini__strong">Bachelor's Degree</span>
+                                    <span class="tpl-mini__date">2019 – 2023</span>
+                                </div>
+                            </div>
+
+                            <div class="tpl-card__badge" aria-hidden="true">
+                                <i class="bi bi-check-lg"></i>
+                                <span>Selected</span>
+                            </div>
+                        </div>
+
+                        <div class="tpl-card__body">
+                            <h3>Minimal</h3>
+                            <p>Clean &amp; Simple</p>
+                        </div>
+                    </article>
+
+
+                    <article class="tpl-card glass-card" data-template="modern" tabindex="0" role="radio"
+                        aria-checked="false" aria-label="Modern template, bold and contemporary">
+                        <div class="tpl-card__preview">
+                            <div class="tpl-mini tpl-mini--modern">
+                                <aside class="tpl-mini__side">
+                                    <div class="tpl-mini__avatar"></div>
+                                    <div class="tpl-mini__side-line"></div>
+                                    <div class="tpl-mini__side-line"></div>
+                                    <div class="tpl-mini__side-line tpl-mini__side-line--short"></div>
+                                    <div class="tpl-mini__side-line"></div>
+                                </aside>
+                                <div class="tpl-mini__main">
+                                    <div class="tpl-mini__name tpl-mini__name--sm">Alex Morgan</div>
+                                    <div class="tpl-mini__title tpl-mini__title--sm">Front-End Developer</div>
+                                    <div class="tpl-mini__h tpl-mini__h--accent">Experience</div>
+                                    <div class="tpl-mini__row">
+                                        <span class="tpl-mini__strong">Senior Developer</span>
+                                        <span class="tpl-mini__date">2023 –</span>
+                                    </div>
+                                    <div class="tpl-mini__muted">Creative Studio</div>
+                                    <div class="tpl-mini__h tpl-mini__h--accent">Education</div>
+                                    <div class="tpl-mini__row">
+                                        <span class="tpl-mini__strong">Bachelor's Degree</span>
+                                        <span class="tpl-mini__date">2019 – 23</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tpl-card__badge" aria-hidden="true">
+                                <i class="bi bi-check-lg"></i>
+                                <span>Selected</span>
+                            </div>
+                        </div>
+
+                        <div class="tpl-card__body">
+                            <h3>Modern</h3>
+                            <p>Bold &amp; Contemporary</p>
+                        </div>
+                    </article>
+
+
+                    <article class="tpl-card glass-card" data-template="professional" tabindex="0" role="radio"
+                        aria-checked="false" aria-label="Professional template, structured and corporate">
+                        <div class="tpl-card__preview">
+                            <div class="tpl-mini tpl-mini--professional">
+                                <div class="tpl-mini__band">
+                                    <div class="tpl-mini__name tpl-mini__name--white">Alex Morgan</div>
+                                    <div class="tpl-mini__title tpl-mini__title--white">Front-End Developer</div>
+                                </div>
+                                <div class="tpl-mini__block">
+                                    <div class="tpl-mini__h tpl-mini__h--bar">Summary</div>
+                                    <div class="tpl-mini__p"></div>
+                                    <div class="tpl-mini__p tpl-mini__p--short"></div>
+                                </div>
+                                <div class="tpl-mini__block">
+                                    <div class="tpl-mini__h tpl-mini__h--bar">Experience</div>
+                                    <div class="tpl-mini__row">
+                                        <span class="tpl-mini__strong">Senior Developer</span>
+                                        <span class="tpl-mini__date">2023 –</span>
+                                    </div>
+                                    <div class="tpl-mini__muted">Creative Studio</div>
+                                </div>
+                                <div class="tpl-mini__block">
+                                    <div class="tpl-mini__h tpl-mini__h--bar">Education</div>
+                                    <div class="tpl-mini__row">
+                                        <span class="tpl-mini__strong">Bachelor's Degree</span>
+                                        <span class="tpl-mini__date">2019 – 23</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tpl-card__badge" aria-hidden="true">
+                                <i class="bi bi-check-lg"></i>
+                                <span>Selected</span>
+                            </div>
+                        </div>
+
+                        <div class="tpl-card__body">
+                            <h3>Professional</h3>
+                            <p>Structured &amp; Corporate</p>
+                        </div>
+                    </article>
+
+
+                    <article class="tpl-card glass-card" data-template="elegant" tabindex="0" role="radio"
+                        aria-checked="false" aria-label="Elegant template, refined and editorial">
+                        <div class="tpl-card__preview">
+                            <div class="tpl-mini tpl-mini--elegant">
+                                <div class="tpl-mini__name tpl-mini__name--serif">Alex Morgan</div>
+                                <div class="tpl-mini__title tpl-mini__title--serif">Front-End Developer</div>
+                                <div class="tpl-mini__rule"></div>
+                                <div class="tpl-mini__p"></div>
+                                <div class="tpl-mini__p tpl-mini__p--short"></div>
+                                <div class="tpl-mini__h tpl-mini__h--serif">Experience</div>
+                                <div class="tpl-mini__row tpl-mini__row--serif">
+                                    <span class="tpl-mini__strong">Senior Developer</span>
+                                    <span class="tpl-mini__date">2023 –</span>
+                                </div>
+                                <div class="tpl-mini__muted">Creative Studio</div>
+                                <div class="tpl-mini__rule"></div>
+                                <div class="tpl-mini__h tpl-mini__h--serif">Education</div>
+                                <div class="tpl-mini__row tpl-mini__row--serif">
+                                    <span class="tpl-mini__strong">Bachelor's Degree</span>
+                                    <span class="tpl-mini__date">2019 – 23</span>
+                                </div>
+                            </div>
+
+                            <div class="tpl-card__badge" aria-hidden="true">
+                                <i class="bi bi-check-lg"></i>
+                                <span>Selected</span>
+                            </div>
+                        </div>
+
+                        <div class="tpl-card__body">
+                            <h3>Elegant</h3>
+                            <p>Refined &amp; Editorial</p>
+                        </div>
+                    </article>
+
+
+                    <article class="tpl-card glass-card" data-template="creative" tabindex="0" role="radio"
+                        aria-checked="false" aria-label="Creative template, modern and visual">
+                        <div class="tpl-card__preview">
+                            <div class="tpl-mini tpl-mini--creative">
+                                <div class="tpl-mini__chip-row">
+                                    <span class="tpl-mini__dot"></span>
+                                    <span class="tpl-mini__pill"></span>
+                                    <span class="tpl-mini__pill tpl-mini__pill--short"></span>
+                                </div>
+                                <div class="tpl-mini__name tpl-mini__name--lg">Alex Morgan</div>
+                                <div class="tpl-mini__title">Front-End Developer</div>
+                                <div class="tpl-mini__grid">
+                                    <div class="tpl-mini__grid-item">
+                                        <div class="tpl-mini__h tpl-mini__h--dot">Experience</div>
+                                        <div class="tpl-mini__row">
+                                            <span class="tpl-mini__strong">Senior Developer</span>
+                                            <span class="tpl-mini__date">2023 –</span>
+                                        </div>
+                                        <div class="tpl-mini__muted">Creative Studio</div>
+                                    </div>
+                                    <div class="tpl-mini__grid-item">
+                                        <div class="tpl-mini__h tpl-mini__h--dot">Education</div>
+                                        <div class="tpl-mini__row">
+                                            <span class="tpl-mini__strong">Bachelor's</span>
+                                            <span class="tpl-mini__date">2019 – 23</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tpl-mini__chips">
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                            </div>
+
+                            <div class="tpl-card__badge" aria-hidden="true">
+                                <i class="bi bi-check-lg"></i>
+                                <span>Selected</span>
+                            </div>
+                        </div>
+
+                        <div class="tpl-card__body">
+                            <h3>Creative</h3>
+                            <p>Modern &amp; Visual</p>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= BUILDER FORM ================= -->
+        <section class="buildcv-builder">
+            <div class="buildcv-container">
+
+                <header class="buildcv-section-head" data-aos="fade-up">
+                    <span class="buildcv-eyebrow">
+                        <i class="bi bi-pencil-square"></i>
+                        Step 2 · Your details
+                    </span>
+                    <h2>Tell us about you</h2>
+                    <p>Fill the sections below. Your CV updates instantly as you type.</p>
+                </header>
+
+
+                <div class="bcv-builder-layout">
+
+                    <div class="bcv-form-grid">
+
+                        <article class="glass-card bcv-card bcv-card--span-2" id="personal" data-section="personal"
+                            data-aos="fade-up">
+                            <header class="bcv-card__head">
+                                <div class="bcv-card__icon"><i class="bi bi-person-vcard"></i></div>
+                                <div>
+                                    <h3>Personal Information</h3>
+                                    <p>Required fields are marked with <span class="req-mark">*</span></p>
+                                </div>
+                            </header>
+
+                            <div class="bcv-grid bcv-grid--2 bcv-grid--personal">
+                                <div class="bcv-field">
+                                    <label for="fullName">Full Name <span class="req-mark">*</span></label>
+                                    <input type="text" id="fullName" name="fullName" placeholder="e.g. Aria Rahman"
+                                        required>
+                                </div>
+
+                                <div class="bcv-field">
+                                    <label for="proTitle">Professional Title <span class="req-mark">*</span></label>
+                                    <input type="text" id="proTitle" name="proTitle"
+                                        placeholder="e.g. Front-End Developer" required>
+                                </div>
+
+                                <div class="bcv-field">
+                                    <label for="email">Email <span class="req-mark">*</span></label>
+                                    <input type="email" id="email" name="email" placeholder="you@email.com" required>
+                                </div>
+
+                                <div class="bcv-field">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="+00 000 000 000">
+                                </div>
+
+                                <div class="bcv-field">
+                                    <label for="location">Location</label>
+                                    <input type="text" id="location" name="location" placeholder="City, Country"
+                                        autocomplete="off">
+                                </div>
+
+                                <div class="bcv-field">
+                                    <label for="linkedin">LinkedIn</label>
+                                    <input type="url" id="linkedin" name="linkedin"
+                                        placeholder="linkedin.com/in/username">
+                                </div>
+
+                                <div class="bcv-field bcv-field--full">
+                                    <label for="github">GitHub</label>
+                                    <input type="url" id="github" name="github" placeholder="github.com/username">
+                                </div>
+                            </div>
+                        </article>
+
+
+                        <div class="bcv-pair-row">
+                            <article class="glass-card bcv-card bcv-card--compact" id="experience"
+                                data-section="experience" data-aos="fade-up">
+                                <header class="bcv-card__head bcv-card__head--split">
+                                    <div class="bcv-card__head-main">
+                                        <div class="bcv-card__icon"><i class="bi bi-briefcase"></i></div>
+                                        <div>
+                                            <h3>Experience</h3>
+                                            <p>Add your work history, most recent first.</p>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="bcv-btn bcv-btn--add" id="addExperience">
+                                        <i class="bi bi-plus-lg"></i>
+                                        Add Experience
+                                    </button>
+                                </header>
+
+                                <div class="bcv-repeat" id="experienceList"></div>
+                            </article>
+
+
+                            <article class="glass-card bcv-card bcv-card--compact" id="education"
+                                data-section="education" data-aos="fade-up">
+                                <header class="bcv-card__head bcv-card__head--split">
+                                    <div class="bcv-card__head-main">
+                                        <div class="bcv-card__icon"><i class="bi bi-mortarboard"></i></div>
+                                        <div>
+                                            <h3>Education</h3>
+                                            <p>Degrees, diplomas and certifications.</p>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="bcv-btn bcv-btn--add" id="addEducation">
+                                        <i class="bi bi-plus-lg"></i>
+                                        Add Education
+                                    </button>
+                                </header>
+
+                                <div class="bcv-repeat" id="educationList"></div>
+                            </article>
+                        </div>
+
+
+                        <article class="glass-card bcv-card" id="skills" data-section="skills" data-aos="fade-up">
+                            <header class="bcv-card__head">
+                                <div class="bcv-card__icon"><i class="bi bi-lightning-charge"></i></div>
+                                <div>
+                                    <h3>Skills</h3>
+                                    <p>Press Enter or click Add to insert a skill.</p>
+                                </div>
+                            </header>
+
+                            <div class="bcv-tags-input">
+                                <input type="text" id="skillInput" placeholder="e.g. JavaScript, Figma, Python"
+                                    autocomplete="off">
+                                <button type="button" class="bcv-btn bcv-btn--add bcv-btn--compact" id="addSkill">
+                                    <i class="bi bi-plus-lg"></i>
+                                    Add Skill
+                                </button>
+                            </div>
+
+                            <div class="bcv-tags" id="skillsList" aria-live="polite"></div>
+                        </article>
+
+
+                        <article class="glass-card bcv-card bcv-card--compact-soft" id="projects"
+                            data-section="projects" data-aos="fade-up">
+                            <header class="bcv-card__head bcv-card__head--split">
+                                <div class="bcv-card__head-main">
+                                    <div class="bcv-card__icon"><i class="bi bi-kanban"></i></div>
+                                    <div>
+                                        <h3>Projects</h3>
+                                        <p>Show the work you are proud of.</p>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="bcv-btn bcv-btn--add" id="addProject">
+                                    <i class="bi bi-plus-lg"></i>
+                                    Add Project
+                                </button>
+                            </header>
+
+                            <div class="bcv-repeat bcv-repeat--compact" id="projectList"></div>
+                        </article>
+
+
+                        <article class="glass-card bcv-card bcv-card--compact-soft" id="languages"
+                            data-section="languages" data-aos="fade-up">
+                            <header class="bcv-card__head">
+                                <div class="bcv-card__icon"><i class="bi bi-translate"></i></div>
+                                <div>
+                                    <h3>Languages</h3>
+                                    <p>Languages you speak and understand.</p>
+                                </div>
+                            </header>
+
+                            <div class="bcv-tags-input">
+                                <input type="text" id="languageInput" placeholder="e.g. English, German, Dari"
+                                    autocomplete="off">
+                                <button type="button" class="bcv-btn bcv-btn--add bcv-btn--compact" id="addLanguage">
+                                    <i class="bi bi-plus-lg"></i>
+                                    Add Language
+                                </button>
+                            </div>
+
+                            <div class="bcv-tags" id="languagesList" aria-live="polite"></div>
+                        </article>
+
+
+                        <article class="glass-card bcv-card bcv-card--compact-soft" id="summary"
+                            data-section="summary" data-aos="fade-up">
+                            <header class="bcv-card__head">
+                                <div class="bcv-card__icon"><i class="bi bi-chat-left-text"></i></div>
+                                <div>
+                                    <h3>Professional Summary</h3>
+                                    <p>Two or three sentences that describe who you are professionally.</p>
+                                </div>
+                            </header>
+
+                            <div class="bcv-field">
+                                <label for="summaryInput">Summary</label>
+                                <textarea id="summaryInput" name="summary" rows="4"
+                                    placeholder="Motivated front-end developer with a passion for clean UI, accessibility, and modern web standards..."></textarea>
+                                <p class="bcv-helper" id="summaryHelper">0 characters</p>
+                            </div>
+                        </article>
+
+                    </div>
+
+
+                    <aside class="bcv-filter-panel glass-card" aria-label="Section navigation">
+                        <div class="bcv-filter-panel__head">
+                            <span class="bcv-filter-panel__eyebrow">Sections</span>
+                            <h4>Quick Navigation</h4>
+                        </div>
+
+                        <nav class="bcv-filters" aria-label="Jump to section">
+                            <button type="button" class="bcv-filter is-active" data-target="personal">
+                                <i class="bi bi-person-vcard"></i><span>Personal Info</span>
+                            </button>
+                            <button type="button" class="bcv-filter" data-target="experience">
+                                <i class="bi bi-briefcase"></i><span>Experience</span>
+                            </button>
+                            <button type="button" class="bcv-filter" data-target="education">
+                                <i class="bi bi-mortarboard"></i><span>Education</span>
+                            </button>
+                            <button type="button" class="bcv-filter" data-target="skills">
+                                <i class="bi bi-lightning-charge"></i><span>Skills</span>
+                            </button>
+                            <button type="button" class="bcv-filter" data-target="projects">
+                                <i class="bi bi-kanban"></i><span>Projects</span>
+                            </button>
+                            <button type="button" class="bcv-filter" data-target="languages">
+                                <i class="bi bi-translate"></i><span>Languages</span>
+                            </button>
+                            <button type="button" class="bcv-filter" data-target="summary">
+                                <i class="bi bi-chat-left-text"></i><span>Summary</span>
+                            </button>
+                        </nav>
+                    </aside>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= LIVE PREVIEW + DOWNLOAD ================= -->
+        <section class="buildcv-preview is-empty-preview" id="preview">
+            <div class="buildcv-container">
+
+                <header class="buildcv-section-head" data-aos="fade-up">
+                    <span class="buildcv-eyebrow">
+                        <i class="bi bi-eye"></i>
+                        Step 3 · Your CV
+                    </span>
+                    <h2>Live Preview</h2>
+                    <p>This is your CV as it will look when downloaded.</p>
+                </header>
+
+
+                <div class="buildcv-final-row">
+
+                    <div class="cv-workspace" data-aos="fade-up">
+                        <div class="cv-workspace__bar">
+                            <span class="cv-workspace__dot"></span>
+                            <span class="cv-workspace__dot"></span>
+                            <span class="cv-workspace__dot"></span>
+                            <span class="cv-workspace__label">Preview</span>
+                            <span class="cv-workspace__template" id="tplActiveLabel">Minimal</span>
+                        </div>
+
+                        <div class="cv-workspace__paper">
+                            <div class="cv-paper" id="cvPreview" data-template="minimal"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="glass-card buildcv-download buildcv-download--compact" data-aos="fade-up">
+                        <div class="buildcv-download__icon">
+                            <i class="bi bi-file-earmark-arrow-down"></i>
+                        </div>
+
+                        <div class="buildcv-download__text">
+                            <h3>Ready to send it?</h3>
+                            <p>Download your CV as a clean, printable file — perfect for job applications.</p>
+                        </div>
+
+                        <button type="button" class="bcv-btn bcv-btn--primary bcv-btn--download" id="downloadCV">
+                            <i class="bi bi-download"></i>
+                            Download CV
+                        </button>
+
+                        <button type="button" class="bcv-btn bcv-btn--clear" id="clearCV">
+                            <i class="bi bi-eraser"></i>
+                            Clear CV
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- =============================================================
+         CLEAR CONFIRMATION MODAL
+    ============================================================== -->
+    <div class="bcv-modal" id="clearModal" role="dialog" aria-modal="true" aria-labelledby="clearModalTitle"
+        aria-hidden="true">
+        <div class="bcv-modal__backdrop" data-close="true"></div>
+
+        <div class="bcv-modal__panel glass-card">
+            <div class="bcv-modal__icon">
+                <i class="bi bi-exclamation-triangle"></i>
+            </div>
+
+            <h3 id="clearModalTitle">Are you sure you want to clear your CV?</h3>
+            <p>This will remove all entered information. This action cannot be undone.</p>
+
+            <div class="bcv-modal__actions">
+                <button type="button" class="bcv-btn bcv-btn--ghost" id="clearCancel">Cancel</button>
+                <button type="button" class="bcv-btn bcv-btn--danger" id="clearConfirm">
+                    <i class="bi bi-eraser"></i>
+                    Clear CV
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= TSPARTICLES ================= -->
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/tsparticles@3/tsparticles.bundle.min.js"></script>
+
+    <!-- ================= BOOTSTRAP JS ================= -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ================= AOS ================= -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- ================= CUSTOM JS ================= -->
+    <script src="app.js"></script>
+    <script src="buildCV-app.js"></script>
+
+    <script>
+        AOS.init({ duration: 700, once: true });
+    </script>
+
+</body>
+
+</html>
