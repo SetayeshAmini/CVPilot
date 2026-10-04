@@ -831,3 +831,664 @@ body > *:not(#particles-background) {
 
 
 
+/* =========================================================
+   CVPILOT - TEMPLATES HERO
+========================================================= */
+
+.cvp-templates-hero {
+
+    position: relative;
+
+    min-height: 650px;
+
+    overflow: hidden;
+
+    background: var(--bg-main);
+    color: var(--text-main);
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.cvp-hero-bg {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 49.9%,
+            rgba(255,255,255,0.025) 50%,
+            transparent 50.1%
+        );
+
+}
+
+
+.cvp-hero-bg::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 700px;
+    height: 700px;
+
+    left: -380px;
+    top: 20px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,0.025);
+
+}
+
+
+.cvp-hero-glow {
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: -180px;
+    top: 40px;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+
+    opacity: 0.055;
+
+    filter: blur(120px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   INNER
+========================================================= */
+
+.cvp-hero-inner {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: min(1280px, 88%);
+
+    height: 650px;
+
+    margin: auto;
+}
+
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.cvp-hero-top {
+
+    position: absolute;
+
+    top: 30px;
+
+    left: 0;
+    right: 0;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    color: var(--text-muted);
+}
+
+
+.cvp-hero-top span:first-child {
+
+    color: var(--primary);
+
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.cvp-hero-content {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 48%;
+
+    transform: translateY(-50%);
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    align-items: center;
+
+}
+
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.cvp-hero-copy {
+
+    position: relative;
+
+    z-index: 5;
+
+    min-height: 430px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+}
+
+
+/* BIG GHOST CV */
+
+.cvp-ghost-text {
+
+    position: absolute;
+
+    left: -25px;
+
+    top: 5px;
+
+    font-size: 280px;
+
+    line-height: 1;
+
+    font-weight: 700;
+
+    letter-spacing: -25px;
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px rgba(255,255,255,0.035);
+
+    user-select: none;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.cvp-eyebrow {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+
+    color: var(--text-muted);
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+}
+
+
+.cvp-eyebrow span {
+
+    width: 32px;
+
+    height: 1px;
+
+    background: var(--primary);
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.cvp-hero-copy h1 {
+
+    position: relative;
+
+    margin: 0;
+
+    font-size: clamp(70px, 8vw, 120px);
+
+    line-height: 0.78;
+
+    font-weight: 500;
+
+    letter-spacing: -7px;
+
+}
+
+
+.cvp-hero-copy h1 span {
+
+    display: block;
+
+    margin-left: 5vw;
+
+    color: transparent;
+
+    -webkit-text-stroke: 1px var(--text-main);
+
+    transition:
+        color 0.5s ease,
+        -webkit-text-stroke-color 0.5s ease;
+
+}
+
+
+.cvp-hero-copy:hover h1 span {
+
+    color: var(--primary);
+
+    -webkit-text-stroke-color: var(--primary);
+
+}
+
+
+/* =========================================================
+   ORANGE TITLE ACCENT
+========================================================= */
+
+.cvp-title-accent {
+
+    width: 115px;
+
+    height: 2px;
+
+    margin-top: 32px;
+
+    margin-left: 5vw;
+
+    background: var(--primary);
+
+    transform-origin: left;
+
+    box-shadow:
+        0 0 18px rgba(232,93,63,0.22);
+
+    animation: cvpLineReveal 1.2s ease forwards;
+}
+
+
+@keyframes cvpLineReveal {
+
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.cvp-hero-copy p {
+
+    width: 300px;
+
+    margin: 18px 0 0 5vw;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   RIGHT VISUAL
+========================================================= */
+
+.cvp-hero-visual {
+
+    position: relative;
+
+    width: 470px;
+
+    height: 470px;
+
+    justify-self: end;
+
+    transition: transform 0.25s ease;
+}
+
+
+/* =========================================================
+   RINGS
+========================================================= */
+
+.cvp-ring {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+}
+
+
+.ring-one {
+
+    width: 410px;
+    height: 410px;
+
+    border: 1px solid rgba(232,93,63,0.22);
+
+    animation:
+        cvpRotateOne 24s linear infinite;
+}
+
+
+.ring-two {
+
+    width: 285px;
+    height: 285px;
+
+    border: 1px dashed rgba(255,255,255,0.12);
+
+    animation:
+        cvpRotateTwo 18s linear infinite reverse;
+}
+
+
+@keyframes cvpRotateOne {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+    }
+
+}
+
+
+@keyframes cvpRotateTwo {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
+    }
+
+}
+
+
+/* =========================================================
+   OUTER SQUARE
+========================================================= */
+
+.cvp-visual-square {
+
+    position: absolute;
+
+    width: 270px;
+    height: 270px;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg);
+
+    border: 1px solid rgba(255,255,255,0.07);
+
+    transition:
+        transform 0.7s ease,
+        border-color 0.5s ease;
+}
+
+
+.cvp-hero-visual:hover .cvp-visual-square {
+
+    transform:
+        translate(-50%, -50%)
+        rotate(135deg);
+
+    border-color:
+        rgba(232,93,63,0.2);
+}
+
+
+/* =========================================================
+   CORE
+========================================================= */
+
+.cvp-visual-core {
+
+    position: absolute;
+
+    width: 215px;
+    height: 215px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: var(--bg-navy);
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow-lg);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.5s ease;
+}
+
+
+.cvp-hero-visual:hover .cvp-visual-core {
+
+    transform:
+        translate(-50%, -50%)
+        translateY(-8px);
+}
+
+
+/* =========================================================
+   CORE DESIGN
+========================================================= */
+
+.cvp-core-line {
+
+    position: absolute;
+
+    left: 24px;
+    right: 24px;
+
+    top: 28px;
+
+    height: 1px;
+
+    background: var(--border);
+
+}
+
+
+.cvp-core-shape {
+
+    position: absolute;
+
+    width: 115px;
+    height: 115px;
+
+    right: -28px;
+    top: 55px;
+
+    border: 1px solid var(--primary);
+
+    transform: rotate(45deg);
+
+    opacity: 0.8;
+
+    transition:
+        transform 0.6s ease;
+}
+
+
+.cvp-hero-visual:hover .cvp-core-shape {
+
+    transform:
+        rotate(90deg)
+        scale(1.08);
+}
+
+
+/* =========================================================
+   ORANGE MARK
+========================================================= */
+
+.cvp-orange-mark {
+
+    position: absolute;
+
+    width: 90px;
+    height: 1px;
+
+    right: -5px;
+    top: 50%;
+
+    background: var(--primary);
+
+    transform: rotate(45deg);
+
+    box-shadow:
+        0 0 16px rgba(232,93,63,0.35);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .cvp-templates-hero {
+
+        min-height: 600px;
+    }
+
+    .cvp-hero-inner {
+
+        height: 600px;
+    }
+
+    .cvp-hero-content {
+
+        top: 48%;
+
+        grid-template-columns: 1fr;
+    }
+
+    .cvp-hero-visual {
+
+        display: none;
+    }
+
+    .cvp-hero-copy h1 {
+
+        font-size:
+            clamp(65px, 13vw, 105px);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .cvp-templates-hero {
+
+        min-height: 600px;
+    }
+
+    .cvp-hero-inner {
+
+        width: 88%;
+
+        height: 600px;
+    }
+
+    .cvp-hero-content {
+
+        top: 48%;
+    }
+
+    .cvp-ghost-text {
+
+        font-size: 190px;
+
+        left: -15px;
+    }
+
+    .cvp-hero-copy h1 {
+
+        font-size: 19vw;
+
+        letter-spacing: -4px;
+    }
+
+    .cvp-hero-copy p {
+
+        width: 260px;
+    }
+
+}
