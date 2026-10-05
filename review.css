@@ -1500,18 +1500,16 @@ body > *:not(#particles-background) {
         margin-bottom: 9px;
     }
 }
-/* ⚡ تیر خلاص برای فشرده‌سازی تمام تگ‌ها و فضاهای خالی پنهان درون باکس هوش مصنوعی ⚡ */
 #aiAnalysisResultBox, 
 #aiAnalysisResultBox * {
     margin-top: 0 !important;
-    margin-bottom: 2px !important; /* فشرده‌سازی اجباری فاصله تمام خطوط به ۲ پیکسل */
+    margin-bottom: 2px !important; 
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-    line-height: 1.4 !important; /* منسجم کردن ارتفاع خطوط */
-    white-space: normal !important; /* تبدیل متن گسسته به پاراگراف‌های چسبیده و روان */
+    line-height: 1.4 !important; 
+    white-space: normal !important; 
 }
 
-/* فیکس کردن فاصله عنوان ابتدایی باکس */
 #aiAnalysisResultBox div {
     margin-bottom: 6px !important;
 }
