@@ -1355,7 +1355,7 @@ ${cvText}
             /* =================================================
                GROQ REQUEST
             ================================================= */
-
+            const BACKEND_API_URL = "https://cvpilot-1.onrender.com/api/analyze";
             const response = await fetch(
                BACKEND_API_URL,
             {
