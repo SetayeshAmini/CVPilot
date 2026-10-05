@@ -1,0 +1,1046 @@
+/* =========================================================
+   CVPILOT - GLOBAL STYLES
+========================================================= */
+
+:root {
+
+    /* =========================
+       Background
+    ========================= */
+
+    --bg-main: #080D16;
+    --bg-dark: #0B111C;
+    --bg-navy: #101927;
+
+    /* =========================
+       Surfaces
+    ========================= */
+
+    --surface: #162235;
+    --surface-light: #1B2A40;
+    --surface-hover: #203149;
+
+    /* =========================
+       Primary Orange
+    ========================= */
+
+    --primary: #E85D3F;
+    --primary-dark: #B83E2B;
+    --primary-light: #F08A4B;
+
+    /* =========================
+       Text
+    ========================= */
+
+    --text-main: #F5F1E8;
+    --text-light: #C3CBD6;
+    --text-muted: #9AA5B5;
+
+    /* =========================
+       Borders
+    ========================= */
+
+    --border: #293548;
+    --border-light: rgba(255, 255, 255, 0.08);
+
+    /* =========================
+       Shadows
+    ========================= */
+
+    --shadow-sm: 0 5px 20px rgba(0, 0, 0, 0.20);
+    --shadow-md: 0 10px 35px rgba(0, 0, 0, 0.30);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.40);
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    min-height: 100vh;
+    margin: 0;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: var(--text-main);
+
+    background: var(--bg-main);
+
+    overflow-x: hidden;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   PARTICLES BACKGROUND
+========================================================= */
+
+#particles-background {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    background: var(--bg-main);
+}
+
+
+/* tsParticles canvas */
+
+#particles-background canvas {
+    position: fixed !important;
+
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block;
+
+    pointer-events: none !important;
+}
+
+
+/* =========================================================
+   CONTENT LAYER
+========================================================= */
+
+body > *:not(#particles-background) {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.cv-navbar {
+    position: relative;
+
+    width: 100%;
+
+    padding: 18px 0;
+
+    background: rgba(8, 13, 22, 0.72);
+
+    border-bottom: 1px solid var(--border-light);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    transition:
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        padding 0.3s ease;
+
+    z-index: 9999;
+}
+
+
+/* Navbar when scrolling */
+
+.cv-navbar.scrolled {
+    padding: 12px 0;
+
+    background: rgba(8, 13, 22, 0.92);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================================
+   NAVBAR CONTAINER
+========================================================= */
+
+.cv-navbar .container {
+    display: flex;
+
+    align-items: center;
+
+    min-height: 54px;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.cv-logo {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    text-decoration: none;
+
+    flex-shrink: 0;
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+
+.cv-logo:hover {
+    transform: translateY(-1px);
+
+    opacity: 0.95;
+}
+
+
+/* Logo image box */
+
+.logo-box {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(232, 93, 63, 0.18),
+            rgba(240, 138, 75, 0.06)
+        );
+
+    border: 1px solid rgba(232, 93, 63, 0.28);
+
+    box-shadow:
+        0 5px 20px rgba(232, 93, 63, 0.10);
+
+    flex-shrink: 0;
+}
+
+
+/* Logo image */
+
+.logo-box img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    padding: 5px;
+
+    display: block;
+}
+
+
+/* Logo text */
+
+.logo-text {
+    font-size: 1.35rem;
+
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+
+    color: var(--text-main);
+
+    white-space: nowrap;
+}
+
+
+.logo-text span {
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.cv-navbar .navbar-collapse {
+    display: flex;
+
+    align-items: center;
+
+    flex: 1;
+}
+
+
+/* Navigation list */
+
+.cv-navbar .navbar-nav {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+
+/* Nav item */
+
+.cv-navbar .nav-item {
+    position: relative;
+}
+
+
+/* Nav links */
+
+.cv-navbar .nav-link {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 9px 13px !important;
+
+    color: var(--text-muted) !important;
+
+    font-size: 0.91rem;
+
+    font-weight: 500;
+
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+/* Nav icons */
+
+.cv-navbar .nav-link i {
+    font-size: 0.95rem;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+/* Hover */
+
+.cv-navbar .nav-link:hover {
+    color: var(--text-main) !important;
+
+    background: rgba(255, 255, 255, 0.045);
+
+    transform: translateY(-1px);
+}
+
+
+.cv-navbar .nav-link:hover i {
+    color: var(--primary);
+
+    transform: translateY(-1px);
+}
+
+
+/* Active */
+
+.cv-navbar .nav-link.active {
+    color: var(--text-main) !important;
+
+    background:
+        rgba(232, 93, 63, 0.10);
+}
+
+
+.cv-navbar .nav-link.active i {
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.nav-cta {
+    display: flex;
+
+    align-items: center;
+
+    margin-left: 15px;
+}
+
+
+/* Start Building button */
+
+.btn-start {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    min-height: 42px;
+
+    padding: 10px 17px;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary-light)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 0.88rem;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 8px 25px rgba(232, 93, 63, 0.18);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+
+/* Button icon */
+
+.btn-start i {
+    font-size: 0.95rem;
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+/* Button hover */
+
+.btn-start:hover {
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 12px 30px rgba(232, 93, 63, 0.28);
+}
+
+
+.btn-start:hover i {
+    transform: translate(2px, -2px);
+}
+
+
+.btn-start:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   MOBILE TOGGLER
+========================================================= */
+
+.cv-toggler {
+    width: 44px;
+    height: 44px;
+
+    padding: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    box-shadow: none !important;
+
+    outline: none !important;
+
+    margin-left: auto;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+/* Hamburger lines */
+
+.cv-toggler span {
+    width: 19px;
+    height: 2px;
+
+    display: block;
+
+    background: var(--text-main);
+
+    border-radius: 10px;
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease,
+        background 0.3s ease;
+}
+
+
+/* Toggler hover */
+
+.cv-toggler:hover {
+    background: rgba(232, 93, 63, 0.10);
+
+    border-color: rgba(232, 93, 63, 0.35);
+}
+
+
+.cv-toggler:hover span {
+    background: var(--primary);
+}
+
+
+/* =========================================================
+   MOBILE MENU OPEN STATE
+========================================================= */
+
+.cv-toggler.active {
+    background: rgba(232, 93, 63, 0.15);
+    border-color: var(--primary);
+}
+
+.cv-toggler.active span {
+    background: var(--primary);
+    transform: none !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   FOCUS STATES
+========================================================= */
+
+.cv-navbar a:focus-visible,
+.cv-toggler:focus-visible {
+    outline: 2px solid var(--primary);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   TABLET + MOBILE
+========================================================= */
+
+@media (max-width: 991.98px) {
+
+    /* Make the navbar container a relative anchor point for the absolute menu */
+    .cv-navbar .container {
+        position: relative;
+    }
+
+    .cv-navbar {
+        padding: 14px 0;
+    }
+
+
+    /* Show hamburger */
+
+    .cv-toggler {
+        display: flex;
+    }
+
+
+    /* Mobile menu closed */
+    /* Changed display and layout positioning to absolute so it drops below without shifting the logo */
+    .cv-navbar .navbar-collapse {
+        display: none;
+
+        position: absolute;
+        top: 100%;
+        left: 16px;
+        right: 16px;
+        width: calc(100% - 32px);
+        z-index: 1000;
+
+        margin-top: 10px;
+
+        padding: 14px;
+
+        background:
+            rgba(16, 25, 39, 0.96);
+
+        border: 1px solid var(--border);
+
+        border-radius: 14px;
+
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        box-shadow:
+            0 20px 50px rgba(0, 0, 0, 0.50);
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    /* Mobile menu open */
+
+    .cv-navbar .navbar-collapse.show {
+        display: flex;
+    }
+
+
+    /* Navigation */
+
+    .cv-navbar .navbar-nav {
+        width: 100%;
+
+        align-items: stretch;
+
+        gap: 4px;
+
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+
+    .cv-navbar .nav-link {
+        width: 100%;
+
+        justify-content: flex-start;
+
+        padding: 12px 14px !important;
+    }
+
+
+    /* CTA */
+
+    .nav-cta {
+        width: 100%;
+
+        margin: 12px 0 0;
+    }
+
+
+    .btn-start {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 575.98px) {
+
+    .cv-navbar {
+        padding: 12px 0;
+    }
+
+
+    .cv-navbar .container {
+        padding-left: 16px;
+
+        padding-right: 16px;
+    }
+
+
+    /* Adjusted position values specifically for smaller screens */
+    .cv-navbar .navbar-collapse {
+        left: 16px;
+        right: 16px;
+        width: calc(100% - 32px);
+        margin-top: 8px;
+
+        padding: 11px;
+
+        border-radius: 13px;
+    }
+
+
+    .logo-box {
+        width: 38px;
+        height: 38px;
+
+        border-radius: 10px;
+    }
+
+
+    .logo-box img {
+        padding: 4px;
+    }
+
+
+    .logo-text {
+        font-size: 1.18rem;
+    }
+
+
+    .cv-toggler {
+        width: 42px;
+        height: 42px;
+
+        border-radius: 9px;
+    }
+
+
+    .cv-navbar .nav-link {
+        font-size: 0.9rem;
+
+        padding: 11px 12px !important;
+    }
+
+
+    .btn-start {
+        min-height: 44px;
+
+        font-size: 0.88rem;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .cv-navbar .container {
+        padding-left: 12px;
+
+        padding-right: 12px;
+    }
+    
+    .cv-navbar .navbar-collapse {
+        left: 12px;
+        right: 12px;
+        width: calc(100% - 24px);
+    }
+
+
+    .logo-box {
+        width: 36px;
+        height: 36px;
+    }
+
+
+    .logo-text {
+        font-size: 1.08rem;
+    }
+
+
+    .cv-toggler {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+    }
+}
+
+/* =====================================================
+   CAREERPILOT — HERO COMPONENT CORE ARCHITECTURE STYLES
+========================================================= */
+.ai-review-hero {
+    position: relative;
+    padding: 80px 0 100px; 
+    background-color: #080D16;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+/* Background Ambient Glow & Grid Filters */
+.ai-hero-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+.ai-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.25;
+}
+.ai-glow-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #E85D3F; }
+.ai-glow-2 { bottom: -20%; right: -5%; width: 600px; height: 600px; background: #F08A4B; }
+.ai-glow-3 { top: 30%; left: 50%; width: 400px; height: 400px; background: rgba(232, 93, 63, 0.4); }
+
+.ai-grid {
+    position: absolute;
+    width: 100%; height: 100%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Left Typography Column Panels */
+.ai-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(232, 93, 63, 0.08);
+    border: 1px solid rgba(232, 93, 63, 0.2);
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #F08A4B;
+    margin-bottom: 24px;
+}
+.status-dot {
+    width: 6px; height: 6px;
+    background-color: #E85D3F;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #E85D3F;
+}
+.ai-hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+.ai-hero-title span {
+    background: linear-gradient(135deg, #E85D3F, #F08A4B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.ai-hero-description {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.6;
+    margin-bottom: 35px;
+    max-width: 520px;
+}
+
+/* High Performance Hyper-Interactive UI Buttons */
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.btn-primary-glow {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #E85D3F, #F08A4B);
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s;
+    box-shadow: 0 4px 20px rgba(232, 93, 63, 0.3);
+}
+.btn-primary-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(232, 93, 63, 0.5);
+    color: #fff;
+}
+.hero-review-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s, border 0.3s, transform 0.2s;
+}
+.hero-review-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(232, 93, 63, 0.4);
+    transform: translateY(-2px);
+    color: #fff;
+}
+
+/* File Upload Display Panel HUD */
+.selected-cv {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    max-width: 450px;
+    margin-top: 15px;
+}
+.selected-cv-icon i { font-size: 28px; color: #E85D3F; }
+.selected-cv-info { flex-grow: 1; display: flex; flex-direction: column; }
+.selected-cv-info strong { font-size: 14px; color: #ffffff; }
+.selected-cv-info small { font-size: 12px; color: rgba(255, 255, 255, 0.4); }
+.remove-file { background: none; border: none; color: rgba(255, 255, 255, 0.4); transition: color 0.2s; }
+.remove-file:hover { color: #E85D3F; }
+
+/* Right Graphics Console Layout Panel */
+.ai-scanner-wrapper { position: relative; padding: 20px 0; }
+.scanner-floating-label {
+    position: absolute;
+    top: 0; left: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    background: #0d1527;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5);
+    z-index: 10;
+}
+.floating-dot { width: 5px; height: 5px; background: #83D5A4; border-radius: 50%; box-shadow: 0 0 8px #83D5A4; }
+
+.ai-scanner-card {
+    position: relative;
+    background: rgba(13, 21, 39, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 30px;
+    backdrop-filter: blur(20px);
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+}
+.scanner-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.scanner-title { display: flex; gap: 12px; align-items: center; }
+.scanner-icon { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(232,93,63,0.1); border-radius: 8px; color: #E85D3F; }
+.scanner-title span { font-size: 14px; font-weight: 600; display: block; }
+.scanner-title small { font-size: 11px; color: rgba(255,255,255,0.4); }
+.scanner-live { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; color: #83D5A4; }
+
+/* Score Section Circular ring tracks */
+.scanner-score-section { display: flex; gap: 24px; align-items: center; margin-bottom: 25px; }
+.score-ring {
+    position: relative;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, #0d1527 82%, transparent 0%), conic-gradient(#E85D3F var(--score-degrees, 280deg), rgba(255,255,255,0.06) 0);
+    display: flex; align-items: center; justify-content: center;
+}
+.score-ring-inner { text-align: center; display: flex; flex-direction: column; line-height: 1.1; }
+.score-ring-inner strong { font-size: 22px; font-weight: 800; }
+.score-ring-inner span { font-size: 11px; color: rgba(255,255,255,0.4); }
+.score-ring-inner small { font-size: 8px; font-weight: 700; color: #F08A4B; margin-top: 2px; }
+
+.score-info { flex-grow: 1; }
+.score-label { font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 700; }
+.score-info h3 { font-size: 16px; font-weight: 700; margin: 4px 0 8px; }
+.score-progress { width: 100%; height: 4px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
+.score-progress-bar { width: 78%; height: 100%; background: linear-gradient(90deg, #E85D3F, #F08A4B); transition: width 1s ease-in-out; }
+
+.scanner-line { height: 1px; background: rgba(255,255,255,0.06); margin-bottom: 25px; }
+
+/* Metrics Loading Bars Tracks */
+.analysis-list { display: flex; flex-direction: column; gap: 16px; }
+.analysis-heading { display: flex; justify-content: space-between; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+.analysis-heading span { color: rgba(255,255,255,0.7); }
+.analysis-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.04); border-radius: 10px; overflow: hidden; }
+.analysis-fill { display: block; height: 100%; background: #E85D3F; border-radius: 10px; }
+.warning-fill { background: #F08A4B; }
+
+/* Micro Floating Interaction UI Stat Badges */
+.scanner-floating-card {
+    position: absolute;
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 18px;
+    background: rgba(13, 21, 39, 0.85);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+    z-index: 12;
+}
+.scanner-floating-card i { font-size: 20px; color: #F08A4B; }
+.scanner-floating-card div { display: flex; flex-direction: column; line-height: 1.2; }
+.scanner-floating-card strong { font-size: 15px; font-weight: 700; }
+.scanner-floating-card span { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+.floating-card-1 { bottom: 40px; left: -40px; }
+.floating-card-2 { top: 60px; right: -40px; }
+
+/* Responsive Adaptability Breaks */
+@media (max-width: 991.98px) {
+    .ai-hero-title { font-size: 2.6rem; }
+    .floating-card-1, .floating-card-2 { position: static; margin-top: 15px; display: inline-flex; }
+    .ai-scanner-wrapper { margin-top: 40px; }
+}
+

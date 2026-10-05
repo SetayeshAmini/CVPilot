@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CVPilot | Create your CV</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+
+    <!-- AOS Animation -->
+    <link
+        href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+        rel="stylesheet"
+    >
+
+    <!-- Favicon -->
+    <link
+        rel="icon"
+        type="image/png"
+        href="LOGO/b9b70786-351e-4d10-bf0b-5dc078e55898-removebg-preview.png"
+    >
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="review.css">
+</head>
+
+
+<body>
+
+    <!-- ================= PARTICLES BACKGROUND ================= -->
+    <div id="particles-background"></div>
+
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar navbar-expand-lg cv-navbar" id="mainNavbar">
+
+        <div class="container">
+
+            <!-- LOGO -->
+            <a class="navbar-brand cv-logo" href="#">
+                <div class="logo-box">
+                    <img
+                        src="LOGO/b9b70786-351e-4d10-bf0b-5dc078e55898-removebg-preview.png"
+                        alt="CVPilot Logo"
+                    >
+                </div>
+                <span class="logo-text">
+                    CV<span>Pilot</span>
+                </span>
+            </a>
+
+
+            <!-- MOBILE MENU BUTTON -->
+           <button
+            class="navbar-toggler cv-toggler"
+            type="button"
+            id="navbarToggle"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+            aria-controls="navbarMenu"
+            >
+           <span></span>
+           <span></span>
+           <span></span>
+          </button>
+
+
+            <!-- NAVIGATION -->
+            <div
+                class="collapse navbar-collapse"
+                id="navbarMenu"
+            >
+
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="bi bi-house-door"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-file-earmark-plus"></i>
+                            <span>Build CV</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-book"></i>
+                            <span>CV Guide</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-stars"></i>
+                            <span>AI Review</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-info-circle"></i>
+                            <span>About</span>
+                        </a>
+                    </li>
+                </ul>
+
+
+                <!-- START BUILDING -->
+                <div class="nav-cta">
+                    <a href="#" class="btn-start">
+                        <span>Start Building</span>
+                        <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- =====================================================
+     CAREERPILOT — AI REVIEW HERO
+===================================================== -->
+<section class="ai-review-hero" id="ai-review-hero">
+
+    <!-- Ambient Animated Background Layer -->
+    <div class="ai-hero-bg" aria-hidden="true">
+        <span class="ai-glow ai-glow-1"></span>
+        <span class="ai-glow ai-glow-2"></span>
+        <span class="ai-glow ai-glow-3"></span>
+        <div class="ai-grid"></div>
+        <div class="ai-particle p1"></div>
+        <div class="ai-particle p2"></div>
+        <div class="ai-particle p3"></div>
+    </div>
+
+    <div class="container">
+        <div class="row align-items-center g-5">
+
+            <!-- LEFT CONTENT COLUMN -->
+            <div class="col-lg-6">
+                <div class="ai-hero-content">
+
+                    <!-- Premium Badge Status -->
+                    <div class="ai-status-badge" data-aos="fade-down" data-aos-duration="800">
+                        <span class="status-dot"></span>
+                        <i class="bi bi-stars"></i>
+                        <span>AI POWERED CV REVIEW</span>
+                    </div>
+
+                    <!-- Main Dynamic Typography Heading -->
+                    <h1 class="ai-hero-title" data-aos="fade-right" data-aos-delay="150" data-aos-duration="1000">
+                        Find What's <span>Holding Your CV Back.</span>
+                    </h1>
+
+                    <!-- Descriptive Subtext Context -->
+                    <p class="ai-hero-description" data-aos="fade-right" data-aos-delay="250">
+                        Get intelligent feedback on your CV and discover exactly what needs to improve before you apply for your next opportunity.
+                    </p>
+
+                    <!-- Interactive Action Triggers -->
+                    <div class="hero-buttons" data-aos="fade-right" data-aos-delay="350">
+                        <a href="#review-workspace" class="btn-primary-glow">
+                            <span>Build My CV</span> <i class="bi bi-arrow-right"></i>
+                        </a>
+                        <a href="#how-it-works" class="hero-review-btn">
+                            <i class="bi bi-stars"></i> <span>Start AI Review</span> <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Core Native File Uploader Hook -->
+                    <input type="file" id="cvFileInput" accept=".pdf,.doc,.docx" hidden>
+
+                    <!-- Feedback Display Logs -->
+                    <p class="ai-upload-error" id="uploadError" role="alert" aria-live="polite"></p>
+
+                    <!-- Visual Selected File Feedback HUD -->
+                    <div class="selected-cv" id="selectedCv" style="display: none;">
+                        <div class="selected-cv-icon">
+                            <i class="bi bi-file-earmark-pdf" id="selectedFileIcon"></i>
+                        </div>
+                        <div class="selected-cv-info">
+                            <strong id="selectedFileName">CV.pdf</strong>
+                            <small id="selectedFileSize">0 KB</small>
+                        </div>
+                        <button type="button" class="remove-file" id="removeFileBtn" aria-label="Remove selected file">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+
+                    <!-- Hidden Dynamic Processing Trigger -->
+                    <button type="button" class="btn ai-btn-analyze" id="analyzeCvBtn" hidden style="display: none;">
+                        <i class="bi bi-stars"></i> <span>Analyze My CV</span> <i class="bi bi-arrow-right"></i>
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: LIVE DATA DASHBOARD PREVIEW PANEL -->
+            <div class="col-lg-6">
+                <div class="ai-scanner-wrapper" data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1000">
+
+                    <!-- Floating Ambient UI Label Tracker -->
+                    <div class="scanner-floating-label label-top">
+                        <span class="floating-dot"></span> LIVE CV INTELLIGENCE
+                    </div>
+
+                    <!-- Main Dynamic 3D Interaction Card Console -->
+                    <div class="ai-scanner-card" id="aiScannerCard">
+
+                        
+                        <div class="scanner-header">
+                            <div class="scanner-title">
+                                <div class="scanner-icon"><i class="bi bi-cpu"></i></div>
+                                <div>
+                                    <span>AI CV Intelligence</span>
+                                    <small>Resume analysis interface</small>
+                                </div>
+                            </div>
+                            <div class="scanner-live"><span></span>LIVE</div>
+                        </div>
+
+                        <!-- Central Automated Score Metrics Ring System -->
+                        <div class="scanner-score-section">
+                            <div class="score-ring" id="scoreRing">
+                                <div class="score-ring-inner">
+                                    <strong id="scoreNumber">78</strong>
+                                    <span>/100</span>
+                                    <small>CV SCORE</small>
+                                </div>
+                            </div>
+                            <div class="score-info">
+                                <span class="score-label">Overall Score</span>
+                                <h3 id="scoreStatus">Good, but can be better</h3>
+                                <div class="score-progress">
+                                    <div class="score-progress-bar" id="scoreProgress"></div>
+                                </div>
+                                <small><strong id="aiStatusText">Ready to analyze</strong></small>
+                            </div>
+                        </div>
+
+                        <!-- Aesthetic Separation Rail -->
+                        <div class="scanner-line"></div>
+
+                        <!-- Category Percentage Loaders Section -->
+                        <div class="analysis-list" id="analysisListWrapper">
+                            <div class="analysis-item">
+                                <div class="analysis-content">
+                                    <div class="analysis-heading"><span>Structure</span><strong data-progress="92">92%</strong></div>
+                                    <div class="analysis-bar"><span class="analysis-fill" style="--progress: 92%;"></span></div>
+                                </div>
+                            </div>
+                            <div class="analysis-item">
+                                <div class="analysis-content">
+                                    <div class="analysis-heading"><span>Experience</span><strong data-progress="81">81%</strong></div>
+                                    <div class="analysis-bar"><span class="analysis-fill" style="--progress: 81%;"></span></div>
+                                </div>
+                            </div>
+                            <div class="analysis-item">
+                                <div class="analysis-content">
+                                    <div class="analysis-heading"><span>Skills</span><strong data-progress="64">64%</strong></div>
+                                    <div class="analysis-bar"><span class="analysis-fill warning-fill" style="--progress: 64%;"></span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Floating Ambient Micro-Insight Badges -->
+                    <div class="scanner-floating-card floating-card-1" data-aos="fade-right" data-aos-delay="650">
+                        <i class="bi bi-search"></i>
+                        <div><strong>4</strong><span>Issues Found</span></div>
+                    </div>
+                    <div class="scanner-floating-card floating-card-2" data-aos="fade-left" data-aos-delay="800">
+                        <i class="bi bi-lightbulb"></i>
+                        <div><strong>3</strong><span>AI Suggestions</span></div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+     <!-- ================= TSPARTICLES ================= -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@tsparticles/tsparticles@3/tsparticles.bundle.min.js">
+    </script>
+    
+    <!-- ================= BOOTSTRAP JS ================= -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- ================= AOS ================= -->
+    <script
+        src="https://unpkg.com/aos@2.3.4/dist/aos.js">
+    </script>
+
+    <!-- ================= CUSTOM JS ================= -->
+    <script src="review.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 700,
+            once: true
+        });
+    </script>
+
+    <!-- PDF.js library -->
+<script type="module">
+    import * as pdfjsLib from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs";
+
+    window.pdfjsLib = pdfjsLib;
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
+</script>
+
+<!-- Your JavaScript -->
+<script src="review.js" defer></script>
+
+</body>
+
+</html>
