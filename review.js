@@ -1051,14 +1051,7 @@ document.addEventListener("DOMContentLoaded", () => {
    GROQ API + AI CV REVIEW
 ========================================================= */
 
-const GROQ_API_KEY = "REMOVED_GROQ_KEY2EGGYoy7bzbB3SUkP58hWGdyb3FYyzpivZSagwSocTX76v0QboE1";
-
-const GROQ_API_URL =
-    "https://api.groq.com/openai/v1/chat/completions";
-
-const GROQ_MODEL =
-    "openai/gpt-oss-20b";
-
+const BACKEND_API_URL = "http://127.0.0.1:5000/api/analyze";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -1214,22 +1207,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /* =================================================
-           CHECK API KEY
-        ================================================= */
-
-        if (
-            !GROQ_API_KEY ||
-            GROQ_API_KEY.trim() === ""
-        ) {
-
-            alert(
-                "Please add your Groq API key in the JavaScript file."
-            );
-
-            return;
-        }
-
 
         /* =================================================
            SHOW LOADING
@@ -1379,56 +1356,20 @@ ${cvText}
                GROQ REQUEST
             ================================================= */
 
-            const response =
-                await fetch(
-                    GROQ_API_URL,
-                    {
+            const response = await fetch(
+               BACKEND_API_URL,
+            {
+               method: "POST",
 
-                        method: "POST",
+               headers: {
+                 "Content-Type": "application/json"
+               },
 
-                        headers: {
-
-                            "Content-Type":
-                                "application/json",
-
-                            "Authorization":
-                                `Bearer ${GROQ_API_KEY}`
-                        },
-
-                        body:
-                            JSON.stringify({
-
-                                model:
-                                    GROQ_MODEL,
-
-                                messages: [
-
-                                    {
-                                        role:
-                                            "system",
-
-                                        content:
-                                            "You are an expert professional CV reviewer. Return only valid JSON."
-                                    },
-
-                                    {
-                                        role:
-                                            "user",
-
-                                        content:
-                                            prompt
-                                    }
-
-                                ],
-
-                                temperature:
-                                    0.3,
-
-                                max_tokens:
-                                    2500
-                            })
-                    }
-                );
+               body: JSON.stringify({
+                   cv_text: prompt
+                })
+            }
+        );
 
 
             /* =================================================
