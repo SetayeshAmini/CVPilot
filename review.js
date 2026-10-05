@@ -422,17 +422,25 @@ document.addEventListener("DOMContentLoaded", () => {
         AOS.init({ duration: 900, easing: "ease-out-cubic", once: true });
     }
 
-    // Helper functions
+        // Helper functions
     function updateScoreRing(score) {
         if (!scoreRing) return;
         scoreRing.style.setProperty("--score-degrees", `${(score / 100) * 360}deg`);
     }
 
-    // 1. File Upload Selector Triggers
-    if (uploadBtn && fileInput) {
+    // 1. FIXED BUTTON: Start AI Review is now a normal button with dynamic smooth scrolling
+    if (uploadBtn) {
         uploadBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            fileInput.click();
+            e.preventDefault(); // Prevents page jumping or instant refreshing
+            
+            // Finds the main upload workspace anchor lower on your landing page
+            const targetWorkspace = document.getElementById("review-workspace");
+            if (targetWorkspace) {
+                targetWorkspace.scrollIntoView({ 
+                    behavior: "smooth", 
+                    block: "start" 
+                });
+            }
         });
     }
 
