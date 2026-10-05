@@ -3,6 +3,107 @@
    Client-side only. No API, no Firebase, no database,
    no localStorage / sessionStorage.
 ========================================================= */
+/* =========================================================
+   NAVBAR GLOBAL CONTROLLER (FIXED FOR ALL PAGES)
+========================================================= */
+document.addEventListener("DOMContentLoaded", () => {
+
+    const navbar = document.getElementById("mainNavbar");
+    const toggle = document.getElementById("navbarToggle");
+    const menu = document.getElementById("navbarMenu");
+
+    // Defensive check: If navbar element doesn't exist on the current page, skip quietly
+    if (!navbar || !toggle || !menu) {
+        return;
+    }
+
+    // Initialize Bootstrap Collapse Instance safely to isolate navigation events
+    let bsCollapse = null;
+    if (typeof bootstrap !== "undefined" && bootstrap.Collapse) {
+        bsCollapse = new bootstrap.Collapse(menu, { toggle: false });
+    }
+
+    const navLinks = document.querySelectorAll("#navbarMenu .nav-link");
+
+    /* --- NAVBAR SCROLL DETECTOR --- */
+    function navbarScroll() {
+        if (window.scrollY > 30) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    }
+
+    window.addEventListener("scroll", navbarScroll, { passive: true });
+    navbarScroll(); // Trigger instantly on load for layout safety
+
+    /* --- CLOSE MENU UTILITY --- */
+    function closeMenu() {
+        if (bsCollapse) {
+            bsCollapse.hide();
+        } else {
+            menu.classList.remove("show");
+        }
+        toggle.classList.remove("active");
+        toggle.setAttribute("aria-expanded", "false");
+    }
+
+    /* --- TOGGLE MOBILE INTERFACE CLICK --- */
+    toggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        const isOpen = menu.classList.contains("show");
+
+        if (isOpen) {
+            closeMenu();
+        } else {
+            if (bsCollapse) {
+                bsCollapse.show();
+            } else {
+                menu.classList.add("show");
+            }
+            toggle.classList.add("active");
+            toggle.setAttribute("aria-expanded", "true");
+        }
+    });
+
+    /* --- CLOSE MENU UPON LINK SELECTIONS --- */
+    navLinks.forEach(link => {
+        link.addEventListener("click", () => {
+            navLinks.forEach(item => item.classList.remove("active"));
+            link.classList.add("active");
+            closeMenu();
+        });
+    });
+
+    /* --- CLOSE ON CTA CLICK --- */
+    const startButton = document.querySelector(".btn-start");
+    if (startButton) {
+        startButton.addEventListener("click", () => closeMenu());
+    }
+
+    /* --- CLOSE OUTSIDE BOUNDS CLICK --- */
+    document.addEventListener("click", (event) => {
+        if (!navbar.contains(event.target) && menu.classList.contains("show")) {
+            closeMenu();
+        }
+    });
+
+    /* --- CLOSE MENU WITH ESCAPE KEY --- */
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && menu.classList.contains("show")) {
+            closeMenu();
+        }
+    });
+
+    /* --- RESIZE AUTO-RESET INFRASTRUCTURE --- */
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 991.98 && menu.classList.contains("show")) {
+            closeMenu();
+        }
+    });
+});
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
