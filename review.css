@@ -1213,3 +1213,366 @@ body > *:not(#particles-background) {
     margin-top: 5px;
 }
 
+/* =========================================================
+   AI ANALYSIS PANEL - FORCE VISIBLE AFTER ANALYSIS
+========================================================= */
+
+#reviewAnalysisPanel {
+    display: none;
+}
+
+#reviewAnalysisPanel.active-ai-panel {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* =========================================================
+   REVIEW WORKSPACE
+   AI PANEL BELOW CV PANEL
+========================================================= */
+
+.review-workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+
+/* CV INPUT PANEL */
+
+.review-input-panel {
+    width: 100%;
+}
+
+
+/* AI ANALYSIS PANEL */
+
+.review-analysis-panel {
+    display: flex !important;
+    width: 100%;
+    flex-direction: column;
+}
+
+
+/* Make sure AI panel stays below */
+
+.review-input-panel,
+.review-analysis-panel {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+/* =========================================================
+   AI ANALYSIS RESULT
+========================================================= */
+
+#aiAnalysisResultBox {
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 18px 22px;
+
+    background: rgba(12, 21, 34, 0.92);
+
+    border: 1px solid rgba(232, 93, 63, 0.16);
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.18);
+
+    max-height: 380px;
+
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+#aiAnalysisResultBox::-webkit-scrollbar {
+    width: 4px;
+}
+
+#aiAnalysisResultBox::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#aiAnalysisResultBox::-webkit-scrollbar-thumb {
+    background: rgba(232, 93, 63, 0.35);
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.ai-analysis-content {
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.ai-analysis-label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin: 0 0 10px 0;
+
+    padding: 0;
+
+    color: #E85D3F;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    line-height: 1.2;
+
+    text-transform: uppercase;
+}
+
+.ai-analysis-label i {
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TEXT CONTAINER
+========================================================= */
+
+.ai-analysis-text {
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.ai-report-intro {
+    display: block;
+
+    margin: 0 0 8px 0;
+
+    padding: 0;
+
+    color: #c5cfdb;
+
+    font-size: 13.5px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   EACH REPORT LINE
+========================================================= */
+
+.ai-report-line {
+    display: block;
+
+    width: 100%;
+
+    margin: 0 0 5px 0;
+
+    padding: 0;
+
+    color: #b9c5d3;
+
+    font-size: 13.5px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.ai-report-number {
+    color: #E85D3F;
+
+    font-weight: 700;
+
+    margin-right: 4px;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.ai-report-title {
+    color: #edf2f7;
+
+    font-weight: 600;
+
+    margin-right: 4px;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.ai-report-description {
+    color: #b9c5d3;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   EXTRA TEXT
+========================================================= */
+
+.ai-report-extra {
+    display: block;
+
+    margin: 0 0 5px 0;
+
+    padding: 0;
+
+    color: #b9c5d3;
+
+    font-size: 13.5px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   REMOVE DEFAULT SPACING FROM EVERYTHING INSIDE
+========================================================= */
+
+#aiAnalysisResultBox p,
+#aiAnalysisResultBox div,
+#aiAnalysisResultBox span,
+#aiAnalysisResultBox strong {
+    margin-top: 0;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    #aiAnalysisResultBox {
+        margin-top: 16px;
+
+        padding: 16px 17px;
+
+        max-height: 450px;
+    }
+
+    .ai-report-intro,
+    .ai-report-line,
+    .ai-report-extra {
+        font-size: 13px;
+
+        line-height: 1.55;
+    }
+
+    .ai-analysis-label {
+        margin-bottom: 9px;
+    }
+}
+/* ⚡ تیر خلاص برای فشرده‌سازی تمام تگ‌ها و فضاهای خالی پنهان درون باکس هوش مصنوعی ⚡ */
+#aiAnalysisResultBox, 
+#aiAnalysisResultBox * {
+    margin-top: 0 !important;
+    margin-bottom: 2px !important; /* فشرده‌سازی اجباری فاصله تمام خطوط به ۲ پیکسل */
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: 1.4 !important; /* منسجم کردن ارتفاع خطوط */
+    white-space: normal !important; /* تبدیل متن گسسته به پاراگراف‌های چسبیده و روان */
+}
+
+/* فیکس کردن فاصله عنوان ابتدایی باکس */
+#aiAnalysisResultBox div {
+    margin-bottom: 6px !important;
+}
+
+/* =========================================================
+   CAREERPILOT — WHAT OUR AI REVIEWS COMPONENT STYLES
+========================================================= */
+.ai-review-details { position: relative; padding: 100px 0; background-color: #080D16; overflow: hidden; color: #ffffff; }
+.details-bg { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; }
+.details-glow { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.15; }
+.details-glow-1 { top: 10%; left: -10%; width: 500px; height: 500px; background: #E85D3F; }
+.details-glow-2 { bottom: -15%; right: -5%; width: 550px; height: 550px; background: #F08A4B; }
+.details-grid { position: absolute; width:100%; height:100%; background-image: linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px); background-size: 45px 45px; }
+
+.details-heading { text-align: center; margin-bottom: 60px; }
+.details-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; color: #F08A4B; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+.details-eyebrow span { width: 15px; height: 1px; background: #F08A4B; }
+.details-heading h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+.details-heading h2 span { background: linear-gradient(135deg, #E85D3F, #F08A4B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.details-heading p { color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto; font-size: 1.05rem; }
+
+.review-categories { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.review-category { width: 100%; padding: 18px 24px; text-align: left; background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 16px; color: rgba(255,255,255,0.5); cursor: pointer; display: flex; align-items: center; gap: 18px; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
+.review-category:hover { background: rgba(255, 255, 255, 0.03); transform: translateX(5px); border-color: rgba(255,255,255,0.08); }
+.category-number { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.25); }
+.category-icon { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(255,255,255,0.03); border-radius: 10px; font-size: 16px; color: rgba(255,255,255,0.4); }
+.category-content { display: flex; flex-direction: column; flex-grow: 1; line-height: 1.25; }
+.category-content strong { font-size: 15px; color: rgba(255,255,255,0.85); }
+.category-content span { font-size: 12px; color: rgba(255,255,255,0.38); margin-top: 3px; }
+.category-arrow { font-size: 14px; color: rgba(255,255,255,0.15); transition: all 0.25s; }
+.review-category:hover .category-arrow { color: #F08A4B; transform: translate(2px, -2px); }
+
+.review-category.active { background: rgba(232, 93, 63, 0.04); border-color: rgba(232, 93, 63, 0.25); }
+.review-category.active .category-icon { background: rgba(232, 93, 63, 0.1); color: #E85D3F; }
+.review-category.active .category-content strong { color: #F08A4B; }
+
+.review-preview-wrapper { position: relative; width: 100%; }
+.preview-ai-label { position: absolute; top: -12px; left: 25px; display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; background: #080d16; border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; font-size: 10px; font-weight: 700; color: #F08A4B; letter-spacing: 1px; z-index: 5; }
+.ai-pulse-dot { width: 5px; height: 5px; background: #E85D3F; border-radius: 50%; box-shadow: 0 0 8px #E85D3F; }
+
+.review-preview { background: rgba(13, 21, 39, 0.6); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 24px; padding: 35px; backdrop-filter: blur(20px); display: flex; flex-direction: column; gap: 24px; }
+.preview-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 16px; }
+.preview-small-title { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 0.5px; }
+.preview-top h3 { font-size: 16px; font-weight: 700; margin: 2px 0 0 0; }
+.preview-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: rgba(131,213,164,0.1); border-radius: 20px; font-size: 10px; font-weight: 700; color: #83D5A4; }
+
+.preview-score-area { display: flex; gap: 20px; align-items: center; background: rgba(0,0,0,0.15); border-radius: 16px; padding: 18px; border: 1px solid rgba(255,255,255,0.02); }
+.mini-score-ring { width: 64px; height: 64px; border-radius: 50%; background: #0d1527; border: 4px solid #E85D3F; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(232,93,63,0.15); }
+.mini-score-inner { display: flex; align-items: baseline; line-height: 1; }
+.mini-score-inner strong { font-size: 18px; font-weight: 800; }
+.mini-score-inner span { font-size: 10px; color: rgba(255,255,255,0.4); }
+.score-description span { font-size: 10px; color: #F08A4B; font-weight: 700; letter-spacing: 0.5px; }
+.score-description h4 { font-size: 15px; font-weight: 700; margin: 2px 0 4px; }
+.score-description p { font-size: 12px; color: rgba(255,255,255,0.5); margin: 0; line-height: 1.4; }
+
+.preview-metrics { display: flex; flex-direction: column; gap: 14px; }
+.metric-header { display: flex; justify-content: space-between; font-size: 12px; font-weight: 500; margin-bottom: 5px; color: rgba(255,255,255,0.6); }
+.metric-track { width: 100%; height: 5px; background: rgba(255,255,255,0.04); border-radius: 10px; overflow: hidden; }
+.metric-track span { display: block; height: 100%; background: linear-gradient(90deg, #E85D3F, #F08A4B); border-radius: 10px; transition: width 1s ease-out; }
+
+.ai-recommendation { display: flex; gap: 14px; padding: 14px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: 12px; }
+.recommendation-icon i { font-size: 18px; color: #F08A4B; }
+.ai-recommendation span { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.4); display: block; margin-bottom: 2px; }
+.ai-recommendation p { font-size: 12px; color: rgba(255,255,255,0.6); margin: 0; line-height: 1.4; }

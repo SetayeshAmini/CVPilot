@@ -460,6 +460,130 @@
     </div>
 </section>
 
+<!-- =========================================================
+     CAREERPILOT — WHAT OUR AI REVIEWS (SECTION 3)
+========================================================= -->
+<section class="ai-review-details" id="ai-review-details">
+
+    <!-- Ambient Grid & High-End Neon Glow Background -->
+    <div class="details-bg" aria-hidden="true">
+        <div class="details-glow details-glow-1"></div>
+        <div class="details-glow details-glow-2"></div>
+        <div class="details-grid"></div>
+    </div>
+
+    <div class="container">
+
+        <!-- Section Header -->
+        <div class="details-heading" data-aos="fade-up" data-aos-duration="900">
+            <span class="details-eyebrow"><span></span> WHAT OUR AI REVIEWS</span>
+            <h2>Your CV has more <span>potential than you think.</span></h2>
+            <p>Our AI examines the structure, content and impact of your CV to find what could be holding you back from your target roles.</p>
+        </div>
+
+        <!-- Main Content Split Grid -->
+        <div class="row align-items-center g-5">
+
+            <!-- LEFT SIDE: INTERACTIVE CATEGORY TABS -->
+            <div class="col-lg-5">
+                <div class="review-categories" data-aos="fade-right" data-aos-duration="1000">
+
+                    <button class="review-category active" type="button" data-review="score">
+                        <div class="category-number">01</div>
+                        <div class="category-icon"><i class="bi bi-speedometer2"></i></div>
+                        <div class="category-content">
+                            <strong>Overall CV Score</strong>
+                            <span>Get a clear score based on the quality of your CV.</span>
+                        </div>
+                        <i class="bi bi-arrow-up-right category-arrow"></i>
+                    </button>
+
+                    <button class="review-category" type="button" data-review="ats">
+                        <div class="category-number">02</div>
+                        <div class="category-icon"><i class="bi bi-robot"></i></div>
+                        <div class="category-content">
+                            <strong>ATS Compatibility</strong>
+                            <span>Discover whether your CV is easy for ATS systems to read.</span>
+                        </div>
+                        <i class="bi bi-arrow-up-right category-arrow"></i>
+                    </button>
+
+                    <button class="review-category" type="button" data-review="skills">
+                        <div class="category-number">03</div>
+                        <div class="category-icon"><i class="bi bi-lightning-charge"></i></div>
+                        <div class="category-content">
+                            <strong>Skills & Keywords</strong>
+                            <span>Find missing skills and important keywords for your role.</span>
+                        </div>
+                        <i class="bi bi-arrow-up-right category-arrow"></i>
+                    </button>
+
+                    <button class="review-category" type="button" data-review="experience">
+                        <div class="category-number">04</div>
+                        <div class="category-icon"><i class="bi bi-briefcase"></i></div>
+                        <div class="category-content">
+                            <strong>Experience Impact</strong>
+                            <span>Improve how your experience and achievements are presented.</span>
+                        </div>
+                        <i class="bi bi-arrow-up-right category-arrow"></i>
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE: LIVE MATRIX CARD HUD DISPLAY -->
+            <div class="col-lg-7">
+                <div class="review-preview-wrapper" data-aos="fade-left" data-aos-delay="150" data-aos-duration="1000">
+
+                    <div class="preview-ai-label"><span class="ai-pulse-dot"></span><i class="bi bi-stars"></i> AI INSIGHT</div>
+
+                    <!-- Main Dynamic Preview Container -->
+                    <div class="review-preview" id="reviewPreview">
+                        
+                        <div class="preview-top">
+                            <div>
+                                <span class="preview-small-title">CURRENT ANALYSIS</span>
+                                <h3 id="previewTitle">Overall CV Score</h3>
+                            </div>
+                            <div class="preview-status"><i class="bi bi-check-circle-fill"></i> Analyzed</div>
+                        </div>
+
+                        <div class="preview-score-area">
+                            <div class="mini-score-ring">
+                                <div class="mini-score-inner"><strong id="previewScore">78</strong><span>/100</span></div>
+                            </div>
+                            <div class="score-description">
+                                <span id="previewLabel">GOOD FOUNDATION</span>
+                                <p id="previewDescription">Your CV has a solid foundation, but several areas could be improved.</p>
+                            </div>
+                        </div>
+
+                        <div class="preview-metrics">
+                            <div class="preview-metric">
+                                <div class="metric-header"><span>Content Quality</span><strong id="contentValue">82%</strong></div>
+                                <div class="metric-track"><span id="contentBar" style="width:82%"></span></div>
+                            </div>
+                            <div class="preview-metric">
+                                <div class="metric-header"><span>Relevance</span><strong id="relevanceValue">74%</strong></div>
+                                <div class="metric-track"><span id="relevanceBar" style="width:74%"></span></div>
+                            </div>
+                        </div>
+
+                        <div class="ai-recommendation">
+                            <div class="recommendation-icon"><i class="bi bi-lightbulb"></i></div>
+                            <div>
+                                <span>AI RECOMMENDATION</span>
+                                <p id="previewRecommendation">Add measurable achievements to your experience section.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
 
 
@@ -499,7 +623,7 @@
 </script>
 
 <!-- Your JavaScript -->
-<script src="review.js" defer></script>
+<script src="js/review.js" defer></script>
 
 </body>
 

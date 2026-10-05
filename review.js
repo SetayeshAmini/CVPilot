@@ -496,182 +496,2237 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /* =========================================================
-   CAREERPILOT — WORKSPACE DYNAMIC PIPELINE HUD CONTROLLER
+   CAREERPILOT AI CV REVIEW
 ========================================================= */
-let dynamicWorkspaceFileObject = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-    const workspaceSection = document.querySelector(".review-workspace-section");
-    if (!workspaceSection) return;
 
-    // Grid System Core Elements
-    const workspaceWrapper = workspaceSection.querySelector(".review-workspace");
-    const rightAnalysisPanel = workspaceSection.querySelector("#reviewAnalysisPanel");
+    /* =====================================================
+       GLOBAL STATE
+    ===================================================== */
 
-    // Inputs selectors
-    const tabs = workspaceSection.querySelectorAll('.review-tab');
-    const tabContents = workspaceSection.querySelectorAll('.review-tab-content');
-    const fileInput = workspaceSection.querySelector('#cvFileInputWorkspace');
-    const browseBtn = workspaceSection.querySelector('#browseCV');
-    const cvDropzone = workspaceSection.querySelector('#cvDropzone');
-    const selectedCvSection = workspaceSection.querySelector('#selectedCVWorkspace');
-    const removeCvBtn = workspaceSection.querySelector('#removeCVWorkspace');
-    const cvTextInput = workspaceSection.querySelector('#cvTextInputWorkspace');
-    const characterCount = workspaceSection.querySelector('#characterCountWorkspace');
-    const analyzeBtn = workspaceSection.querySelector('#analyzeCVWorkspaceBtn');
+    let workspaceUploadedFileObject = null;
+    let workspaceExtractedCVText = "";
 
-    // Dashboard Result Selectors
-    const previewStatusLabel = workspaceSection.querySelector('#previewStatusLabel');
-    const workspaceScoreNumber = workspaceSection.querySelector('#workspaceScoreNumber');
-    const workspaceScoreStatus = workspaceSection.querySelector('#workspaceScoreStatus');
-    const workspaceScoreDescription = workspaceSection.querySelector('#workspaceScoreDescription');
-    const scoreCircle = workspaceSection.querySelector('#workspaceScoreProgressCircle');
-    const aiAnalysisResultBox = workspaceSection.querySelector('#aiAnalysisResultBox');
 
-    // Sub progress bars
-    const structureBar = workspaceSection.querySelector('#structureProgressBarFill');
-    const structureText = workspaceSection.querySelector('#structurePercentageText');
-    const impactBar = workspaceSection.querySelector('#impactProgressBarFill');
-    const impactText = workspaceSection.querySelector('#impactPercentageText');
-    const keywordsBar = workspaceSection.querySelector('#keywordsProgressBarFill');
-    const keywordsText = workspaceSection.querySelector('#keywordsPercentageText');
+    /* =====================================================
+       MAIN ELEMENTS
+    ===================================================== */
 
-    /* --- TABS SYSTEM --- */
+    const workspace = document.querySelector("#review-workspace");
+
+    if (!workspace) {
+        console.error("Review workspace not found.");
+        return;
+    }
+
+    const tabs = workspace.querySelectorAll(".review-tab");
+    const tabContents = workspace.querySelectorAll(".review-tab-content");
+
+    const fileInput =
+        workspace.querySelector("#cvFileInputWorkspace");
+
+    const browseBtn =
+        workspace.querySelector("#browseCV");
+
+    const dropzone =
+        workspace.querySelector("#cvDropzone");
+
+    const selectedCV =
+        workspace.querySelector("#selectedCVWorkspace");
+
+    const removeCVBtn =
+        workspace.querySelector("#removeCVWorkspace");
+
+    const selectedFileName =
+        workspace.querySelector("#selectedFileNameWorkspace");
+
+    const selectedFileSize =
+        workspace.querySelector("#selectedFileSizeWorkspace");
+
+    const textInput =
+        workspace.querySelector("#cvTextInputWorkspace");
+
+    const characterCounter =
+        workspace.querySelector("#characterCountWorkspace");
+
+    const analyzeBtn =
+        workspace.querySelector("#analyzeCVWorkspaceBtn");
+
+    const analysisPanel =
+        workspace.querySelector("#reviewAnalysisPanel");
+
+    const workspaceContainer =
+        workspace.querySelector(".review-workspace");
+
+
+    /* =====================================================
+       TAB SYSTEM
+    ===================================================== */
+
     tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
-            tab.classList.add('active');
-            const target = workspaceSection.querySelector(`#${tab.dataset.tab}Content`);
-            if (target) target.classList.add('active');
+
+        tab.addEventListener("click", () => {
+
+            tabs.forEach(item => {
+                item.classList.remove("active");
+            });
+
+            tabContents.forEach(content => {
+                content.classList.remove("active");
+            });
+
+            tab.classList.add("active");
+
+            const targetTab = tab.dataset.tab;
+
+            const targetContent =
+                workspace.querySelector(`#${targetTab}Content`);
+
+            if (targetContent) {
+                targetContent.classList.add("active");
+            }
+
         });
+
     });
 
-    if (cvTextInput && characterCount) {
-        cvTextInput.addEventListener('input', () => {
-            characterCount.innerText = `${cvTextInput.value.length.toLocaleString()} characters`;
+
+    /* =====================================================
+       CHARACTER COUNTER
+    ===================================================== */
+
+    if (textInput) {
+
+        textInput.addEventListener("input", () => {
+
+            const length = textInput.value.length;
+
+            if (characterCounter) {
+                characterCounter.textContent =
+                    `${length.toLocaleString()} characters`;
+            }
+
         });
+
     }
 
-    /* --- NATIVE BAR ACTIONS --- */
-    if (browseBtn && fileInput) browseBtn.addEventListener('click', () => fileInput.click());
-    if (fileInput) fileInput.addEventListener('change', () => { if (fileInput.files.length > 0) processSelectedFile(fileInput.files[0]); });
 
-    if (cvDropzone) {
-        ['dragenter', 'dragover'].forEach(n => cvDropzone.addEventListener(n, (e) => { e.preventDefault(); cvDropzone.classList.add('dragover'); }));
-        ['dragleave', 'drop'].forEach(n => cvDropzone.addEventListener(n, (e) => { e.preventDefault(); cvDropzone.classList.remove('dragover'); }));
-        cvDropzone.addEventListener('drop', (e) => { e.preventDefault(); if (e.dataTransfer.files.length > 0) processSelectedFile(e.dataTransfer.files[0]); });
-    }
+    /* =====================================================
+       BROWSE BUTTON
+    ===================================================== */
 
-    if (removeCvBtn) {
-        removeCvBtn.addEventListener('click', () => {
-            dynamicWorkspaceFileObject = null;
-            if (fileInput) fileInput.value = "";
-            if (cvDropzone) cvDropzone.style.display = 'block';
-            if (selectedCvSection) selectedCvSection.style.display = 'none';
+    if (browseBtn && fileInput) {
+
+        browseBtn.addEventListener("click", () => {
+            fileInput.click();
         });
+
     }
 
-    function processSelectedFile(file) {
-        const ext = file.name.split('.').pop().toLowerCase();
-        if (ext !== 'pdf' && ext !== 'txt') return alert("Please select a valid PDF or TXT document.");
-        dynamicWorkspaceFileObject = file;
-        const nameEl = workspaceSection.querySelector('#selectedFileNameWorkspace');
-        const sizeEl = workspaceSection.querySelector('#selectedFileSizeWorkspace');
-        if (nameEl) nameEl.innerText = file.name;
-        if (sizeEl) sizeEl.innerText = `${(file.size / (1024 * 1024)).toFixed(2)} MB · Ready`;
-        if (cvDropzone) cvDropzone.style.display = 'none';
-        if (selectedCvSection) selectedCvSection.style.display = 'flex';
+
+    /* =====================================================
+       FILE INPUT
+    ===================================================== */
+
+    if (fileInput) {
+
+        fileInput.addEventListener("change", async () => {
+
+            const file = fileInput.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            await handleSelectedFile(file);
+
+        });
+
     }
 
-    /* --- CONNECTION AND REVEAL REACTION PIPELINE --- */
-    if (analyzeBtn) {
-        analyzeBtn.addEventListener('click', async () => {
-            const API_KEY = "REMOVED_GROQ_KEYu49FPYrk3Cu4xRGqt36AWGdyb3FYDR7D5aqAztPQtvWJEsmLQlrD";
-            const isUploadTab = workspaceSection.querySelector('#uploadContent').classList.contains('active');
-            let cvText = "";
 
-            if (isUploadTab && !dynamicWorkspaceFileObject) return alert('Please upload your CV file first.');
-            if (!isUploadTab && (!cvTextInput || cvTextInput.value.trim() === "")) return alert('Please paste your CV text first.');
+    /* =====================================================
+       DRAG & DROP
+    ===================================================== */
 
-            const defaultText = analyzeBtn.querySelector('.analyze-default');
-            const loadingText = analyzeBtn.querySelector('.analyze-loading');
-            if (defaultText && loadingText) { defaultText.style.display = 'none'; loadingText.style.display = 'inline-flex'; }
+    if (dropzone) {
+
+        dropzone.addEventListener("dragover", event => {
+
+            event.preventDefault();
+
+            dropzone.classList.add("dragover");
+
+        });
+
+
+        dropzone.addEventListener("dragleave", event => {
+
+            event.preventDefault();
+
+            dropzone.classList.remove("dragover");
+
+        });
+
+
+        dropzone.addEventListener("drop", async event => {
+
+            event.preventDefault();
+
+            dropzone.classList.remove("dragover");
+
+            const file =
+                event.dataTransfer.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            await handleSelectedFile(file);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       HANDLE SELECTED FILE
+    ===================================================== */
+
+    async function handleSelectedFile(file) {
+
+        const fileExtension =
+            file.name.split(".").pop().toLowerCase();
+
+
+        /* ---------------------------------------------
+           ALLOWED FILE TYPES
+        --------------------------------------------- */
+
+        const allowedTypes = [
+            "pdf",
+            "doc",
+            "docx"
+        ];
+
+        if (!allowedTypes.includes(fileExtension)) {
+
+            alert(
+                "Please select a PDF, DOC or DOCX file."
+            );
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           MAX FILE SIZE = 10MB
+        --------------------------------------------- */
+
+        const maxSize =
+            10 * 1024 * 1024;
+
+        if (file.size > maxSize) {
+
+            alert(
+                "The maximum file size is 10MB."
+            );
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           SAVE FILE
+        --------------------------------------------- */
+
+        workspaceUploadedFileObject = file;
+
+
+        /* ---------------------------------------------
+           SHOW FILE INFORMATION
+        --------------------------------------------- */
+
+        if (selectedFileName) {
+            selectedFileName.textContent =
+                file.name;
+        }
+
+        if (selectedFileSize) {
+
+            const sizeMB =
+                (file.size / 1024 / 1024).toFixed(2);
+
+            selectedFileSize.textContent =
+                `${sizeMB} MB · Ready for analysis`;
+
+        }
+
+
+        /* ---------------------------------------------
+           CHANGE UI
+        --------------------------------------------- */
+
+        if (dropzone) {
+            dropzone.style.display = "none";
+        }
+
+        if (selectedCV) {
+            selectedCV.style.display = "flex";
+        }
+
+
+        /* ---------------------------------------------
+           READ FILE
+        --------------------------------------------- */
+
+        try {
+
+            setPreviewStatus("READING");
+
+            if (fileExtension === "pdf") {
+
+                workspaceExtractedCVText =
+                    await extractPDFText(file);
+
+            }
+
+            else if (
+                fileExtension === "doc" ||
+                fileExtension === "docx"
+            ) {
+
+                /*
+                   DOC / DOCX cannot be read by PDF.js.
+
+                   For the current test version,
+                   the browser keeps the file selected.
+
+                   We can add DOCX extraction later
+                   without changing the UI.
+                */
+
+                workspaceExtractedCVText = "";
+
+                setPreviewStatus("FILE READY");
+
+                return;
+            }
+
+
+            /* -----------------------------------------
+               CLEAN EXTRACTED TEXT
+            ----------------------------------------- */
+
+            workspaceExtractedCVText =
+                workspaceExtractedCVText.trim();
+
+
+            if (!workspaceExtractedCVText) {
+
+                throw new Error(
+                    "No readable text was found."
+                );
+
+            }
+
+
+            /* -----------------------------------------
+               ALSO PUT TEXT INTO TEXTAREA
+            ----------------------------------------- */
+
+            if (textInput) {
+
+                textInput.value =
+                    workspaceExtractedCVText;
+
+                textInput.dispatchEvent(
+                    new Event("input", {
+                        bubbles: true
+                    })
+                );
+
+            }
+
+
+            setPreviewStatus("READY");
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "File reading error:",
+                error
+            );
+
+            workspaceExtractedCVText = "";
+
+            setPreviewStatus("ERROR");
+
+            alert(
+                "We could not read this PDF. Please make sure the PDF contains selectable text."
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       PDF TEXT EXTRACTION
+    ===================================================== */
+
+    async function extractPDFText(file) {
+
+        if (typeof pdfjsLib === "undefined") {
+
+            throw new Error(
+                "PDF.js is not loaded."
+            );
+
+        }
+
+
+        const arrayBuffer =
+            await file.arrayBuffer();
+
+
+        const pdf =
+            await pdfjsLib
+                .getDocument({
+                    data: arrayBuffer
+                })
+                .promise;
+
+
+        let fullText = "";
+
+
+        for (
+            let pageNumber = 1;
+            pageNumber <= pdf.numPages;
+            pageNumber++
+        ) {
+
+            const page =
+                await pdf.getPage(pageNumber);
+
+
+            const textContent =
+                await page.getTextContent();
+
+
+            const pageText =
+                textContent.items
+                    .map(item => item.str)
+                    .join(" ");
+
+
+            fullText +=
+                pageText + "\n\n";
+
+        }
+
+
+        return fullText;
+
+    }
+
+
+    /* =====================================================
+       REMOVE SELECTED FILE
+    ===================================================== */
+
+    if (removeCVBtn) {
+
+        removeCVBtn.addEventListener("click", () => {
+
+            workspaceUploadedFileObject = null;
+
+            workspaceExtractedCVText = "";
+
+
+            if (fileInput) {
+                fileInput.value = "";
+            }
+
+
+            if (textInput) {
+                textInput.value = "";
+            }
+
+
+            if (characterCounter) {
+                characterCounter.textContent =
+                    "0 characters";
+            }
+
+
+            if (dropzone) {
+                dropzone.style.display = "block";
+            }
+
+
+            if (selectedCV) {
+                selectedCV.style.display = "none";
+            }
+
+
+            if (analysisPanel) {
+                analysisPanel.style.display = "none";
+            }
+
+
+            if (workspaceContainer) {
+                workspaceContainer.classList.remove(
+                    "active-results"
+                );
+            }
+
+
+            setPreviewStatus("READY");
+
+        });
+
+    }
+
+
+    /* =====================================================
+       PREVIEW STATUS
+    ===================================================== */
+
+    function setPreviewStatus(status) {
+
+        const statusElement =
+            workspace.querySelector(
+                "#previewStatusLabel"
+            );
+
+        if (!statusElement) {
+            return;
+        }
+
+
+        statusElement.innerHTML =
+            `<span></span>${status}`;
+
+    }
+
+
+    /* =====================================================
+       MAKE FUNCTIONS AVAILABLE FOR PART 2
+    ===================================================== */
+
+    window.CareerPilotWorkspace = {
+
+        getFile: () =>
+            workspaceUploadedFileObject,
+
+        getCVText: () =>
+            workspaceExtractedCVText,
+
+        getTextInput: () =>
+            textInput ? textInput.value.trim() : "",
+
+        getWorkspace: () =>
+            workspace,
+
+        getAnalyzeButton: () =>
+            analyzeBtn,
+
+        getAnalysisPanel: () =>
+            analysisPanel,
+
+        getWorkspaceContainer: () =>
+            workspaceContainer,
+
+        setStatus: setPreviewStatus
+
+    };
+
+});
+/* =========================================================
+   GROQ API + AI CV REVIEW
+========================================================= */
+
+const GROQ_API_KEY = "REMOVED_GROQ_KEY2EGGYoy7bzbB3SUkP58hWGdyb3FYyzpivZSagwSocTX76v0QboE1";
+
+const GROQ_API_URL =
+    "https://api.groq.com/openai/v1/chat/completions";
+
+const GROQ_MODEL =
+    "openai/gpt-oss-20b";
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const workspace =
+        document.querySelector("#review-workspace");
+
+    if (!workspace) {
+        console.error("Review workspace not found.");
+        return;
+    }
+
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const analyzeBtn =
+        workspace.querySelector("#analyzeCVWorkspaceBtn");
+
+    const analysisPanel =
+        workspace.querySelector("#reviewAnalysisPanel");
+
+    const workspaceContainer =
+        workspace.querySelector(".review-workspace");
+
+    const resultBox =
+        workspace.querySelector("#aiAnalysisResultBox");
+
+    const previewStatus =
+        workspace.querySelector("#previewStatusLabel");
+
+
+    if (!analyzeBtn) {
+        console.error("Analyze button not found.");
+        return;
+    }
+
+
+    /* =====================================================
+       FORCE CORRECT LAYOUT
+    ===================================================== */
+
+    if (workspaceContainer) {
+
+        workspaceContainer.style.setProperty(
+            "display",
+            "flex",
+            "important"
+        );
+
+        workspaceContainer.style.setProperty(
+            "flex-direction",
+            "column",
+            "important"
+        );
+
+        workspaceContainer.style.setProperty(
+            "gap",
+            "30px",
+            "important"
+        );
+
+        workspaceContainer.style.setProperty(
+            "width",
+            "100%",
+            "important"
+        );
+    }
+
+
+    /* =====================================================
+       AI PANEL ALWAYS VISIBLE
+    ===================================================== */
+
+    showAnalysisPanel();
+
+
+    /* =====================================================
+       RESET RESULT BOX LAYOUT
+    ===================================================== */
+
+    resetResultBox();
+
+
+    /* =====================================================
+       ANALYZE BUTTON
+    ===================================================== */
+
+    analyzeBtn.addEventListener(
+        "click",
+        analyzeCV
+    );
+
+
+    /* =====================================================
+       ANALYZE CV
+    ===================================================== */
+
+    async function analyzeCV() {
+
+        let cvText = "";
+
+
+        /* =================================================
+           GET CV TEXT
+        ================================================= */
+
+        if (
+            window.CareerPilotWorkspace &&
+            typeof window.CareerPilotWorkspace.getCVText ===
+            "function"
+        ) {
+
+            cvText =
+                window.CareerPilotWorkspace.getCVText();
+        }
+
+
+        /* =================================================
+           GET TEXTAREA TEXT
+        ================================================= */
+
+        const textarea =
+            workspace.querySelector(
+                "#cvTextInputWorkspace"
+            );
+
+        const textareaText =
+            textarea
+                ? textarea.value.trim()
+                : "";
+
+
+        if (textareaText.length > 0) {
+            cvText = textareaText;
+        }
+
+
+        /* =================================================
+           CHECK CV
+        ================================================= */
+
+        if (
+            !cvText ||
+            cvText.length < 30
+        ) {
+
+            alert(
+                "Please upload your CV or paste your CV text first."
+            );
+
+            return;
+        }
+
+
+        /* =================================================
+           CHECK API KEY
+        ================================================= */
+
+        if (
+            !GROQ_API_KEY ||
+            GROQ_API_KEY.trim() === ""
+        ) {
+
+            alert(
+                "Please add your Groq API key in the JavaScript file."
+            );
+
+            return;
+        }
+
+
+        /* =================================================
+           SHOW LOADING
+        ================================================= */
+
+        setLoading(true);
+
+        setStatus("ANALYZING");
+
+        showAnalysisPanel();
+
+        resetResultBox();
+
+
+        if (workspaceContainer) {
+
+            workspaceContainer.classList.add(
+                "active-results"
+            );
+        }
+
+
+        if (resultBox) {
+
+            resultBox.innerHTML = `
+
+                <div
+                    style="
+                        margin:0 !important;
+                        padding:0 !important;
+                        min-height:0 !important;
+                        height:auto !important;
+                        line-height:1.5 !important;
+                        display:flex !important;
+                        align-items:center !important;
+                        gap:8px !important;
+                        color:#b9c5d3 !important;
+                        font-size:13px !important;
+                    "
+                >
+
+                    <i class="bi bi-stars"></i>
+
+                    <span>
+                        CareerPilot AI is analyzing your CV...
+                    </span>
+
+                </div>
+
+            `;
+        }
+
+
+        try {
+
+
+            /* =================================================
+               PROMPT
+            ================================================= */
+
+            const prompt = `
+
+You are CareerPilot AI, a professional CV reviewer.
+
+Analyze the CV below.
+
+Return ONLY valid JSON.
+
+Use exactly:
+
+{
+    "score": 0,
+    "structure": 0,
+    "impact": 0,
+    "keywords": 0,
+    "status": "string",
+    "description": "string",
+    "analysis": "string"
+}
+
+Rules:
+
+score = 0-100
+structure = 0-100
+impact = 0-100
+keywords = 0-100
+
+The analysis must be compact and easy to read.
+
+Start with one short overall assessment.
+
+Then write numbered sections.
+
+IMPORTANT:
+Each numbered section MUST be on ONE SINGLE LINE.
+
+Use this exact style:
+
+1. Overall Quality: Your explanation here.
+
+2. Structure: Your explanation here.
+
+3. Professional Impact: Your explanation here.
+
+4. Keywords & ATS: Your explanation here.
+
+5. Skills: Your explanation here.
+
+6. Work Experience: Your explanation here.
+
+7. Education: Your explanation here.
+
+8. Missing or Weak Areas: Your explanation here.
+
+9. Recommended Improvements: Your explanation here.
+
+NEVER return:
+
+1.
+
+Overall Quality:
+
+Text here.
+
+NEVER put the number on a separate line.
+
+NEVER put the title on a separate line.
+
+Do not use Markdown.
+
+Do not use bullet points.
+
+Do not use **.
+
+Do not use ##.
+
+Keep the analysis concise.
+
+CV:
+
+${cvText}
+
+`;
+
+
+            /* =================================================
+               GROQ REQUEST
+            ================================================= */
+
+            const response =
+                await fetch(
+                    GROQ_API_URL,
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json",
+
+                            "Authorization":
+                                `Bearer ${GROQ_API_KEY}`
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                model:
+                                    GROQ_MODEL,
+
+                                messages: [
+
+                                    {
+                                        role:
+                                            "system",
+
+                                        content:
+                                            "You are an expert professional CV reviewer. Return only valid JSON."
+                                    },
+
+                                    {
+                                        role:
+                                            "user",
+
+                                        content:
+                                            prompt
+                                    }
+
+                                ],
+
+                                temperature:
+                                    0.3,
+
+                                max_tokens:
+                                    2500
+                            })
+                    }
+                );
+
+
+            /* =================================================
+               CHECK RESPONSE
+            ================================================= */
+
+            if (!response.ok) {
+
+                const errorText =
+                    await response.text();
+
+                console.error(
+                    "GROQ STATUS:",
+                    response.status
+                );
+
+                console.error(
+                    "GROQ ERROR:",
+                    errorText
+                );
+
+                throw new Error(
+                    `Groq API Error ${response.status}: ${errorText}`
+                );
+            }
+
+
+            /* =================================================
+               READ RESPONSE
+            ================================================= */
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Groq Response:",
+                data
+            );
+
+
+            const aiMessage =
+                data?.choices?.[0]?.message?.content;
+
+
+            console.log(
+                "AI MESSAGE:",
+                aiMessage
+            );
+
+
+            if (!aiMessage) {
+
+                throw new Error(
+                    "No AI response was returned."
+                );
+            }
+
+
+            /* =================================================
+               CLEAN JSON
+            ================================================= */
+
+            let cleanedResponse =
+                aiMessage.trim();
+
+
+            cleanedResponse =
+                cleanedResponse
+                    .replace(
+                        /^```json\s*/i,
+                        ""
+                    )
+                    .replace(
+                        /^```\s*/i,
+                        ""
+                    )
+                    .replace(
+                        /\s*```$/i,
+                        ""
+                    )
+                    .trim();
+
+
+            /* =================================================
+               PARSE JSON
+            ================================================= */
+
+            let aiResult;
+
 
             try {
-                if (isUploadTab) {
-                    if (dynamicWorkspaceFileObject.name.toLowerCase().endsWith('.pdf')) {
-                        cvText = await parsePdfWorkspaceNode(dynamicWorkspaceFileObject);
-                    } else { cvText = await dynamicWorkspaceFileObject.text(); }
-                } else { cvText = cvTextInput.value.trim(); }
 
-                // HTTPS Server Connection Fetching
-                const response = await fetch("https://groq.com", {
-                    method: "POST",
-                    headers: { "Authorization": `Bearer ${API_KEY}`, "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        model: "llama-3.3-70b-specdec",
-                        messages: [
-                            { role: "system", content: "You are an expert HR manager. Critique this resume in English. List strengths and concrete practical improvements." },
-                            { role: "user", content: cvText }
-                        ],
-                        temperature: 0.7
-                    })
-                });
+                aiResult =
+                    JSON.parse(
+                        cleanedResponse
+                    );
 
-                const data = await response.json();
-                if (!response.ok) throw new Error(data?.error?.message || "Server Error.");
-
-                const reportString = data?.choices?.[0]?.message?.content;
-                if (!reportString) throw new Error("Empty model response.");
-
-                /* 🛠️ STEP 1: ANIMATE LAYOUT REVEAL FROM HIDE STATUS TO BLOCK GRID */
-                if (workspaceWrapper && rightAnalysisPanel) {
-                    rightAnalysisPanel.style.display = 'flex'; // Turn display on
-                    workspaceWrapper.classList.add('active-results'); // Fire grid expansion
-                    setTimeout(() => { rightAnalysisPanel.classList.add('reveal-active'); }, 50); // Fire opacity entry fade
-                }
-
-                /* 🛠️ STEP 2: LOAD DATA AND RUN METER RAILS ANIMATIONS */
-                if (aiAnalysisResultBox) aiAnalysisResultBox.innerText = reportString;
-                if (workspaceScoreNumber) workspaceScoreNumber.innerText = "84";
-                if (workspaceScoreStatus) workspaceScoreStatus.innerText = "Strong Foundation";
-                if (workspaceScoreDescription) workspaceScoreDescription.innerText = "Structural integrity matches premium HR compliance standards. View details below.";
-                if (scoreCircle) scoreCircle.style.strokeDashoffset = "50"; // Rotate progress circle
-
-                // Run progress bar loads dynamically
-                setTimeout(() => {
-                    if (structureBar) structureBar.setAttribute("style", "width: 86% !important");
-                    if (impactBar) impactBar.setAttribute("style", "width: 68% !important");
-                    if (keywordsBar) keywordsBar.setAttribute("style", "width: 74% !important");
-                }, 150);
-
-            } catch (err) {
-                alert("Error: " + err.message);
-            } finally {
-                if (defaultText && loadingText) { defaultText.style.display = 'inline-flex'; loadingText.style.display = 'none'; }
             }
-        });
+
+            catch (error) {
+
+                console.error(
+                    "INVALID AI JSON:",
+                    cleanedResponse
+                );
+
+                throw new Error(
+                    "The AI returned an invalid result."
+                );
+            }
+
+
+            console.log(
+                "FINAL AI RESULT:",
+                aiResult
+            );
+
+
+            /* =================================================
+               DISPLAY
+            ================================================= */
+
+            displayAIResults(
+                aiResult
+            );
+
+
+            setStatus(
+                "READY"
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "CareerPilot AI Error:",
+                error
+            );
+
+
+            setStatus(
+                "ERROR"
+            );
+
+
+            if (resultBox) {
+
+                resultBox.innerHTML = `
+
+                    <div
+                        style="
+                            margin:0 !important;
+                            padding:0 !important;
+                            min-height:0 !important;
+                            height:auto !important;
+                            color:#ff8b7a !important;
+                            font-size:13px !important;
+                            line-height:1.5 !important;
+                        "
+                    >
+
+                        <strong>
+                            Analysis failed
+                        </strong>
+
+                        <p
+                            style="
+                                margin:5px 0 0 0 !important;
+                                padding:0 !important;
+                            "
+                        >
+                            ${escapeAIHTML(
+                                error.message
+                            )}
+                        </p>
+
+                    </div>
+
+                `;
+            }
+
+
+            alert(
+                "AI analysis failed. Please check your API key and internet connection."
+            );
+        }
+
+        finally {
+
+            setLoading(false);
+        }
     }
+
+
+    /* =====================================================
+       SHOW ANALYSIS PANEL
+    ===================================================== */
+
+    function showAnalysisPanel() {
+
+        if (!analysisPanel) {
+            return;
+        }
+
+
+        analysisPanel.style.setProperty(
+            "display",
+            "flex",
+            "important"
+        );
+
+        analysisPanel.style.setProperty(
+            "visibility",
+            "visible",
+            "important"
+        );
+
+        analysisPanel.style.setProperty(
+            "opacity",
+            "1",
+            "important"
+        );
+
+        analysisPanel.style.setProperty(
+            "width",
+            "100%",
+            "important"
+        );
+
+        analysisPanel.style.setProperty(
+            "max-width",
+            "100%",
+            "important"
+        );
+
+        analysisPanel.style.setProperty(
+            "height",
+            "auto",
+            "important"
+        );
+
+        analysisPanel.style.setProperty(
+            "min-height",
+            "0",
+            "important"
+        );
+    }
+
+
+    /* =====================================================
+       RESET RESULT BOX
+    ===================================================== */
+     function resetResultBox() {
+    if (!resultBox) return;
+    resultBox.style.setProperty("max-height", "380px", "important");
+    resultBox.style.setProperty("margin-top", "20px", "important");
+    resultBox.style.setProperty("padding", "10px 15px", "important"); 
+    resultBox.style.setProperty("overflow-y", "auto", "important");
+}
+
+   
+    /* =====================================================
+       LOADING BUTTON
+    ===================================================== */
+
+    function setLoading(
+        isLoading
+    ) {
+
+        const defaultContent =
+            analyzeBtn.querySelector(
+                ".analyze-default"
+            );
+
+        const loadingContent =
+            analyzeBtn.querySelector(
+                ".analyze-loading"
+            );
+
+
+        analyzeBtn.disabled =
+            isLoading;
+
+
+        if (defaultContent) {
+
+            defaultContent.style.display =
+                isLoading
+                    ? "none"
+                    : "inline-flex";
+        }
+
+
+        if (loadingContent) {
+
+            loadingContent.style.display =
+                isLoading
+                    ? "inline-flex"
+                    : "none";
+        }
+    }
+
+
+    /* =====================================================
+       STATUS
+    ===================================================== */
+
+    function setStatus(
+        status
+    ) {
+
+        if (!previewStatus) {
+            return;
+        }
+
+
+        previewStatus.innerHTML =
+            `<span></span>${status}`;
+    }
+
 });
 
-/* --- CLIENT SIDE PDF PARSER NODE --- */
-async function parsePdfWorkspaceNode(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = async function (e) {
-            try {
-                const arr = new Uint8Array(e.target.result);
-                const pdf = await window.pdfjsLib.getDocument({ data: arr }).promise;
-                let text = "";
-                for (let i = 1; i <= pdf.numPages; i++) {
-                    const page = await pdf.getPage(i);
-                    const content = await page.getTextContent();
-                    text += content.items.map(item => item.str).join(" ") + "\n";
-                }
-                resolve(text.trim());
-            } catch (err) { reject(err); }
-        };
-        reader.readAsArrayBuffer(file);
-    });
+
+/* =========================================================
+   DISPLAY AI RESULTS
+========================================================= */
+
+function displayAIResults(
+    result
+) {
+
+    const workspace =
+        document.querySelector(
+            "#review-workspace"
+        );
+
+
+    if (!workspace) {
+        return;
+    }
+
+
+    const analysisPanel =
+        workspace.querySelector(
+            "#reviewAnalysisPanel"
+        );
+
+
+    const resultBox =
+        workspace.querySelector(
+            "#aiAnalysisResultBox"
+        );
+
+
+    /* =====================================================
+       FORCE PANEL
+    ===================================================== */
+
+    if (analysisPanel) {
+
+        analysisPanel.style.setProperty(
+            "display",
+            "flex",
+            "important"
+        );
+
+        analysisPanel.style.setProperty(
+            "visibility",
+            "visible",
+            "important"
+        );
+
+        analysisPanel.style.setProperty(
+            "opacity",
+            "1",
+            "important"
+        );
+
+        analysisPanel.style.setProperty(
+            "width",
+            "100%",
+            "important"
+        );
+
+        analysisPanel.style.setProperty(
+            "height",
+            "auto",
+            "important"
+        );
+
+        analysisPanel.style.setProperty(
+            "min-height",
+            "0",
+            "important"
+        );
+    }
+
+
+    /* =====================================================
+       SCORE ELEMENTS
+    ===================================================== */
+
+    const scoreNumber =
+        workspace.querySelector(
+            "#workspaceScoreNumber"
+        );
+
+    const scoreStatus =
+        workspace.querySelector(
+            "#workspaceScoreStatus"
+        );
+
+    const scoreDescription =
+        workspace.querySelector(
+            "#workspaceScoreDescription"
+        );
+
+    const scoreCircle =
+        workspace.querySelector(
+            "#workspaceScoreProgressCircle"
+        );
+
+
+    /* =====================================================
+       METRICS
+    ===================================================== */
+
+    const structureBar =
+        workspace.querySelector(
+            "#structureProgressBarFill"
+        );
+
+    const structureText =
+        workspace.querySelector(
+            "#structurePercentageText"
+        );
+
+    const impactBar =
+        workspace.querySelector(
+            "#impactProgressBarFill"
+        );
+
+    const impactText =
+        workspace.querySelector(
+            "#impactPercentageText"
+        );
+
+    const keywordsBar =
+        workspace.querySelector(
+            "#keywordsProgressBarFill"
+        );
+
+    const keywordsText =
+        workspace.querySelector(
+            "#keywordsPercentageText"
+        );
+
+
+    /* =====================================================
+       SCORES
+    ===================================================== */
+
+    const score =
+        normalizeScore(
+            result.score
+        );
+
+    const structure =
+        normalizeScore(
+            result.structure
+        );
+
+    const impact =
+        normalizeScore(
+            result.impact
+        );
+
+    const keywords =
+        normalizeScore(
+            result.keywords
+        );
+
+
+    /* =====================================================
+       SCORE
+    ===================================================== */
+
+    if (scoreNumber) {
+
+        animateScore(
+            scoreNumber,
+            score
+        );
+    }
+
+
+    if (scoreStatus) {
+
+        scoreStatus.textContent =
+            result.status ||
+            getScoreStatus(
+                score
+            );
+    }
+
+
+    if (scoreDescription) {
+
+        scoreDescription.textContent =
+            result.description ||
+            getScoreDescription(
+                score
+            );
+    }
+
+
+    updateScoreCircle(
+        scoreCircle,
+        score
+    );
+
+
+    /* =====================================================
+       METRICS
+    ===================================================== */
+
+    updateMetric(
+        structureBar,
+        structureText,
+        structure
+    );
+
+
+    updateMetric(
+        impactBar,
+        impactText,
+        impact
+    );
+
+
+    updateMetric(
+        keywordsBar,
+        keywordsText,
+        keywords
+    );
+
+
+    /* =====================================================
+       AI TEXT
+    ===================================================== */
+
+    if (resultBox) {
+
+        resetAnalysisBoxForFinalResult(
+            resultBox
+        );
+
+
+        resultBox.innerHTML =
+            formatAIAnalysis(
+                result.analysis ||
+                "No detailed analysis was returned."
+            );
+    }
 }
+
+
+/* =========================================================
+   RESET FINAL ANALYSIS BOX
+========================================================= */
+
+function resetAnalysisBoxForFinalResult(
+    box
+) {
+
+    box.style.setProperty(
+        "height",
+        "auto",
+        "important"
+    );
+
+    box.style.setProperty(
+        "min-height",
+        "0",
+        "important"
+    );
+
+    box.style.setProperty(
+        "max-height",
+        "380px",
+        "important"
+    );
+
+    box.style.setProperty(
+        "overflow-y",
+        "auto",
+        "important"
+    );
+}
+
+
+/* =========================================================
+   NORMALIZE SCORE
+========================================================= */
+
+function normalizeScore(
+    value
+) {
+
+    const number =
+        Number(value);
+
+
+    if (Number.isNaN(number)) {
+        return 0;
+    }
+
+
+    return Math.max(
+        0,
+        Math.min(
+            100,
+            Math.round(number)
+        )
+    );
+}
+
+
+/* =========================================================
+   ANIMATE SCORE
+========================================================= */
+
+function animateScore(
+    element,
+    target
+) {
+
+    const duration =
+        1000;
+
+    const startTime =
+        performance.now();
+
+
+    function update(
+        currentTime
+    ) {
+
+        const elapsed =
+            currentTime -
+            startTime;
+
+
+        const progress =
+            Math.min(
+                elapsed /
+                duration,
+                1
+            );
+
+
+        const current =
+            Math.floor(
+                progress *
+                target
+            );
+
+
+        element.textContent =
+            current;
+
+
+        if (
+            progress < 1
+        ) {
+
+            requestAnimationFrame(
+                update
+            );
+        }
+    }
+
+
+    requestAnimationFrame(
+        update
+    );
+}
+
+
+/* =========================================================
+   SCORE CIRCLE
+========================================================= */
+
+function updateScoreCircle(
+    circle,
+    score
+) {
+
+    if (!circle) {
+        return;
+    }
+
+
+    const radius =
+        50;
+
+
+    const circumference =
+        2 *
+        Math.PI *
+        radius;
+
+
+    const offset =
+        circumference -
+        (
+            score /
+            100
+        ) *
+        circumference;
+
+
+    circle.style.strokeDasharray =
+        `${circumference}`;
+
+
+    circle.style.strokeDashoffset =
+        `${circumference}`;
+
+
+    circle.style.transition =
+        "stroke-dashoffset 1.2s ease";
+
+
+    requestAnimationFrame(
+        () => {
+
+            circle.style.strokeDashoffset =
+                `${offset}`;
+        }
+    );
+}
+
+
+/* =========================================================
+   UPDATE METRIC
+========================================================= */
+
+function updateMetric(
+    bar,
+    text,
+    value
+) {
+
+    if (bar) {
+
+        bar.style.width =
+            `${value}%`;
+    }
+
+
+    if (text) {
+
+        text.textContent =
+            `${value}%`;
+    }
+}
+
+
+/* =========================================================
+   SCORE STATUS
+========================================================= */
+
+function getScoreStatus(
+    score
+) {
+
+    if (score >= 90) {
+        return "Excellent CV";
+    }
+
+    if (score >= 80) {
+        return "Very Strong CV";
+    }
+
+    if (score >= 70) {
+        return "Strong Foundation";
+    }
+
+    if (score >= 60) {
+        return "Good, But Needs Improvement";
+    }
+
+    if (score >= 50) {
+        return "Needs Improvement";
+    }
+
+    return "Needs Major Improvements";
+}
+
+
+/* =========================================================
+   SCORE DESCRIPTION
+========================================================= */
+
+function getScoreDescription(
+    score
+) {
+
+    if (score >= 90) {
+
+        return "Your CV is highly polished and presents your experience very effectively.";
+    }
+
+    if (score >= 80) {
+
+        return "Your CV has a strong foundation with a few areas that could be improved.";
+    }
+
+    if (score >= 70) {
+
+        return "Your CV is solid, but improving structure, impact and keywords can make it stronger.";
+    }
+
+    if (score >= 60) {
+
+        return "Your CV has potential but several areas should be improved before applying.";
+    }
+
+    return "Your CV needs several important improvements to create a stronger professional impression.";
+}
+
+
+/* =========================================================
+   FORMAT AI ANALYSIS
+   NO OLD ANALYSIS CLASSES
+   NO BIG SPACING
+========================================================= */
+
+function formatAIAnalysis(
+    text
+) {
+
+    if (!text) {
+        return "";
+    }
+
+
+    /* =====================================================
+       CLEAN
+    ===================================================== */
+
+    // ⚡ FIX: Convert literal "\n" strings into real line breaks securely
+    let cleanText = String(text)
+      .replace(/\*\*/g, "")
+      .replace(/###/g, "")
+      .replace(/^#+\s*/gm, "")
+      .replace(/\\n/g, '\n') // 🟢 تیر خلاص برای تبدیل عبارت \n به اینتر واقعی
+      .trim();
+
+
+
+    /* =====================================================
+       REMOVE MULTIPLE EMPTY LINES
+    ===================================================== */
+
+    cleanText =
+        cleanText.replace(
+            /\n{2,}/g,
+            "\n"
+        );
+
+
+    /* =====================================================
+       SPLIT
+    ===================================================== */
+
+    let lines =
+        cleanText
+            .split("\n")
+            .map(
+                line =>
+                    line.trim()
+            )
+            .filter(
+                line =>
+                    line.length > 0
+            );
+
+
+    /* =====================================================
+       JOIN BROKEN NUMBER + TITLE
+
+       1.
+       Overall Quality: text
+
+       =>
+       1. Overall Quality: text
+    ===================================================== */
+
+    const finalLines = [];
+
+
+    for (
+        let i = 0;
+        i < lines.length;
+        i++
+    ) {
+
+        let line =
+            lines[i];
+
+
+        const numberOnly =
+            line.match(
+                /^(\d+)[.)]$/
+            );
+
+
+        if (
+            numberOnly &&
+            i + 1 < lines.length
+        ) {
+
+            line =
+                numberOnly[1] +
+                ". " +
+                lines[i + 1];
+
+            i++;
+        }
+
+
+        finalLines.push(
+            line
+        );
+    }
+
+
+    /* =====================================================
+       BUILD ONE COMPACT TEXT AREA
+    ===================================================== */
+
+    let html = `
+
+        <div
+            style="
+                display:block !important;
+                width:100% !important;
+                margin:0 0 2px 0 !important;
+                padding:0 !important;
+                min-height:0 !important;
+                height:auto !important;
+                line-height:1.55 !important;
+                font-size:13.5px !important;
+            "
+        >
+
+            <div
+                style="
+                    display:block !important;
+                    margin:0 0 2px 0 !important;
+                    padding:0 !important;
+                    height:auto !important;
+                    min-height:0 !important;
+                    line-height:1.2 !important;
+                    color:#E85D3F !important;
+                    font-size:10px !important;
+                    font-weight:700 !important;
+                    letter-spacing:1.5px !important;
+                    text-transform:uppercase !important;
+                "
+            >
+
+                <i class="bi bi-stars"></i>
+                AI CV REVIEW
+
+            </div>
+
+            <div
+                style="
+                    display:block !important;
+                    width:100% !important;
+                    margin:0 0 2px 0 !important;
+                    padding:0 !important;
+                    height:auto !important;
+                    min-height:0 !important;
+                "
+            >
+    `;
+
+
+    let introFound =
+        false;
+
+
+    /* =====================================================
+       PROCESS TEXT
+    ===================================================== */
+
+    finalLines.forEach(
+        line => {
+
+            line =
+                line
+                    .replace(
+                        /^[-•*]\s*/,
+                        ""
+                    )
+                    .trim();
+
+
+            if (!line) {
+                return;
+            }
+
+
+            /* =================================================
+               NUMBER + TITLE + DESCRIPTION
+            ================================================= */
+
+            const section =
+                line.match(
+                    /^(\d+)[.)]\s*(.*?)(?::|-)\s*(.*)$/i
+                );
+
+
+            if (section) {
+
+                const number =
+                    section[1];
+
+                const title =
+                    section[2].trim();
+
+                const description =
+                    section[3].trim();
+
+
+                html += `
+
+                    <div
+                        style="
+                            display:block !important;
+                            width:100% !important;
+                            margin:0 0 6px 0 !important;
+                            padding:0 !important;
+                            height:auto !important;
+                            min-height:0 !important;
+                            line-height:1.55 !important;
+                            color:#b9c5d3 !important;
+                            font-size:13.5px !important;
+                            font-weight:400 !important;
+                        "
+                    >
+
+                        <span
+                            style="
+                                color:#E85D3F !important;
+                                font-weight:700 !important;
+                                margin:0 4px 0 0 !important;
+                            "
+                        >
+                            ${number}.
+                        </span>
+
+                        <strong
+                            style="
+                                color:#edf2f7 !important;
+                                font-weight:600 !important;
+                                margin:0 4px 0 0 !important;
+                            "
+                        >
+                            ${escapeAIHTML(title)}:
+                        </strong>
+
+                        <span
+                            style="
+                                color:#b9c5d3 !important;
+                                font-weight:400 !important;
+                                margin:0 !important;
+                                padding:0 !important;
+                            "
+                        >
+                            ${escapeAIHTML(description)}
+                        </span>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            /* =================================================
+               NUMBERED TITLE WITHOUT DESCRIPTION
+            ================================================= */
+
+            const titleOnly =
+                line.match(
+                    /^(\d+)[.)]\s*(.*)$/i
+                );
+
+
+            if (titleOnly) {
+
+                html += `
+
+                    <div
+                        style="
+                            display:block !important;
+                            width:100% !important;
+                            margin:0 0 2px 0 !important;
+                            padding:0 !important;
+                            height:auto !important;
+                            min-height:0 !important;
+                            line-height:1.55 !important;
+                        "
+                    >
+
+                        <span
+                            style="
+                                color:#E85D3F !important;
+                                font-weight:700 !important;
+                                margin-right:4px !important;
+                            "
+                        >
+                            ${titleOnly[1]}.
+                        </span>
+
+                        <strong
+                            style="
+                                color:#edf2f7 !important;
+                                font-weight:600 !important;
+                            "
+                        >
+                            ${escapeAIHTML(
+                                titleOnly[2]
+                            )}
+                        </strong>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            /* =================================================
+               INTRO
+            ================================================= */
+
+            if (!introFound) {
+
+                html += `
+
+                    <div
+                        style="
+                            display:block !important;
+                            width:100% !important;
+                            margin:0 0 2px 0 !important;
+                            padding:0 !important;
+                            height:auto !important;
+                            min-height:0 !important;
+                            color:#c5cfdb !important;
+                            font-size:13.5px !important;
+                            line-height:1.55 !important;
+                        "
+                    >
+                        ${escapeAIHTML(line)}
+                    </div>
+
+                `;
+
+
+                introFound =
+                    true;
+
+                return;
+            }
+
+
+            /* =================================================
+               EXTRA TEXT
+            ================================================= */
+
+            html += `
+
+                <div
+                    style="
+                        display:block !important;
+                        width:100% !important;
+                        margin:0 0 6px 0 !important;
+                        padding:0 !important;
+                        height:auto !important;
+                        min-height:0 !important;
+                        color:#b9c5d3 !important;
+                        font-size:13.5px !important;
+                        line-height:1.55 !important;
+                    "
+                >
+                    ${escapeAIHTML(line)}
+                </div>
+
+            `;
+        }
+    );
+
+
+    /* =====================================================
+       CLOSE
+    ===================================================== */
+
+    html += `
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    return html;
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeAIHTML(
+    text
+) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        String(text);
+
+
+    return div.innerHTML;
+}
+/* =========================================================
+   CAREERPILOT — SECTION 3 INTERACTIVE METRICS HUB
+========================================================= */
+document.addEventListener("DOMContentLoaded", () => {
+    const detailsSection = document.querySelector(".ai-review-details");
+    if (!detailsSection) return;
+
+    const categories = detailsSection.querySelectorAll(".review-category");
+    const previewTitle = detailsSection.querySelector("#previewTitle");
+    const previewScore = detailsSection.querySelector("#previewScore");
+    const previewLabel = detailsSection.querySelector("#previewLabel");
+    const previewDescription = detailsSection.querySelector("#previewDescription");
+    const previewRecommendation = detailsSection.querySelector("#previewRecommendation");
+    const contentBar = detailsSection.querySelector("#contentBar");
+    const relevanceBar = detailsSection.querySelector("#relevanceBar");
+    const contentValue = detailsSection.querySelector("#contentValue");
+    const relevanceValue = detailsSection.querySelector("#relevanceValue");
+
+    // Local Dataset representing metric branches instantly without internet lag
+    const localizedReviewData = {
+        score: { title: "Overall CV Score", score: 78, label: "GOOD FOUNDATION", description: "Your CV has a solid foundation, but several areas could be improved to make it more competitive.", recommendation: "Add measurable achievements to your experience section.", content: 82, relevance: 74 },
+        ats: { title: "ATS Compatibility", score: 85, label: "HIGH COMPLIANCE", description: "Your CV format clears standard resume bot parsed parameters smoothly.", recommendation: "Ensure standard fonts are preserved across export modules.", content: 88, relevance: 81 },
+        skills: { title: "Skills & Keywords", score: 64, label: "GAP IDENTIFIED", description: "Critical technical stack terms are missing for your target career roles.", recommendation: "Incorporate missing skills highlighted in recent job listings.", content: 60, relevance: 68 },
+        experience: { title: "Experience Impact", score: 71, label: "WEAK BULLETS", description: "Responsibilities are listed, but they lack metrics and strong leadership verbs.", recommendation: "Use action verbs and add specific percentage increases.", content: 75, relevance: 66 }
+    };
+
+    function switchActiveMetricHUD(typeKey) {
+        const data = localizedReviewData[typeKey];
+        if (!data) return;
+
+        if (previewTitle) previewTitle.textContent = data.title;
+        if (previewScore) previewScore.textContent = data.score;
+        if (previewLabel) previewLabel.textContent = data.label;
+        if (previewDescription) previewDescription.textContent = data.description;
+        if (previewRecommendation) previewRecommendation.textContent = data.recommendation;
+
+        if (contentBar) contentBar.style.width = `${data.content}%`;
+        if (contentValue) contentValue.textContent = `${data.content}%`;
+        if (relevanceBar) relevanceBar.style.width = `${data.relevance}%`;
+        if (relevanceValue) relevanceValue.textContent = `${data.relevance}%`;
+    }
+
+    categories.forEach(btn => {
+        btn.addEventListener("click", () => {
+            categories.forEach(c => i = c.classList.remove("active"));
+            btn.classList.add("active");
+            switchActiveMetricHUD(btn.dataset.review);
+        });
+    });
+});
+
