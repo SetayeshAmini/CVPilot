@@ -4345,3 +4345,274 @@ h2{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(31px,4.2
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   CVPILOT PREMIUM LOADER
+========================================================= */
+
+.cvpilot-loader {
+    position: fixed;
+    inset: 0;
+
+    z-index: 999999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(232, 93, 63, 0.08) 0%,
+            rgba(232, 93, 63, 0.025) 22%,
+            transparent 48%
+        ),
+        #080D16;
+
+    overflow: hidden;
+
+    opacity: 1;
+    visibility: visible;
+
+    transition:
+        opacity 0.7s cubic-bezier(.77, 0, .18, 1),
+        visibility 0.7s;
+}
+
+
+/* Loader disappears */
+
+.cvpilot-loader.loaded {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CENTER
+========================================================= */
+
+.loader-center {
+    position: relative;
+
+    width: 175px;
+    height: 175px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================================================
+   ELEGANT RING
+========================================================= */
+
+.loader-ring {
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(245, 241, 232, 0.08);
+
+    animation: loaderRotate 2.8s linear infinite;
+}
+
+
+/* Main orange arc */
+
+.loader-ring::before {
+    content: "";
+
+    position: absolute;
+
+    inset: -1px;
+
+    border-radius: 50%;
+
+    border: 1px solid transparent;
+
+    border-top-color: var(--primary);
+
+    border-right-color: rgba(232, 93, 63, 0.35);
+
+    transform: rotate(30deg);
+}
+
+
+/* Moving glowing dot */
+
+.loader-ring::after {
+    content: "";
+
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+
+    box-shadow:
+        0 0 8px rgba(232, 93, 63, 0.8),
+        0 0 18px rgba(232, 93, 63, 0.35);
+
+    top: -3px;
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+
+/* =========================================================
+   LOGO TEXT
+========================================================= */
+
+.loader-logo {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif;
+
+    font-size: 2rem;
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: 0.01em;
+
+    color: var(--text-main);
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   LETTER ANIMATION
+========================================================= */
+
+.loader-logo span {
+    display: inline-block;
+
+    opacity: 0;
+
+    filter: blur(8px);
+
+    transform:
+        translateY(8px)
+        scale(0.96);
+
+    transition:
+        opacity 0.45s cubic-bezier(.22, 1, .36, 1),
+        filter 0.45s cubic-bezier(.22, 1, .36, 1),
+        transform 0.45s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+.loader-logo span.show {
+    opacity: 1;
+
+    filter: blur(0);
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* P stays orange */
+
+.loader-logo span:nth-child(3) {
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   ROTATION
+========================================================= */
+
+@keyframes loaderRotate {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .loader-center {
+        width: 150px;
+        height: 150px;
+    }
+
+    .loader-ring {
+        width: 130px;
+        height: 130px;
+    }
+
+    .loader-logo {
+        font-size: 2.15rem;
+    }
+
+}
+
+/* =========================================================
+   FIX — LOADER MUST STAY FULL SCREEN
+========================================================= */
+
+.cvpilot-loader {
+    position: fixed !important;
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    z-index: 999999 !important;
+
+    margin: 0 !important;
+}

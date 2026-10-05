@@ -9,173 +9,173 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-    const particlesContainer =
-        document.getElementById("particles-background");
+  const particlesContainer =
+    document.getElementById("particles-background");
 
 
-    if (!particlesContainer) {
-        return;
-    }
+  if (!particlesContainer) {
+    return;
+  }
 
 
-    /* Make sure tsParticles is loaded */
+  /* Make sure tsParticles is loaded */
 
-    if (typeof tsParticles === "undefined") {
+  if (typeof tsParticles === "undefined") {
 
-        console.error(
-            "tsParticles library was not loaded."
-        );
+    console.error(
+      "tsParticles library was not loaded."
+    );
 
-        return;
-    }
-
-
-    try {
-
-        await tsParticles.load({
-
-            id: "particles-background",
-
-            options: {
-
-                fullScreen: {
-                    enable: false
-                },
+    return;
+  }
 
 
-                background: {
-                    color: {
-                        value: "#080D16"
-                    }
-                },
+  try {
+
+    await tsParticles.load({
+
+      id: "particles-background",
+
+      options: {
+
+        fullScreen: {
+          enable: false
+        },
 
 
-                particles: {
-
-                    number: {
-                        value: 45,
-
-                        density: {
-                            enable: true,
-
-                            width: 1000,
-                            height: 1000
-                        }
-                    },
+        background: {
+          color: {
+            value: "#080D16"
+          }
+        },
 
 
-                    color: {
-                        value: [
-                            "#E85D3F",
-                            "#F08A4B"
-                        ]
-                    },
+        particles: {
 
+          number: {
+            value: 45,
 
-                    opacity: {
-                        value: {
-                            min: 0.15,
-                            max: 0.5
-                        },
+            density: {
+              enable: true,
 
-                        animation: {
-                            enable: true,
-
-                            speed: 0.5,
-
-                            minimumValue: 0.1,
-
-                            sync: false
-                        }
-                    },
-
-
-                    size: {
-                        value: {
-                            min: 1,
-                            max: 3
-                        }
-                    },
-
-
-                    links: {
-                        enable: true,
-
-                        distance: 150,
-
-                        color: "#E85D3F",
-
-                        opacity: 0.18,
-
-                        width: 1
-                    },
-
-
-                    move: {
-
-                        enable: true,
-
-                        speed: 0.7,
-
-                        direction: "none",
-
-                        random: true,
-
-                        straight: false,
-
-                        outModes: {
-                            default: "bounce"
-                        }
-                    }
-
-                },
-
-
-                interactivity: {
-
-                    detectsOn: "window",
-
-                    events: {
-
-                        onHover: {
-                            enable: true,
-
-                            mode: "grab"
-                        },
-
-                        resize: {
-                            enable: true
-                        }
-                    },
-
-
-                    modes: {
-
-                        grab: {
-
-                            distance: 180,
-
-                            links: {
-                                opacity: 0.35
-                            }
-                        }
-                    }
-                },
-
-
-                detectRetina: true
+              width: 1000,
+              height: 1000
             }
+          },
 
-        });
 
-    } catch (error) {
+          color: {
+            value: [
+              "#E85D3F",
+              "#F08A4B"
+            ]
+          },
 
-        console.error(
-            "Particles failed to initialize:",
-            error
-        );
 
-    }
+          opacity: {
+            value: {
+              min: 0.15,
+              max: 0.5
+            },
+
+            animation: {
+              enable: true,
+
+              speed: 0.5,
+
+              minimumValue: 0.1,
+
+              sync: false
+            }
+          },
+
+
+          size: {
+            value: {
+              min: 1,
+              max: 3
+            }
+          },
+
+
+          links: {
+            enable: true,
+
+            distance: 150,
+
+            color: "#E85D3F",
+
+            opacity: 0.18,
+
+            width: 1
+          },
+
+
+          move: {
+
+            enable: true,
+
+            speed: 0.7,
+
+            direction: "none",
+
+            random: true,
+
+            straight: false,
+
+            outModes: {
+              default: "bounce"
+            }
+          }
+
+        },
+
+
+        interactivity: {
+
+          detectsOn: "window",
+
+          events: {
+
+            onHover: {
+              enable: true,
+
+              mode: "grab"
+            },
+
+            resize: {
+              enable: true
+            }
+          },
+
+
+          modes: {
+
+            grab: {
+
+              distance: 180,
+
+              links: {
+                opacity: 0.35
+              }
+            }
+          }
+        },
+
+
+        detectRetina: true
+      }
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Particles failed to initialize:",
+      error
+    );
+
+  }
 
 });
 
@@ -186,208 +186,208 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const navbar =
-        document.getElementById("mainNavbar");
+  const navbar =
+    document.getElementById("mainNavbar");
 
-    const toggle =
-        document.getElementById("navbarToggle");
+  const toggle =
+    document.getElementById("navbarToggle");
 
-    const menu =
-        document.getElementById("navbarMenu");
-
-
-    if (!navbar || !toggle || !menu) {
-        return;
-    }
-
-    /* Initialize Bootstrap Collapse Instance to avoid native script conflicts */
+  const menu =
+    document.getElementById("navbarMenu");
 
 
-    const navLinks =
-        document.querySelectorAll(
-            "#navbarMenu .nav-link"
-        );
+  if (!navbar || !toggle || !menu) {
+    return;
+  }
+
+  /* Initialize Bootstrap Collapse Instance to avoid native script conflicts */
 
 
-    /* =====================================================
-       NAVBAR SCROLL EFFECT
-    ===================================================== */
-
-    function navbarScroll() {
-
-        if (window.scrollY > 30) {
-
-            navbar.classList.add("scrolled");
-
-        } else {
-
-            navbar.classList.remove("scrolled");
-
-        }
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        navbarScroll,
-        { passive: true }
+  const navLinks =
+    document.querySelectorAll(
+      "#navbarMenu .nav-link"
     );
 
 
-    navbarScroll();
+  /* =====================================================
+     NAVBAR SCROLL EFFECT
+  ===================================================== */
 
+  function navbarScroll() {
 
-    /* =====================================================
-       CLOSE MENU FUNCTION
-    ===================================================== */
+    if (window.scrollY > 30) {
 
-    function closeMenu() {
-        
-        /* Safely hide the Bootstrap collapse menu */
-        bsCollapse.hide();
-        
-        toggle.classList.remove("active");
-        
-        toggle.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-    }
+      navbar.classList.add("scrolled");
 
+    } else {
 
-    /* =====================================================
-       TOGGLE MOBILE MENU
-    ===================================================== */
-
-    toggle.addEventListener("click", () => {
-
-        const isOpen =
-            menu.classList.contains("show");
-
-
-        if (isOpen) {
-
-            closeMenu();
-
-        } else {
-
-            /* Safely show the Bootstrap collapse menu */
-            bsCollapse.show();
-
-            toggle.classList.add("active");
-
-            toggle.setAttribute(
-                "aria-expanded",
-                "true"
-            );
-        }
-
-    });
-
-
-    /* =====================================================
-       CLOSE MENU AFTER NAV LINK CLICK
-    ===================================================== */
-
-    navLinks.forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            navLinks.forEach(item => {
-
-                item.classList.remove("active");
-
-            });
-
-
-            link.classList.add("active");
-
-
-            closeMenu();
-
-        });
-
-    });
-
-
-    /* =====================================================
-       CLOSE MENU AFTER START BUILDING CLICK
-    ===================================================== */
-
-    const startButton =
-        document.querySelector(".btn-start");
-
-
-    if (startButton) {
-
-        startButton.addEventListener(
-            "click",
-            () => {
-
-                closeMenu();
-
-            }
-        );
+      navbar.classList.remove("scrolled");
 
     }
+  }
 
 
-    /* =====================================================
-       CLOSE WHEN CLICKING OUTSIDE
-    ===================================================== */
-
-    document.addEventListener("click", (event) => {
-
-        const clickedInsideNavbar =
-            navbar.contains(event.target);
-
-        const isOpen =
-            menu.classList.contains("show");
+  window.addEventListener(
+    "scroll",
+    navbarScroll,
+    { passive: true }
+  );
 
 
-        if (!clickedInsideNavbar && isOpen) {
+  navbarScroll();
 
-            closeMenu();
 
-        }
+  /* =====================================================
+     CLOSE MENU FUNCTION
+  ===================================================== */
+
+  function closeMenu() {
+
+    /* Safely hide the Bootstrap collapse menu */
+    bsCollapse.hide();
+
+    toggle.classList.remove("active");
+
+    toggle.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+  }
+
+
+  /* =====================================================
+     TOGGLE MOBILE MENU
+  ===================================================== */
+
+  toggle.addEventListener("click", () => {
+
+    const isOpen =
+      menu.classList.contains("show");
+
+
+    if (isOpen) {
+
+      closeMenu();
+
+    } else {
+
+      /* Safely show the Bootstrap collapse menu */
+      bsCollapse.show();
+
+      toggle.classList.add("active");
+
+      toggle.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+    }
+
+  });
+
+
+  /* =====================================================
+     CLOSE MENU AFTER NAV LINK CLICK
+  ===================================================== */
+
+  navLinks.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+      navLinks.forEach(item => {
+
+        item.classList.remove("active");
+
+      });
+
+
+      link.classList.add("active");
+
+
+      closeMenu();
 
     });
 
+  });
 
-    /* =====================================================
-       ESC KEY
-    ===================================================== */
 
-    document.addEventListener(
-        "keydown",
-        (event) => {
+  /* =====================================================
+     CLOSE MENU AFTER START BUILDING CLICK
+  ===================================================== */
 
-            if (event.key === "Escape") {
+  const startButton =
+    document.querySelector(".btn-start");
 
-                closeMenu();
 
-            }
+  if (startButton) {
 
-        }
+    startButton.addEventListener(
+      "click",
+      () => {
+
+        closeMenu();
+
+      }
     );
 
+  }
 
-    /* =====================================================
-       CLOSE MENU WHEN RESIZING TO DESKTOP
-    ===================================================== */
 
-    window.addEventListener(
-        "resize",
-        () => {
+  /* =====================================================
+     CLOSE WHEN CLICKING OUTSIDE
+  ===================================================== */
 
-            if (window.innerWidth > 991.98) {
+  document.addEventListener("click", (event) => {
 
-                closeMenu();
+    const clickedInsideNavbar =
+      navbar.contains(event.target);
 
-            }
+    const isOpen =
+      menu.classList.contains("show");
 
-        }
-    );
+
+    if (!clickedInsideNavbar && isOpen) {
+
+      closeMenu();
+
+    }
+
+  });
+
+
+  /* =====================================================
+     ESC KEY
+  ===================================================== */
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (event.key === "Escape") {
+
+        closeMenu();
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     CLOSE MENU WHEN RESIZING TO DESKTOP
+  ===================================================== */
+
+  window.addEventListener(
+    "resize",
+    () => {
+
+      if (window.innerWidth > 991.98) {
+
+        closeMenu();
+
+      }
+
+    }
+  );
 
 });
 
@@ -619,7 +619,7 @@ function resetSlideProgress() {
 
 /* Reset the visual timer whenever a slide changes */
 const originalRender = render;
-render = function(index) {
+render = function (index) {
   originalRender(index);
   resetSlideProgress();
 };
@@ -670,90 +670,90 @@ cvs.forEach((profile) => {
 
 (() => {
 
-    const whyCards = [...document.querySelectorAll(".why-card")];
+  const whyCards = [...document.querySelectorAll(".why-card")];
 
-    if (!whyCards.length) return;
+  if (!whyCards.length) return;
 
-    const whyCounter = document.getElementById("counter");
-    const whyProgress = document.getElementById("progress");
+  const whyCounter = document.getElementById("counter");
+  const whyProgress = document.getElementById("progress");
 
-    let whyActive = 0;
-    let whyTimer = null;
+  let whyActive = 0;
+  let whyTimer = null;
 
-    function activateWhyCard(index) {
+  function activateWhyCard(index) {
 
-        whyActive =
-            (index + whyCards.length) % whyCards.length;
+    whyActive =
+      (index + whyCards.length) % whyCards.length;
 
-        whyCards.forEach((card, i) => {
-            card.classList.toggle(
-                "active",
-                i === whyActive
-            );
-        });
-
-        if (whyCounter) {
-            whyCounter.textContent =
-                `${String(whyActive + 1).padStart(2, "0")} / 03`;
-        }
-
-        if (whyProgress) {
-            whyProgress.style.width =
-                `${((whyActive + 1) / whyCards.length) * 100}%`;
-        }
-    }
-
-    function restartWhyAuto() {
-
-        clearInterval(whyTimer);
-
-        whyTimer = setInterval(() => {
-            activateWhyCard(whyActive + 1);
-        }, 5200);
-    }
-
-    whyCards.forEach((card, index) => {
-
-        card.addEventListener("click", event => {
-
-            if (event.target.closest(".card-button")) {
-                return;
-            }
-
-            activateWhyCard(index);
-            restartWhyAuto();
-        });
-
-        card.addEventListener("mousemove", event => {
-
-            if (window.innerWidth < 901) return;
-
-            const rect =
-                card.getBoundingClientRect();
-
-            const x =
-                (event.clientX - rect.left) /
-                rect.width - 0.5;
-
-            const y =
-                (event.clientY - rect.top) /
-                rect.height - 0.5;
-
-            const lift =
-                index === 1 ? 5 : -6;
-
-            card.style.transform =
-                `translateY(${lift}px) perspective(1000px) rotateX(${y * -1.1}deg) rotateY(${x * 1.5}deg)`;
-        });
-
-        card.addEventListener("mouseleave", () => {
-            card.style.transform = "";
-        });
-
+    whyCards.forEach((card, i) => {
+      card.classList.toggle(
+        "active",
+        i === whyActive
+      );
     });
 
-    activateWhyCard(0);
-    restartWhyAuto();
+    if (whyCounter) {
+      whyCounter.textContent =
+        `${String(whyActive + 1).padStart(2, "0")} / 03`;
+    }
+
+    if (whyProgress) {
+      whyProgress.style.width =
+        `${((whyActive + 1) / whyCards.length) * 100}%`;
+    }
+  }
+
+  function restartWhyAuto() {
+
+    clearInterval(whyTimer);
+
+    whyTimer = setInterval(() => {
+      activateWhyCard(whyActive + 1);
+    }, 5200);
+  }
+
+  whyCards.forEach((card, index) => {
+
+    card.addEventListener("click", event => {
+
+      if (event.target.closest(".card-button")) {
+        return;
+      }
+
+      activateWhyCard(index);
+      restartWhyAuto();
+    });
+
+    card.addEventListener("mousemove", event => {
+
+      if (window.innerWidth < 901) return;
+
+      const rect =
+        card.getBoundingClientRect();
+
+      const x =
+        (event.clientX - rect.left) /
+        rect.width - 0.5;
+
+      const y =
+        (event.clientY - rect.top) /
+        rect.height - 0.5;
+
+      const lift =
+        index === 1 ? 5 : -6;
+
+      card.style.transform =
+        `translateY(${lift}px) perspective(1000px) rotateX(${y * -1.1}deg) rotateY(${x * 1.5}deg)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
+
+  });
+
+  activateWhyCard(0);
+  restartWhyAuto();
 
 })();
 
@@ -768,173 +768,173 @@ cvs.forEach((profile) => {
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-    const particlesContainer =
-        document.getElementById("particles-background");
+  const particlesContainer =
+    document.getElementById("particles-background");
 
 
-    if (!particlesContainer) {
-        return;
-    }
+  if (!particlesContainer) {
+    return;
+  }
 
 
-    /* Make sure tsParticles is loaded */
+  /* Make sure tsParticles is loaded */
 
-    if (typeof tsParticles === "undefined") {
+  if (typeof tsParticles === "undefined") {
 
-        console.error(
-            "tsParticles library was not loaded."
-        );
+    console.error(
+      "tsParticles library was not loaded."
+    );
 
-        return;
-    }
-
-
-    try {
-
-        await tsParticles.load({
-
-            id: "particles-background",
-
-            options: {
-
-                fullScreen: {
-                    enable: false
-                },
+    return;
+  }
 
 
-                background: {
-                    color: {
-                        value: "#080D16"
-                    }
-                },
+  try {
+
+    await tsParticles.load({
+
+      id: "particles-background",
+
+      options: {
+
+        fullScreen: {
+          enable: false
+        },
 
 
-                particles: {
-
-                    number: {
-                        value: 45,
-
-                        density: {
-                            enable: true,
-
-                            width: 1000,
-                            height: 1000
-                        }
-                    },
+        background: {
+          color: {
+            value: "#080D16"
+          }
+        },
 
 
-                    color: {
-                        value: [
-                            "#E85D3F",
-                            "#F08A4B"
-                        ]
-                    },
+        particles: {
 
+          number: {
+            value: 45,
 
-                    opacity: {
-                        value: {
-                            min: 0.15,
-                            max: 0.5
-                        },
+            density: {
+              enable: true,
 
-                        animation: {
-                            enable: true,
-
-                            speed: 0.5,
-
-                            minimumValue: 0.1,
-
-                            sync: false
-                        }
-                    },
-
-
-                    size: {
-                        value: {
-                            min: 1,
-                            max: 3
-                        }
-                    },
-
-
-                    links: {
-                        enable: true,
-
-                        distance: 150,
-
-                        color: "#E85D3F",
-
-                        opacity: 0.18,
-
-                        width: 1
-                    },
-
-
-                    move: {
-
-                        enable: true,
-
-                        speed: 0.7,
-
-                        direction: "none",
-
-                        random: true,
-
-                        straight: false,
-
-                        outModes: {
-                            default: "bounce"
-                        }
-                    }
-
-                },
-
-
-                interactivity: {
-
-                    detectsOn: "window",
-
-                    events: {
-
-                        onHover: {
-                            enable: true,
-
-                            mode: "grab"
-                        },
-
-                        resize: {
-                            enable: true
-                        }
-                    },
-
-
-                    modes: {
-
-                        grab: {
-
-                            distance: 180,
-
-                            links: {
-                                opacity: 0.35
-                            }
-                        }
-                    }
-                },
-
-
-                detectRetina: true
+              width: 1000,
+              height: 1000
             }
+          },
 
-        });
 
-    } catch (error) {
+          color: {
+            value: [
+              "#E85D3F",
+              "#F08A4B"
+            ]
+          },
 
-        console.error(
-            "Particles failed to initialize:",
-            error
-        );
 
-    }
+          opacity: {
+            value: {
+              min: 0.15,
+              max: 0.5
+            },
+
+            animation: {
+              enable: true,
+
+              speed: 0.5,
+
+              minimumValue: 0.1,
+
+              sync: false
+            }
+          },
+
+
+          size: {
+            value: {
+              min: 1,
+              max: 3
+            }
+          },
+
+
+          links: {
+            enable: true,
+
+            distance: 150,
+
+            color: "#E85D3F",
+
+            opacity: 0.18,
+
+            width: 1
+          },
+
+
+          move: {
+
+            enable: true,
+
+            speed: 0.7,
+
+            direction: "none",
+
+            random: true,
+
+            straight: false,
+
+            outModes: {
+              default: "bounce"
+            }
+          }
+
+        },
+
+
+        interactivity: {
+
+          detectsOn: "window",
+
+          events: {
+
+            onHover: {
+              enable: true,
+
+              mode: "grab"
+            },
+
+            resize: {
+              enable: true
+            }
+          },
+
+
+          modes: {
+
+            grab: {
+
+              distance: 180,
+
+              links: {
+                opacity: 0.35
+              }
+            }
+          }
+        },
+
+
+        detectRetina: true
+      }
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Particles failed to initialize:",
+      error
+    );
+
+  }
 
 });
 
@@ -945,1116 +945,1116 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const navbar =
-        document.getElementById("mainNavbar");
+  const navbar =
+    document.getElementById("mainNavbar");
 
-    const toggle =
-        document.getElementById("navbarToggle");
+  const toggle =
+    document.getElementById("navbarToggle");
 
-    const menu =
-        document.getElementById("navbarMenu");
-
-
-    if (!navbar || !toggle || !menu) {
-        return;
-    }
-
-    /* Initialize Bootstrap Collapse Instance to avoid native script conflicts */
-    const bsCollapse = new bootstrap.Collapse(menu, {
-        toggle: false
-    });
-
-    const navLinks =
-        document.querySelectorAll(
-            "#navbarMenu .nav-link"
-        );
+  const menu =
+    document.getElementById("navbarMenu");
 
 
-    /* =====================================================
-       NAVBAR SCROLL EFFECT
-    ===================================================== */
+  if (!navbar || !toggle || !menu) {
+    return;
+  }
 
-    function navbarScroll() {
+  /* Initialize Bootstrap Collapse Instance to avoid native script conflicts */
+  const bsCollapse = new bootstrap.Collapse(menu, {
+    toggle: false
+  });
 
-        if (window.scrollY > 30) {
-
-            navbar.classList.add("scrolled");
-
-        } else {
-
-            navbar.classList.remove("scrolled");
-
-        }
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        navbarScroll,
-        { passive: true }
+  const navLinks =
+    document.querySelectorAll(
+      "#navbarMenu .nav-link"
     );
 
 
-    navbarScroll();
+  /* =====================================================
+     NAVBAR SCROLL EFFECT
+  ===================================================== */
 
+  function navbarScroll() {
 
-    /* =====================================================
-       CLOSE MENU FUNCTION
-    ===================================================== */
+    if (window.scrollY > 30) {
 
-    function closeMenu() {
-        
-        /* Safely hide the Bootstrap collapse menu */
-menu.classList.remove("show");        
-        toggle.classList.remove("active");
-        
-        toggle.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-    }
+      navbar.classList.add("scrolled");
 
+    } else {
 
-    /* =====================================================
-       TOGGLE MOBILE MENU
-    ===================================================== */
-
-    toggle.addEventListener("click", () => {
-
-        const isOpen =
-            menu.classList.contains("show");
-
-
-        if (isOpen) {
-
-            closeMenu();
-
-        } else {
-
-            /* Safely show the Bootstrap collapse menu */
-            bsCollapse.show();
-
-            toggle.classList.add("active");
-
-            toggle.setAttribute(
-                "aria-expanded",
-                "true"
-            );
-        }
-
-    });
-
-
-    /* =====================================================
-       CLOSE MENU AFTER NAV LINK CLICK
-    ===================================================== */
-
-    navLinks.forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            navLinks.forEach(item => {
-
-                item.classList.remove("active");
-
-            });
-
-
-            link.classList.add("active");
-
-
-            closeMenu();
-
-        });
-
-    });
-
-
-    /* =====================================================
-       CLOSE MENU AFTER START BUILDING CLICK
-    ===================================================== */
-
-    const startButton =
-        document.querySelector(".btn-start");
-
-
-    if (startButton) {
-
-        startButton.addEventListener(
-            "click",
-            () => {
-
-                closeMenu();
-
-            }
-        );
+      navbar.classList.remove("scrolled");
 
     }
+  }
 
 
-    /* =====================================================
-       CLOSE WHEN CLICKING OUTSIDE
-    ===================================================== */
-
-    document.addEventListener("click", (event) => {
-
-        const clickedInsideNavbar =
-            navbar.contains(event.target);
-
-        const isOpen =
-            menu.classList.contains("show");
+  window.addEventListener(
+    "scroll",
+    navbarScroll,
+    { passive: true }
+  );
 
 
-        if (!clickedInsideNavbar && isOpen) {
+  navbarScroll();
 
-            closeMenu();
 
-        }
+  /* =====================================================
+     CLOSE MENU FUNCTION
+  ===================================================== */
+
+  function closeMenu() {
+
+    /* Safely hide the Bootstrap collapse menu */
+    menu.classList.remove("show");
+    toggle.classList.remove("active");
+
+    toggle.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+  }
+
+
+  /* =====================================================
+     TOGGLE MOBILE MENU
+  ===================================================== */
+
+  toggle.addEventListener("click", () => {
+
+    const isOpen =
+      menu.classList.contains("show");
+
+
+    if (isOpen) {
+
+      closeMenu();
+
+    } else {
+
+      /* Safely show the Bootstrap collapse menu */
+      bsCollapse.show();
+
+      toggle.classList.add("active");
+
+      toggle.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+    }
+
+  });
+
+
+  /* =====================================================
+     CLOSE MENU AFTER NAV LINK CLICK
+  ===================================================== */
+
+  navLinks.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+      navLinks.forEach(item => {
+
+        item.classList.remove("active");
+
+      });
+
+
+      link.classList.add("active");
+
+
+      closeMenu();
 
     });
 
+  });
 
-    /* =====================================================
-       ESC KEY
-    ===================================================== */
 
-    document.addEventListener(
-        "keydown",
-        (event) => {
+  /* =====================================================
+     CLOSE MENU AFTER START BUILDING CLICK
+  ===================================================== */
 
-            if (event.key === "Escape") {
+  const startButton =
+    document.querySelector(".btn-start");
 
-                closeMenu();
 
-            }
+  if (startButton) {
 
-        }
+    startButton.addEventListener(
+      "click",
+      () => {
+
+        closeMenu();
+
+      }
     );
 
+  }
 
-    /* =====================================================
-       CLOSE MENU WHEN RESIZING TO DESKTOP
-    ===================================================== */
 
-    window.addEventListener(
-        "resize",
-        () => {
+  /* =====================================================
+     CLOSE WHEN CLICKING OUTSIDE
+  ===================================================== */
 
-            if (window.innerWidth > 991.98) {
+  document.addEventListener("click", (event) => {
 
-                closeMenu();
+    const clickedInsideNavbar =
+      navbar.contains(event.target);
 
-            }
+    const isOpen =
+      menu.classList.contains("show");
 
-        }
-    );
+
+    if (!clickedInsideNavbar && isOpen) {
+
+      closeMenu();
+
+    }
+
+  });
+
+
+  /* =====================================================
+     ESC KEY
+  ===================================================== */
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (event.key === "Escape") {
+
+        closeMenu();
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     CLOSE MENU WHEN RESIZING TO DESKTOP
+  ===================================================== */
+
+  window.addEventListener(
+    "resize",
+    () => {
+
+      if (window.innerWidth > 991.98) {
+
+        closeMenu();
+
+      }
+
+    }
+  );
 
 });
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const cvs = [
+  const cvs = [
 
-        {
-            name: "Shakiba Amini",
-            role: "Frontend Developer",
-            location: "Baku, Azerbaijan",
-            email: "shakiba.amini@example.com",
+    {
+      name: "Shakiba Amini",
+      role: "Frontend Developer",
+      location: "Baku, Azerbaijan",
+      email: "shakiba.amini@example.com",
 
-            photo:
-                "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=90",
+      photo:
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=90",
 
-            summary:
-                "Frontend developer focused on creating elegant, accessible and high-performing digital experiences. Combines visual design thinking with clean, scalable code.",
+      summary:
+        "Frontend developer focused on creating elegant, accessible and high-performing digital experiences. Combines visual design thinking with clean, scalable code.",
 
-            job: "Frontend Developer",
-            company: "North Studio · Digital Products",
-            date: "2024 — Present",
+      job: "Frontend Developer",
+      company: "North Studio · Digital Products",
+      date: "2024 — Present",
 
-            experience:
-                "Built responsive interfaces for SaaS and e-commerce products, improved design-system consistency and collaborated closely with product and UX teams.",
+      experience:
+        "Built responsive interfaces for SaaS and e-commerce products, improved design-system consistency and collaborated closely with product and UX teams.",
 
-            degree: "B.Sc. Computer Science",
-            university: "Caspian Digital University",
-            educationDate: "2020 — 2024",
+      degree: "B.Sc. Computer Science",
+      university: "Caspian Digital University",
+      educationDate: "2020 — 2024",
 
-            skills: [
-                "HTML / CSS",
-                "JavaScript",
-                "Bootstrap",
-                "React",
-                "UI Systems",
-                "Git"
-            ],
+      skills: [
+        "HTML / CSS",
+        "JavaScript",
+        "Bootstrap",
+        "React",
+        "UI Systems",
+        "Git"
+      ],
 
-            project: "CareerPilot",
+      project: "CareerPilot",
 
-            projectDescription:
-                "Designed and developed a career platform that transforms professional information into a structured and modern CV experience."
-        },
-
-
-        {
-            name: "Morsal Amini",
-            role: "Product & UI Designer",
-            location: "Remote · Europe",
-            email: "morsal.amini@example.com",
-
-            photo:
-                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=90",
-
-            summary:
-                "Product designer passionate about turning complex workflows into clear, human-centered experiences. Works across research, interface design and visual systems.",
-
-            job: "Product & UI Designer",
-            company: "Atelier Digital · Product Team",
-            date: "2023 — Present",
-
-            experience:
-                "Led interface redesigns for digital products, created reusable component libraries and translated user research into practical product improvements.",
-
-            degree: "B.A. Digital Design",
-            university: "European School of Design",
-            educationDate: "2019 — 2023",
-
-            skills: [
-                "Figma",
-                "UX Research",
-                "Prototyping",
-                "Design Systems",
-                "Wireframing",
-                "Branding"
-            ],
-
-            project: "Atlas Workspace",
-
-            projectDescription:
-                "Created a modular workspace interface that simplified project planning and improved information hierarchy across multiple screens."
-        },
+      projectDescription:
+        "Designed and developed a career platform that transforms professional information into a structured and modern CV experience."
+    },
 
 
-        {
-            name: "Charistin Nekto",
-            role: "Full-Stack Developer",
-            location: "Baku, Azerbaijan",
-            email: "Charistin.nek1@example.com",
+    {
+      name: "Morsal Amini",
+      role: "Product & UI Designer",
+      location: "Remote · Europe",
+      email: "morsal.amini@example.com",
 
-            photo:
-                "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=90",
+      photo:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=90",
 
-            summary:
-                "Full-stack developer building reliable web applications from interface to backend. Interested in performance, architecture and polished product experiences.",
+      summary:
+        "Product designer passionate about turning complex workflows into clear, human-centered experiences. Works across research, interface design and visual systems.",
 
-            job: "Full-Stack Developer",
-            company: "Orbit Labs · Technology",
-            date: "2022 — Present",
+      job: "Product & UI Designer",
+      company: "Atelier Digital · Product Team",
+      date: "2023 — Present",
 
-            experience:
-                "Developed production web applications, designed REST APIs and optimized front-end performance while working across the complete product lifecycle.",
+      experience:
+        "Led interface redesigns for digital products, created reusable component libraries and translated user research into practical product improvements.",
 
-            degree: "B.Sc. Software Engineering",
-            university: "Digital Technology Institute",
-            educationDate: "2018 — 2022",
+      degree: "B.A. Digital Design",
+      university: "European School of Design",
+      educationDate: "2019 — 2023",
 
-            skills: [
-                "JavaScript",
-                "Node.js",
-                "React",
-                "REST APIs",
-                "MongoDB",
-                "Cloud"
-            ],
+      skills: [
+        "Figma",
+        "UX Research",
+        "Prototyping",
+        "Design Systems",
+        "Wireframing",
+        "Branding"
+      ],
 
-            project: "Orbit Commerce",
+      project: "Atlas Workspace",
 
-            projectDescription:
-                "Built a scalable commerce platform with a responsive storefront, secure API layer and real-time order management dashboard."
-        }
-
-    ];
+      projectDescription:
+        "Created a modular workspace interface that simplified project planning and improved information hierarchy across multiple screens."
+    },
 
 
-    /* =====================================================
-       ELEMENTS
-       ===================================================== */
+    {
+      name: "Charistin Nekto",
+      role: "Full-Stack Developer",
+      location: "Baku, Azerbaijan",
+      email: "Charistin.nek1@example.com",
 
-    const hero = document.getElementById("careerHero");
-    const cv = document.getElementById("cpCv");
-    const stack = document.getElementById("cpCvStack");
-    const stage = document.getElementById("cpStage");
+      photo:
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=90",
 
-    const prev = document.getElementById("cvPrev");
-    const next = document.getElementById("cvNext");
+      summary:
+        "Full-stack developer building reliable web applications from interface to backend. Interested in performance, architecture and polished product experiences.",
 
-    const cards =
-        document.querySelectorAll(".cp-floating-card");
+      job: "Full-Stack Developer",
+      company: "Orbit Labs · Technology",
+      date: "2022 — Present",
 
-    const sections =
-        document.querySelectorAll(".cp-cv-section");
+      experience:
+        "Developed production web applications, designed REST APIs and optimized front-end performance while working across the complete product lifecycle.",
 
-    const indicators =
-        document.querySelectorAll(".cp-indicator");
+      degree: "B.Sc. Software Engineering",
+      university: "Digital Technology Institute",
+      educationDate: "2018 — 2022",
 
+      skills: [
+        "JavaScript",
+        "Node.js",
+        "React",
+        "REST APIs",
+        "MongoDB",
+        "Cloud"
+      ],
 
-    if (!hero || !cv || !stage) {
-        return;
+      project: "Orbit Commerce",
+
+      projectDescription:
+        "Built a scalable commerce platform with a responsive storefront, secure API layer and real-time order management dashboard."
     }
 
+  ];
 
-    /* =====================================================
-       FIELDS
-       ===================================================== */
 
-    const fields = {
+  /* =====================================================
+     ELEMENTS
+     ===================================================== */
 
-        photo: document.getElementById("cvPhoto"),
+  const hero = document.getElementById("careerHero");
+  const cv = document.getElementById("cpCv");
+  const stack = document.getElementById("cpCvStack");
+  const stage = document.getElementById("cpStage");
 
-        name: document.getElementById("cvName"),
+  const prev = document.getElementById("cvPrev");
+  const next = document.getElementById("cvNext");
 
-        role: document.getElementById("cvRole"),
+  const cards =
+    document.querySelectorAll(".cp-floating-card");
 
-        location:
-            document.getElementById("cvLocation"),
+  const sections =
+    document.querySelectorAll(".cp-cv-section");
 
-        email:
-            document.getElementById("cvEmail"),
+  const indicators =
+    document.querySelectorAll(".cp-indicator");
 
-        summary:
-            document.getElementById("cvSummary"),
 
-        job:
-            document.getElementById("cvJob"),
+  if (!hero || !cv || !stage) {
+    return;
+  }
 
-        company:
-            document.getElementById("cvCompany"),
 
-        date:
-            document.getElementById("cvDate"),
+  /* =====================================================
+     FIELDS
+     ===================================================== */
 
-        experience:
-            document.getElementById("cvExperience"),
+  const fields = {
 
-        degree:
-            document.getElementById("cvDegree"),
+    photo: document.getElementById("cvPhoto"),
 
-        university:
-            document.getElementById("cvUniversity"),
+    name: document.getElementById("cvName"),
 
-        educationDate:
-            document.getElementById("cvEducationDate"),
+    role: document.getElementById("cvRole"),
 
-        skills:
-            document.getElementById("cvSkills"),
+    location:
+      document.getElementById("cvLocation"),
 
-        project:
-            document.getElementById("cvProject"),
+    email:
+      document.getElementById("cvEmail"),
 
-        projectDescription:
-            document.getElementById("cvProjectDescription"),
+    summary:
+      document.getElementById("cvSummary"),
 
-        index:
-            document.getElementById("cvIndex")
-    };
+    job:
+      document.getElementById("cvJob"),
 
+    company:
+      document.getElementById("cvCompany"),
 
-    /* =====================================================
-       STATE
-       ===================================================== */
+    date:
+      document.getElementById("cvDate"),
 
-    let currentIndex = 0;
+    experience:
+      document.getElementById("cvExperience"),
 
-    let isAnimating = false;
+    degree:
+      document.getElementById("cvDegree"),
 
-    let activeSection = "summary";
+    university:
+      document.getElementById("cvUniversity"),
 
-    let lockedSection = null;
+    educationDate:
+      document.getElementById("cvEducationDate"),
 
+    skills:
+      document.getElementById("cvSkills"),
 
-    const reduceMotion =
-        window.matchMedia &&
-        window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
+    project:
+      document.getElementById("cvProject"),
 
+    projectDescription:
+      document.getElementById("cvProjectDescription"),
 
-    /* =====================================================
-       SKILLS
-       ===================================================== */
+    index:
+      document.getElementById("cvIndex")
+  };
 
-    function renderSkills(skills) {
 
-        if (!fields.skills) return;
+  /* =====================================================
+     STATE
+     ===================================================== */
 
-        fields.skills.innerHTML = "";
+  let currentIndex = 0;
 
-        skills.forEach(skill => {
+  let isAnimating = false;
 
-            const item =
-                document.createElement("span");
+  let activeSection = "summary";
 
-            item.className = "cp-skill";
+  let lockedSection = null;
 
-            item.textContent = skill;
 
-            fields.skills.appendChild(item);
+  const reduceMotion =
+    window.matchMedia &&
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-        });
-    }
 
+  /* =====================================================
+     SKILLS
+     ===================================================== */
 
-    /* =====================================================
-       INDICATORS
-       ===================================================== */
+  function renderSkills(skills) {
 
-    function updateIndicators() {
+    if (!fields.skills) return;
 
-        indicators.forEach((indicator, index) => {
+    fields.skills.innerHTML = "";
 
-            indicator.classList.toggle(
-                "active",
-                index === currentIndex
-            );
+    skills.forEach(skill => {
 
-        });
+      const item =
+        document.createElement("span");
 
-        if (fields.index) {
+      item.className = "cp-skill";
 
-            fields.index.textContent =
-                String(currentIndex + 1)
-                    .padStart(2, "0");
+      item.textContent = skill;
 
-        }
-    }
+      fields.skills.appendChild(item);
 
+    });
+  }
 
-    /* =====================================================
-       SECTION HIGHLIGHT
-       ===================================================== */
 
-    function activateSection(name) {
+  /* =====================================================
+     INDICATORS
+     ===================================================== */
 
-        activeSection = name;
+  function updateIndicators() {
 
-        sections.forEach(section => {
+    indicators.forEach((indicator, index) => {
 
-            const isActive =
-                section.dataset.section === name;
-
-            section.classList.toggle(
-                "is-highlighted",
-                isActive
-            );
-
-            section.classList.toggle(
-                "is-dimmed",
-                !isActive
-            );
-
-        });
-
-
-        cards.forEach(card => {
-
-            card.classList.toggle(
-                "is-active",
-                card.dataset.target === name
-            );
-
-        });
-    }
-
-
-    /* =====================================================
-       RENDER CV
-       ===================================================== */
-
-    function renderCV(index, animate = true) {
-
-        const person = cvs[index];
-
-        if (!person || isAnimating) {
-            return;
-        }
-
-        isAnimating = true;
-
-
-        if (
-            animate &&
-            !reduceMotion
-        ) {
-
-            cv.classList.add("is-changing");
-
-        }
-
-
-        const update = () => {
-
-            if (fields.photo) {
-
-                fields.photo.src =
-                    person.photo;
-
-                fields.photo.alt =
-                    `${person.name} professional profile photo`;
-            }
-
-
-            if (fields.name)
-                fields.name.textContent =
-                    person.name;
-
-
-            if (fields.role)
-                fields.role.textContent =
-                    person.role;
-
-
-            if (fields.location)
-                fields.location.textContent =
-                    person.location;
-
-
-            if (fields.email)
-                fields.email.textContent =
-                    person.email;
-
-
-            if (fields.summary)
-                fields.summary.textContent =
-                    person.summary;
-
-
-            if (fields.job)
-                fields.job.textContent =
-                    person.job;
-
-
-            if (fields.company)
-                fields.company.textContent =
-                    person.company;
-
-
-            if (fields.date)
-                fields.date.textContent =
-                    person.date;
-
-
-            if (fields.experience)
-                fields.experience.textContent =
-                    person.experience;
-
-
-            if (fields.degree)
-                fields.degree.textContent =
-                    person.degree;
-
-
-            if (fields.university)
-                fields.university.textContent =
-                    person.university;
-
-
-            if (fields.educationDate)
-                fields.educationDate.textContent =
-                    person.educationDate;
-
-
-            if (fields.project)
-                fields.project.textContent =
-                    person.project;
-
-
-            if (fields.projectDescription)
-                fields.projectDescription.textContent =
-                    person.projectDescription;
-
-
-            renderSkills(person.skills);
-
-            updateIndicators();
-
-            activateSection(
-                activeSection
-            );
-        };
-
-
-        if (
-            animate &&
-            !reduceMotion
-        ) {
-
-            window.setTimeout(() => {
-
-                update();
-
-                cv.classList.remove(
-                    "is-changing"
-                );
-
-                window.setTimeout(() => {
-
-                    isAnimating = false;
-
-                }, 260);
-
-            }, 150);
-
-        } else {
-
-            update();
-
-            cv.classList.remove(
-                "is-changing"
-            );
-
-            isAnimating = false;
-        }
-    }
-
-
-    /* =====================================================
-       CHANGE CV
-       ===================================================== */
-
-    function changeCV(direction) {
-
-        if (isAnimating) {
-            return;
-        }
-
-        currentIndex += direction;
-
-
-        if (currentIndex < 0) {
-
-            currentIndex =
-                cvs.length - 1;
-        }
-
-
-        if (currentIndex >= cvs.length) {
-
-            currentIndex = 0;
-        }
-
-
-        renderCV(
-            currentIndex,
-            true
-        );
-    }
-
-
-    /* =====================================================
-       ARROWS
-       ===================================================== */
-
-    if (prev) {
-
-        prev.addEventListener(
-            "click",
-            event => {
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-                changeCV(-1);
-            }
-        );
-    }
-
-
-    if (next) {
-
-        next.addEventListener(
-            "click",
-            event => {
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-                changeCV(1);
-            }
-        );
-    }
-
-
-    /* =====================================================
-       INDICATORS
-       ===================================================== */
-
-    indicators.forEach(indicator => {
-
-        indicator.addEventListener(
-            "click",
-            event => {
-
-                event.preventDefault();
-
-                const index =
-                    Number(
-                        indicator.dataset.index
-                    );
-
-                if (
-                    index === currentIndex ||
-                    isAnimating
-                ) {
-                    return;
-                }
-
-                currentIndex = index;
-
-                renderCV(
-                    currentIndex,
-                    true
-                );
-            }
-        );
+      indicator.classList.toggle(
+        "active",
+        index === currentIndex
+      );
 
     });
 
+    if (fields.index) {
 
-    /* =====================================================
-       FLOATING CARDS
-       ===================================================== */
+      fields.index.textContent =
+        String(currentIndex + 1)
+          .padStart(2, "0");
 
-    cards.forEach(card => {
-
-        const target =
-            card.dataset.target;
-
-
-        card.addEventListener(
-            "click",
-            event => {
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-                lockedSection = target;
-
-                activateSection(
-                    target
-                );
-            }
-        );
+    }
+  }
 
 
-        card.addEventListener(
-            "mouseenter",
-            () => {
+  /* =====================================================
+     SECTION HIGHLIGHT
+     ===================================================== */
 
-                if (!lockedSection) {
+  function activateSection(name) {
 
-                    activateSection(
-                        target
-                    );
-                }
-            }
-        );
-
-
-        card.addEventListener(
-            "mouseleave",
-            () => {
-
-                if (!lockedSection) {
-
-                    activateSection(
-                        activeSection
-                    );
-                }
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       CV SECTIONS
-       ===================================================== */
+    activeSection = name;
 
     sections.forEach(section => {
 
-        const target =
-            section.dataset.section;
+      const isActive =
+        section.dataset.section === name;
 
+      section.classList.toggle(
+        "is-highlighted",
+        isActive
+      );
 
-        section.addEventListener(
-            "click",
-            event => {
-
-                event.preventDefault();
-
-                lockedSection = target;
-
-                activateSection(
-                    target
-                );
-            }
-        );
-
-
-        section.addEventListener(
-            "keydown",
-            event => {
-
-                if (
-                    event.key === "Enter" ||
-                    event.key === " "
-                ) {
-
-                    event.preventDefault();
-
-                    lockedSection = target;
-
-                    activateSection(
-                        target
-                    );
-                }
-            }
-        );
+      section.classList.toggle(
+        "is-dimmed",
+        !isActive
+      );
 
     });
 
 
-    /* =====================================================
-       INITIAL
-       ===================================================== */
+    cards.forEach(card => {
 
-    renderCV(
-        0,
-        false
-    );
+      card.classList.toggle(
+        "is-active",
+        card.dataset.target === name
+      );
 
-    activateSection(
-        "summary"
-    );
+    });
+  }
 
 
-    /* =====================================================
-       PARALLAX
-       IMPORTANT:
-       CSS VARIABLES ONLY
-       so CV rotation remains intact.
-       ===================================================== */
+  /* =====================================================
+     RENDER CV
+     ===================================================== */
+
+  function renderCV(index, animate = true) {
+
+    const person = cvs[index];
+
+    if (!person || isAnimating) {
+      return;
+    }
+
+    isAnimating = true;
+
 
     if (
-        !reduceMotion &&
-        window.matchMedia("(pointer:fine)").matches
+      animate &&
+      !reduceMotion
     ) {
 
-        let targetX = 0;
-        let targetY = 0;
-
-        let currentX = 0;
-        let currentY = 0;
-
-        let animationFrame = null;
-
-
-        function animateParallax() {
-
-            currentX +=
-                (targetX - currentX) * .07;
-
-            currentY +=
-                (targetY - currentY) * .07;
-
-
-            stack.style.setProperty(
-                "--cp-parallax-x",
-                `${currentX * -4}px`
-            );
-
-
-            stack.style.setProperty(
-                "--cp-parallax-y",
-                `${currentY * -3}px`
-            );
-
-
-            cards.forEach(
-                (card, index) => {
-
-                    const amount =
-                        1.1 +
-                        index * .25;
-
-                    card.style.setProperty(
-                        "--card-x",
-                        `${currentX * amount}px`
-                    );
-
-                    card.style.setProperty(
-                        "--card-y",
-                        `${currentY * amount}px`
-                    );
-
-                }
-            );
-
-
-            animationFrame =
-                requestAnimationFrame(
-                    animateParallax
-                );
-        }
-
-
-        stage.addEventListener(
-            "pointermove",
-            event => {
-
-                const rect =
-                    stage.getBoundingClientRect();
-
-
-                targetX =
-                    (
-                        (event.clientX - rect.left) /
-                        rect.width
-                        - .5
-                    ) * 2;
-
-
-                targetY =
-                    (
-                        (event.clientY - rect.top) /
-                        rect.height
-                        - .5
-                    ) * 2;
-
-
-                if (!animationFrame) {
-
-                    animationFrame =
-                        requestAnimationFrame(
-                            animateParallax
-                        );
-                }
-            },
-            { passive: true }
-        );
-
-
-        stage.addEventListener(
-            "pointerleave",
-            () => {
-
-                targetX = 0;
-                targetY = 0;
-            }
-        );
+      cv.classList.add("is-changing");
 
     }
 
 
-    /* =====================================================
-       KEYBOARD
-       ===================================================== */
+    const update = () => {
 
-    document.addEventListener(
-        "keydown",
-        event => {
+      if (fields.photo) {
 
-            const active =
-                document.activeElement;
+        fields.photo.src =
+          person.photo;
 
-
-            if (
-                active &&
-                (
-                    active.tagName === "INPUT" ||
-                    active.tagName === "TEXTAREA"
-                )
-            ) {
-                return;
-            }
+        fields.photo.alt =
+          `${person.name} professional profile photo`;
+      }
 
 
-            if (
-                event.key === "ArrowRight"
-            ) {
-
-                changeCV(1);
-            }
+      if (fields.name)
+        fields.name.textContent =
+          person.name;
 
 
-            if (
-                event.key === "ArrowLeft"
-            ) {
+      if (fields.role)
+        fields.role.textContent =
+          person.role;
 
-                changeCV(-1);
-            }
 
+      if (fields.location)
+        fields.location.textContent =
+          person.location;
+
+
+      if (fields.email)
+        fields.email.textContent =
+          person.email;
+
+
+      if (fields.summary)
+        fields.summary.textContent =
+          person.summary;
+
+
+      if (fields.job)
+        fields.job.textContent =
+          person.job;
+
+
+      if (fields.company)
+        fields.company.textContent =
+          person.company;
+
+
+      if (fields.date)
+        fields.date.textContent =
+          person.date;
+
+
+      if (fields.experience)
+        fields.experience.textContent =
+          person.experience;
+
+
+      if (fields.degree)
+        fields.degree.textContent =
+          person.degree;
+
+
+      if (fields.university)
+        fields.university.textContent =
+          person.university;
+
+
+      if (fields.educationDate)
+        fields.educationDate.textContent =
+          person.educationDate;
+
+
+      if (fields.project)
+        fields.project.textContent =
+          person.project;
+
+
+      if (fields.projectDescription)
+        fields.projectDescription.textContent =
+          person.projectDescription;
+
+
+      renderSkills(person.skills);
+
+      updateIndicators();
+
+      activateSection(
+        activeSection
+      );
+    };
+
+
+    if (
+      animate &&
+      !reduceMotion
+    ) {
+
+      window.setTimeout(() => {
+
+        update();
+
+        cv.classList.remove(
+          "is-changing"
+        );
+
+        window.setTimeout(() => {
+
+          isAnimating = false;
+
+        }, 260);
+
+      }, 150);
+
+    } else {
+
+      update();
+
+      cv.classList.remove(
+        "is-changing"
+      );
+
+      isAnimating = false;
+    }
+  }
+
+
+  /* =====================================================
+     CHANGE CV
+     ===================================================== */
+
+  function changeCV(direction) {
+
+    if (isAnimating) {
+      return;
+    }
+
+    currentIndex += direction;
+
+
+    if (currentIndex < 0) {
+
+      currentIndex =
+        cvs.length - 1;
+    }
+
+
+    if (currentIndex >= cvs.length) {
+
+      currentIndex = 0;
+    }
+
+
+    renderCV(
+      currentIndex,
+      true
+    );
+  }
+
+
+  /* =====================================================
+     ARROWS
+     ===================================================== */
+
+  if (prev) {
+
+    prev.addEventListener(
+      "click",
+      event => {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+        changeCV(-1);
+      }
+    );
+  }
+
+
+  if (next) {
+
+    next.addEventListener(
+      "click",
+      event => {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+        changeCV(1);
+      }
+    );
+  }
+
+
+  /* =====================================================
+     INDICATORS
+     ===================================================== */
+
+  indicators.forEach(indicator => {
+
+    indicator.addEventListener(
+      "click",
+      event => {
+
+        event.preventDefault();
+
+        const index =
+          Number(
+            indicator.dataset.index
+          );
+
+        if (
+          index === currentIndex ||
+          isAnimating
+        ) {
+          return;
         }
+
+        currentIndex = index;
+
+        renderCV(
+          currentIndex,
+          true
+        );
+      }
+    );
+
+  });
+
+
+  /* =====================================================
+     FLOATING CARDS
+     ===================================================== */
+
+  cards.forEach(card => {
+
+    const target =
+      card.dataset.target;
+
+
+    card.addEventListener(
+      "click",
+      event => {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+        lockedSection = target;
+
+        activateSection(
+          target
+        );
+      }
     );
 
 
-    /* =====================================================
-       TOUCH SWIPE
-       ===================================================== */
+    card.addEventListener(
+      "mouseenter",
+      () => {
 
-    let touchStartX = 0;
+        if (!lockedSection) {
 
-
-    cv.addEventListener(
-        "touchstart",
-        event => {
-
-            touchStartX =
-                event.changedTouches[0]
-                    .screenX;
-
-        },
-        {
-            passive: true
+          activateSection(
+            target
+          );
         }
+      }
     );
 
 
-    cv.addEventListener(
-        "touchend",
-        event => {
+    card.addEventListener(
+      "mouseleave",
+      () => {
 
-            const endX =
-                event.changedTouches[0]
-                    .screenX;
+        if (!lockedSection) {
 
-
-            const distance =
-                endX - touchStartX;
-
-
-            if (
-                Math.abs(distance) < 45
-            ) {
-                return;
-            }
-
-
-            if (distance < 0) {
-
-                changeCV(1);
-
-            } else {
-
-                changeCV(-1);
-            }
-
-        },
-        {
-            passive: true
+          activateSection(
+            activeSection
+          );
         }
+      }
     );
+
+  });
+
+
+  /* =====================================================
+     CV SECTIONS
+     ===================================================== */
+
+  sections.forEach(section => {
+
+    const target =
+      section.dataset.section;
+
+
+    section.addEventListener(
+      "click",
+      event => {
+
+        event.preventDefault();
+
+        lockedSection = target;
+
+        activateSection(
+          target
+        );
+      }
+    );
+
+
+    section.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+
+          event.preventDefault();
+
+          lockedSection = target;
+
+          activateSection(
+            target
+          );
+        }
+      }
+    );
+
+  });
+
+
+  /* =====================================================
+     INITIAL
+     ===================================================== */
+
+  renderCV(
+    0,
+    false
+  );
+
+  activateSection(
+    "summary"
+  );
+
+
+  /* =====================================================
+     PARALLAX
+     IMPORTANT:
+     CSS VARIABLES ONLY
+     so CV rotation remains intact.
+     ===================================================== */
+
+  if (
+    !reduceMotion &&
+    window.matchMedia("(pointer:fine)").matches
+  ) {
+
+    let targetX = 0;
+    let targetY = 0;
+
+    let currentX = 0;
+    let currentY = 0;
+
+    let animationFrame = null;
+
+
+    function animateParallax() {
+
+      currentX +=
+        (targetX - currentX) * .07;
+
+      currentY +=
+        (targetY - currentY) * .07;
+
+
+      stack.style.setProperty(
+        "--cp-parallax-x",
+        `${currentX * -4}px`
+      );
+
+
+      stack.style.setProperty(
+        "--cp-parallax-y",
+        `${currentY * -3}px`
+      );
+
+
+      cards.forEach(
+        (card, index) => {
+
+          const amount =
+            1.1 +
+            index * .25;
+
+          card.style.setProperty(
+            "--card-x",
+            `${currentX * amount}px`
+          );
+
+          card.style.setProperty(
+            "--card-y",
+            `${currentY * amount}px`
+          );
+
+        }
+      );
+
+
+      animationFrame =
+        requestAnimationFrame(
+          animateParallax
+        );
+    }
+
+
+    stage.addEventListener(
+      "pointermove",
+      event => {
+
+        const rect =
+          stage.getBoundingClientRect();
+
+
+        targetX =
+          (
+            (event.clientX - rect.left) /
+            rect.width
+            - .5
+          ) * 2;
+
+
+        targetY =
+          (
+            (event.clientY - rect.top) /
+            rect.height
+            - .5
+          ) * 2;
+
+
+        if (!animationFrame) {
+
+          animationFrame =
+            requestAnimationFrame(
+              animateParallax
+            );
+        }
+      },
+      { passive: true }
+    );
+
+
+    stage.addEventListener(
+      "pointerleave",
+      () => {
+
+        targetX = 0;
+        targetY = 0;
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     KEYBOARD
+     ===================================================== */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      const active =
+        document.activeElement;
+
+
+      if (
+        active &&
+        (
+          active.tagName === "INPUT" ||
+          active.tagName === "TEXTAREA"
+        )
+      ) {
+        return;
+      }
+
+
+      if (
+        event.key === "ArrowRight"
+      ) {
+
+        changeCV(1);
+      }
+
+
+      if (
+        event.key === "ArrowLeft"
+      ) {
+
+        changeCV(-1);
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     TOUCH SWIPE
+     ===================================================== */
+
+  let touchStartX = 0;
+
+
+  cv.addEventListener(
+    "touchstart",
+    event => {
+
+      touchStartX =
+        event.changedTouches[0]
+          .screenX;
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  cv.addEventListener(
+    "touchend",
+    event => {
+
+      const endX =
+        event.changedTouches[0]
+          .screenX;
+
+
+      const distance =
+        endX - touchStartX;
+
+
+      if (
+        Math.abs(distance) < 45
+      ) {
+        return;
+      }
+
+
+      if (distance < 0) {
+
+        changeCV(1);
+
+      } else {
+
+        changeCV(-1);
+      }
+
+    },
+    {
+      passive: true
+    }
+  );
 
 });
 
@@ -2623,7 +2623,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const next =
         currentStep <
-        data.length - 1
+          data.length - 1
 
           ? currentStep + 1
 
@@ -3195,7 +3195,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     infoNumber.textContent =
       String(index + 1)
-      .padStart(2, "0");
+        .padStart(2, "0");
 
 
     infoTitle.textContent =
@@ -3221,7 +3221,7 @@ document.addEventListener("DOMContentLoaded", () => {
     progress.style.width =
       (
         ((index + 1) /
-        anatomy.length) * 100
+          anatomy.length) * 100
       ) + "%";
 
   }
@@ -3384,122 +3384,190 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const section = document.querySelector("#cpCtaFinal");
+  const section = document.querySelector("#cpCtaFinal");
 
-    if (!section) return;
-
-
-    /* ------------------------------------------
-       Reveal
-       ------------------------------------------ */
-
-    const observer = new IntersectionObserver(
-        function (entries) {
-
-            entries.forEach(function (entry) {
-
-                if (entry.isIntersecting) {
-
-                    section.classList.add("is-visible");
-
-                    observer.unobserve(section);
-                }
-
-            });
-
-        },
-        {
-            threshold: 0.18
-        }
-    );
-
-    observer.observe(section);
+  if (!section) return;
 
 
-    /* ------------------------------------------
-       Button hover
-       ------------------------------------------ */
+  /* ------------------------------------------
+     Reveal
+     ------------------------------------------ */
 
-    const buttons = section.querySelectorAll(
-        ".cp-cta-btn"
-    );
+  const observer = new IntersectionObserver(
+    function (entries) {
 
-    buttons.forEach(function (button) {
+      entries.forEach(function (entry) {
 
-        const icon = button.querySelector("i");
+        if (entry.isIntersecting) {
 
-        button.addEventListener(
-            "mouseenter",
-            function () {
+          section.classList.add("is-visible");
 
-                if (icon) {
-                    icon.style.transform =
-                        "translateX(4px)";
-                }
-
-            }
-        );
-
-        button.addEventListener(
-            "mouseleave",
-            function () {
-
-                if (icon) {
-                    icon.style.transform = "";
-                }
-
-            }
-        );
-
-
-        /* Prevent # jump */
-        if (
-            button.getAttribute("href") === "#"
-        ) {
-
-            button.addEventListener(
-                "click",
-                function (event) {
-                    event.preventDefault();
-                }
-            );
-
+          observer.unobserve(section);
         }
 
-    });
+      });
+
+    },
+    {
+      threshold: 0.18
+    }
+  );
+
+  observer.observe(section);
 
 
-    /* ------------------------------------------
-       Small CV preview interaction
-       ------------------------------------------ */
+  /* ------------------------------------------
+     Button hover
+     ------------------------------------------ */
 
-    const preview =
-        section.querySelector(
-            ".cp-cta-preview"
-        );
+  const buttons = section.querySelectorAll(
+    ".cp-cta-btn"
+  );
 
-    if (preview) {
+  buttons.forEach(function (button) {
 
-        preview.addEventListener(
-            "mouseenter",
-            function () {
+    const icon = button.querySelector("i");
 
-                preview.style.transform =
-                    "rotate(0deg) translateY(-5px)";
+    button.addEventListener(
+      "mouseenter",
+      function () {
 
-            }
-        );
+        if (icon) {
+          icon.style.transform =
+            "translateX(4px)";
+        }
 
-        preview.addEventListener(
-            "mouseleave",
-            function () {
+      }
+    );
 
-                preview.style.transform =
-                    "rotate(1.3deg)";
+    button.addEventListener(
+      "mouseleave",
+      function () {
 
-            }
-        );
+        if (icon) {
+          icon.style.transform = "";
+        }
+
+      }
+    );
+
+
+    /* Prevent # jump */
+    if (
+      button.getAttribute("href") === "#"
+    ) {
+
+      button.addEventListener(
+        "click",
+        function (event) {
+          event.preventDefault();
+        }
+      );
 
     }
+
+  });
+
+
+  /* ------------------------------------------
+     Small CV preview interaction
+     ------------------------------------------ */
+
+  const preview =
+    section.querySelector(
+      ".cp-cta-preview"
+    );
+
+  if (preview) {
+
+    preview.addEventListener(
+      "mouseenter",
+      function () {
+
+        preview.style.transform =
+          "rotate(0deg) translateY(-5px)";
+
+      }
+    );
+
+    preview.addEventListener(
+      "mouseleave",
+      function () {
+
+        preview.style.transform =
+          "rotate(1.3deg)";
+
+      }
+    );
+
+  }
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   CVPILOT PREMIUM LOADER
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const loader = document.getElementById("cvpilotLoader");
+
+  const letters = document.querySelectorAll(
+    ".loader-logo span"
+  );
+
+  if (!loader) return;
+
+
+  /* =========================
+     LETTER REVEAL
+  ========================= */
+
+  letters.forEach((letter, index) => {
+
+    setTimeout(() => {
+
+      letter.classList.add("show");
+
+    }, 120 + (index * 90));
+
+  });
+
+
+  /* =========================
+     HIDE LOADER
+  ========================= */
+
+  setTimeout(() => {
+
+    loader.classList.add("loaded");
+
+  }, 1200);
 
 });
