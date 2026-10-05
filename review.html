@@ -300,6 +300,167 @@
     </div>
 </section>
 
+<!-- =========================================================
+     CAREERPILOT — AI REVIEW WORKSPACE (DYNAMIC WORKSPACE)
+========================================================= -->
+<section class="review-workspace-section" id="review-workspace">
+
+    <!-- Ambient Glowing Background Layer -->
+    <div class="review-workspace-bg" aria-hidden="true">
+        <div class="review-glow review-glow-1"></div>
+        <div class="review-glow review-glow-2"></div>
+        <div class="review-grid"></div>
+    </div>
+
+    <div class="container position-relative">
+
+        <!-- Section Heading Header -->
+        <div class="review-workspace-heading" data-aos="fade-up">
+            <div class="review-section-label">
+                <span></span> AI CV REVIEW <span></span>
+            </div>
+            <h2>Find what's holding <span>your CV back.</span></h2>
+            <p>
+                Upload your CV or paste its content below. CareerPilot will analyze it and show you where you can make a stronger impression.
+            </p>
+        </div>
+
+        <!-- Main Workspace Row Split -->
+        <div class="review-workspace">
+
+            <!-- LEFT SIDE PANEL: INPUT CONTROLS -->
+            <div class="review-input-panel" data-aos="fade-right" data-aos-duration="1000">
+                
+                <!-- Interactive Sub-Tabs Navigation -->
+                <div class="review-tabs">
+                    <button class="review-tab active" type="button" data-tab="upload">
+                        <i class="bi bi-cloud-arrow-up"></i> Upload CV
+                    </button>
+                    <button class="review-tab" type="button" data-tab="paste">
+                        <i class="bi bi-file-text"></i> Paste Text
+                    </button>
+                </div>
+
+                <!-- Tab Area 1: Native File Uploader Dropzone Wrapper -->
+                <div class="review-tab-content active" id="uploadContent">
+                    <div class="cv-dropzone" id="cvDropzone">
+                        <input type="file" id="cvFileInputWorkspace" accept=".pdf,.doc,.docx" hidden>
+                        <div class="dropzone-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+                        <h3>Drop your CV here</h3>
+                        <p>or browse files from your computer</p>
+                        <button class="browse-cv-btn" type="button" id="browseCV">
+                        <i class="bi bi-folder2-open"></i> Browse CV
+                        </button>
+
+                        <small class="dropzone-format-text">
+                           PDF, DOC or DOCX · Max 10MB
+                        </small>
+
+                    </div>
+
+                    <!-- Selected File Metadata HUD Display -->
+                    <div class="selected-cv-workspace" id="selectedCVWorkspace" style="display: none;">
+                        <div class="selected-file-icon"><i class="bi bi-file-earmark-text"></i></div>
+                        <div class="selected-file-info">
+                            <strong id="selectedFileNameWorkspace">My_CV.pdf</strong>
+                            <span id="selectedFileSizeWorkspace">Ready for analysis</span>
+                        </div>
+                        <button type="button" class="remove-file-btn" id="removeCVWorkspace" aria-label="Remove file">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab Area 2: RAW String Clipboard Pasting Textarea Box -->
+                <div class="review-tab-content" id="pasteContent">
+                    <div class="paste-wrapper">
+                        <textarea id="cvTextInputWorkspace" class="cv-textarea" placeholder="Paste your CV content here..."></textarea>
+                        <div class="textarea-footer">
+                            <span><i class="bi bi-shield-check"></i> Your text stays private</span>
+                            <span id="characterCountWorkspace">0 characters</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main System Analyze Activation Button -->
+                <button type="button" class="analyze-cv-btn" id="analyzeCVWorkspaceBtn">
+                    <span class="analyze-default">
+                        <i class="bi bi-stars"></i> Analyze My CV <i class="bi bi-arrow-right"></i>
+                    </span>
+                    <span class="analyze-loading" style="display: none;">
+                        <span class="loading-spinner"></span> Analyzing your CV...
+                    </span>
+                </button>
+
+                <div class="workspace-security">
+                    <i class="bi bi-lock"></i> <span>Your CV is only used for analysis</span>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE PANEL: LIVE AI DATA PREVIEW VISUALIZER (Hidden initially, animates into view) -->
+            <div class="review-analysis-panel" id="reviewAnalysisPanel" style="display: none;">
+                <div class="analysis-preview-header">
+                    <div>
+                        <span>CAREERPILOT AI</span>
+                        <h3>Analysis Preview</h3>
+                    </div>
+                    <div class="preview-status" id="previewStatusLabel"><span></span>READY</div>
+                </div>
+
+                <!-- Dynamic Circular Ring Chart Logic Wrapper -->
+                <div class="preview-score-section">
+                    <div class="preview-score-circle">
+                        <svg viewBox="0 0 120 120">
+                            <circle class="preview-score-bg" cx="60" cy="60" r="50"></circle>
+                            <circle class="preview-score-progress" id="workspaceScoreProgressCircle" cx="60" cy="60" r="50"></circle>
+                        </svg>
+                        <div class="preview-score-number">
+                            <strong id="workspaceScoreNumber">0</strong><span>/100</span>
+                        </div>
+                    </div>
+                    <div class="preview-score-info">
+                        <span>OVERALL CV SCORE</span>
+                        <h4 id="workspaceScoreStatus">Analyzing...</h4>
+                        <p id="workspaceScoreDescription">Please wait while the AI calculates the overall structural scoring.</p>
+                    </div>
+                </div>
+
+                <!-- Metric Distribution Tracks System -->
+                <div class="preview-categories-list">
+                    <div class="preview-category-item">
+                        <div class="category-top-meta">
+                            <div><i class="bi bi-layout-text-window"></i> Structure</div>
+                            <strong id="structurePercentageText">0%</strong>
+                        </div>
+                        <div class="category-bar-track"><span id="structureProgressBarFill" style="width: 0%;"></span></div>
+                    </div>
+                    <div class="preview-category-item">
+                        <div class="category-top-meta">
+                            <div><i class="bi bi-lightning-charge"></i> Impact</div>
+                            <strong id="impactPercentageText">0%</strong>
+                        </div>
+                        <div class="category-bar-track"><span id="impactProgressBarFill" style="width: 0%;"></span></div>
+                    </div>
+                    <div class="preview-category-item">
+                        <div class="category-top-meta">
+                            <div><i class="bi bi-key"></i> Keywords</div>
+                            <strong id="keywordsPercentageText">0%</strong>
+                        </div>
+                        <div class="category-bar-track"><span id="keywordsProgressBarFill" style="width: 0%;"></span></div>
+                    </div>
+                </div>
+
+                <!-- 🛠️ DEDICATED MARKDOWN AI ANALYSIS SYSTEM REPORT BOX -->
+                <div id="aiAnalysisResultBox">
+                    <!-- AI text streams inject safely here inside scrollbars -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
 
 
      <!-- ================= TSPARTICLES ================= -->
