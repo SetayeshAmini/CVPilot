@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CVPilot | Create your CV</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+
+    <!-- AOS Animation -->
+    <link
+        href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+        rel="stylesheet"
+    >
+
+    <!-- Favicon -->
+    <link
+        rel="icon"
+        type="image/png"
+        href="LOGO/b9b70786-351e-4d10-bf0b-5dc078e55898-removebg-preview.png"
+    >
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="cvguide.css">
+</head>
+
+
+<body>
+
+    <!-- ================= PARTICLES BACKGROUND ================= -->
+    <div id="particles-background"></div>
+
+
+    <!-- ================= NAVBAR ================= -->
+    <!-- اضافه شدن کلاس navbar-expand-lg برای نمایش صحیح آیتم‌ها در دسکتاپ -->
+    <nav class="navbar navbar-expand-lg cv-navbar" id="mainNavbar">
+
+        <div class="container">
+
+            <!-- LOGO -->
+            <a class="navbar-brand cv-logo" href="#">
+                <div class="logo-box">
+                    <img
+                        src="LOGO/b9b70786-351e-4d10-bf0b-5dc078e55898-removebg-preview.png"
+                        alt="CVPilot Logo"
+                    >
+                </div>
+                <span class="logo-text">
+                    CV<span>Pilot</span>
+                </span>
+            </a>
+
+
+            <!-- MOBILE MENU BUTTON -->
+           <button
+            class="navbar-toggler cv-toggler"
+            type="button"
+            id="navbarToggle"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+            aria-controls="navbarMenu"
+            >
+           <span></span>
+           <span></span>
+           <span></span>
+          </button>
+
+
+            <!-- NAVIGATION -->
+            <div
+                class="collapse navbar-collapse"
+                id="navbarMenu"
+            >
+
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="bi bi-house-door"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-file-earmark-plus"></i>
+                            <span>Build CV</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-book"></i>
+                            <span>CV Guide</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-stars"></i>
+                            <span>AI Review</span>
+                        </a>
+                    </li>
+
+                   
+                </ul>
+
+
+                <!-- START BUILDING -->
+                <div class="nav-cta">
+                    <a href="#" class="btn-start">
+                        <span>Start Building</span>
+                        <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+
+  <main id="cvGuide">
+
+    <!-- HERO -->
+    <section class="guide-hero section-tight">
+      <div class="container-xl">
+        <div class="hero-grid">
+          <div class="hero-copy reveal">
+            <div class="eyebrow"><span class="eyebrow-dot"></span> CVPILOT / CV GUIDE</div>
+            <h1>Build a CV that<br><span>gets noticed.</span></h1>
+            <p class="hero-lead">
+              A strong CV is not about saying more. It is about making the right information
+              clear, relevant, specific, and easy to scan.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#cv-anatomy" class="btn btn-primary-glow js-scroll">
+                Explore the guide <i class="bi bi-arrow-down-right"></i>
+              </a>
+              <button class="btn btn-ghost" id="quickStartBtn">
+                <i class="bi bi-lightning-charge"></i> Quick checklist
+              </button>
+            </div>
+
+            <div class="hero-metrics">
+              <div><strong id="heroProgress">0%</strong><span>guide progress</span></div>
+              <div><strong>07</strong><span>core sections</span></div>
+              <div><strong>24</strong><span>practical checks</span></div>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal delay-1">
+            <div class="orbit orbit-a"></div>
+            <div class="orbit orbit-b"></div>
+            <div class="floating-label label-top"><i class="bi bi-check2-circle"></i> Clear</div>
+            <div class="floating-label label-side"><i class="bi bi-bullseye"></i> Relevant</div>
+
+            <div class="cv-sheet" id="miniCv">
+              <div class="cv-topline">
+                <div>
+                  <span class="mini-name">YOUR NAME</span>
+                  <span class="mini-role">Frontend Developer</span>
+                </div>
+                <div class="mini-score"><span>CV</span><b>86</b></div>
+              </div>
+              <div class="mini-contact">hello@email.com&nbsp;&nbsp;·&nbsp;&nbsp;Berlin&nbsp;&nbsp;·&nbsp;&nbsp;linkedin.com/in/you</div>
+              <div class="mini-rule"></div>
+              <div class="mini-section">
+                <span>SUMMARY</span>
+                <div class="mini-lines"><i></i><i></i><i class="short"></i></div>
+              </div>
+              <div class="mini-section">
+                <span>EXPERIENCE</span>
+                <div class="mini-job"><b>Frontend Developer</b><em>2024 — Present</em></div>
+                <div class="mini-lines"><i></i><i></i><i></i></div>
+              </div>
+              <div class="mini-section">
+                <span>PROJECTS</span>
+                <div class="mini-job"><b>PetTrace Platform</b><em>2025</em></div>
+                <div class="mini-lines"><i></i><i></i></div>
+              </div>
+              <div class="mini-tags"><span>JavaScript</span><span>React</span><span>Git</span><span>CSS</span></div>
+            </div>
+
+            <div class="scan-line"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY STRONG -->
+    <section class="section-tight" id="strong-cv">
+      <div class="container-xl">
+        <div class="section-heading reveal">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span> THE FOUNDATION</div>
+            <h2>What makes a CV <span>strong?</span></h2>
+          </div>
+        </div>
+
+        <div class="principle-grid">
+          <button class="principle-card active reveal" data-principle="clear">
+            <div class="card-icon"><i class="bi bi-eye"></i></div>
+            <div class="card-number">01</div>
+            <h3>Clear</h3>
+            <p>Make important information easy to find.</p>
+            <span class="card-link">Explore <i class="bi bi-arrow-up-right"></i></span>
+          </button>
+
+          <button class="principle-card reveal delay-1" data-principle="relevant">
+            <div class="card-icon"><i class="bi bi-crosshair2"></i></div>
+            <div class="card-number">02</div>
+            <h3>Relevant</h3>
+            <p>Prioritize what matters for the role.</p>
+            <span class="card-link">Explore <i class="bi bi-arrow-up-right"></i></span>
+          </button>
+
+          <button class="principle-card reveal delay-2" data-principle="specific">
+            <div class="card-icon"><i class="bi bi-bullseye"></i></div>
+            <div class="card-number">03</div>
+            <h3>Specific</h3>
+            <p>Replace vague claims with evidence.</p>
+            <span class="card-link">Explore <i class="bi bi-arrow-up-right"></i></span>
+          </button>
+
+          <button class="principle-card reveal delay-3" data-principle="professional">
+            <div class="card-icon"><i class="bi bi-gem"></i></div>
+            <div class="card-number">04</div>
+            <h3>Professional</h3>
+            <p>Use consistent structure and language.</p>
+            <span class="card-link">Explore <i class="bi bi-arrow-up-right"></i></span>
+          </button>
+        </div>
+
+        <div class="principle-detail reveal" id="principleDetail">
+          <div class="detail-orb"><i class="bi bi-eye"></i></div>
+          <div>
+            <span class="detail-kicker">WHY IT MATTERS</span>
+            <h3 id="principleTitle">Clear information wins attention.</h3>
+            <p id="principleText">A recruiter should understand your target role, strongest skills and most relevant experience without searching through a wall of text.</p>
+            <div class="detail-pills" id="principlePills">
+              <span>Short sections</span><span>Strong headings</span><span>Readable spacing</span>
+            </div>
+          </div>
+          <div class="detail-stat"><strong id="principleStat">01</strong><span>principle selected</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANATOMY -->
+    <section class="section-tight" id="cv-anatomy">
+      <div class="container-xl">
+        <div class="section-heading centered reveal">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span> CV ANATOMY</div>
+            <h2>Your CV, <span>section by section.</span></h2>
+          </div>
+          <p>Click any part of the document to understand what belongs there and what to avoid.</p>
+        </div>
+
+        <div class="anatomy-layout">
+          <div class="anatomy-nav reveal">
+            <button class="anatomy-tab active" data-section="personal"><span>01</span> Personal Info <i class="bi bi-arrow-right"></i></button>
+            <button class="anatomy-tab" data-section="summary"><span>02</span> Professional Summary <i class="bi bi-arrow-right"></i></button>
+            <button class="anatomy-tab" data-section="experience"><span>03</span> Experience <i class="bi bi-arrow-right"></i></button>
+            <button class="anatomy-tab" data-section="education"><span>04</span> Education <i class="bi bi-arrow-right"></i></button>
+            <button class="anatomy-tab" data-section="skills"><span>05</span> Skills <i class="bi bi-arrow-right"></i></button>
+            <button class="anatomy-tab" data-section="projects"><span>06</span> Projects <i class="bi bi-arrow-right"></i></button>
+            <button class="anatomy-tab" data-section="languages"><span>07</span> Languages <i class="bi bi-arrow-right"></i></button>
+          </div>
+
+          <div class="anatomy-card reveal delay-1">
+            <div class="anatomy-copy">
+              <div class="anatomy-count" id="anatomyCount">01 / 07</div>
+              <span class="detail-kicker" id="anatomyKicker">START HERE</span>
+              <h3 id="anatomyTitle">Personal Information</h3>
+              <p id="anatomyText">Give the reader a direct way to identify you and contact you. Keep it compact and professional.</p>
+              <div class="do-dont">
+                <div><span class="do"><i class="bi bi-check2"></i> DO</span><p id="anatomyDo">Use a professional email, location and relevant portfolio links.</p></div>
+                <div><span class="dont"><i class="bi bi-x"></i> AVOID</span><p id="anatomyDont">Adding unnecessary personal details such as age, marital status or a full home address.</p></div>
+              </div>
+              <button class="text-btn" id="anatomyExampleBtn">See a practical example <i class="bi bi-arrow-up-right"></i></button>
+            </div>
+
+            <div class="anatomy-preview" id="anatomyPreview">
+              <div class="preview-header"><span id="previewSectionLabel">PERSONAL INFO</span><b id="previewLabel">01</b></div>
+              <div class="preview-body" id="previewBody">
+                <div class="preview-name">MORSAL AMINI</div>
+                <div class="preview-role">Frontend Developer</div>
+                <div class="preview-contact"><span>hello@email.com</span><span>Berlin, DE</span><span>linkedin.com/in/morsal</span></div>
+                <div class="preview-highlight">Make contact details useful — not noisy.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISTAKES -->
+    <section class="section-tight" id="mistakes">
+      <div class="container-xl">
+        <div class="section-heading reveal">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span> RED FLAGS</div>
+            <h2>Common CV <span>mistakes.</span></h2>
+          </div>
+        </div>
+
+        <div class="mistake-layout">
+          <div class="mistake-list reveal">
+            <button class="mistake-item active" data-mistake="generic"><span>01</span><b>Generic summary</b><i class="bi bi-chevron-right"></i></button>
+            <button class="mistake-item" data-mistake="long"><span>02</span><b>Too much text</b><i class="bi bi-chevron-right"></i></button>
+            <button class="mistake-item" data-mistake="duties"><span>03</span><b>Only listing duties</b><i class="bi bi-chevron-right"></i></button>
+            <button class="mistake-item" data-mistake="skills"><span>04</span><b>Unsupported skills</b><i class="bi bi-chevron-right"></i></button>
+            <button class="mistake-item" data-mistake="errors"><span>05</span><b>Spelling & formatting errors</b><i class="bi bi-chevron-right"></i></button>
+            <button class="mistake-item" data-mistake="onecv"><span>06</span><b>One CV for every job</b><i class="bi bi-chevron-right"></i></button>
+          </div>
+
+          <div class="mistake-detail reveal delay-1">
+            <div class="problem-badge"><i class="bi bi-exclamation-triangle"></i> <span id="mistakeBadge">NEEDS ATTENTION</span></div>
+            <h3 id="mistakeTitle">A generic summary says almost nothing.</h3>
+            <p id="mistakeText">Phrases like “hard-working team player” are easy to write but give little evidence of what you can actually do.</p>
+            <div class="fix-box">
+              <span><i class="bi bi-wrench-adjustable"></i> BETTER APPROACH</span>
+              <p id="mistakeFix">Name your target role, strongest skills and the kind of problems you can solve.</p>
+            </div>
+            <div class="mistake-example">
+              <span id="mistakeExampleLabel">TRY THIS</span>
+              <div id="mistakeExample">“Frontend developer focused on responsive interfaces, JavaScript and accessible user experiences.”</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEFORE AFTER -->
+    <section class="section-tight" id="before-after">
+      <div class="container-xl">
+        <div class="before-after-head reveal">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span> MAKE IT STRONGER</div>
+            <h2>Before / <span>After.</span></h2>
+          </div>
+          <div class="ba-controls">
+            <button class="ba-toggle active" data-ba="summary">Summary</button>
+            <button class="ba-toggle" data-ba="project">Project</button>
+            <button class="ba-toggle" data-ba="experience">Experience</button>
+          </div>
+        </div>
+
+        <div class="ba-card reveal">
+          <div class="ba-side before">
+            <div class="ba-label"><span class="status-dot red"></span> BEFORE</div>
+            <p id="beforeText">“I am a hardworking person who is interested in technology and wants to grow professionally.”</p>
+            <span class="ba-note" id="beforeNote">Too broad · little evidence · no target</span>
+          </div>
+          <div class="ba-divider"><span><i class="bi bi-arrow-right"></i></span></div>
+          <div class="ba-side after">
+            <div class="ba-label"><span class="status-dot green"></span> AFTER</div>
+            <p id="afterText">“Frontend developer building responsive, accessible interfaces with JavaScript and modern CSS, with a focus on practical user experience.”</p>
+            <span class="ba-note" id="afterNote">Target role · skills · focus</span>
+          </div>
+        </div>
+
+        <div class="micro-tip reveal"><i class="bi bi-stars"></i><span id="baTip">A stronger sentence answers: What do you do? What are you good at? Where do you create value?</span></div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE CHECKLIST -->
+    <section class="section-tight" id="checklist">
+      <div class="container-xl">
+        <div class="checklist-shell reveal">
+          <div class="checklist-head">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-dot"></span> FINAL CHECK</div>
+              <h2>Is your CV <span>ready?</span></h2>
+              <p>Check each item. Your progress is calculated live and remembered in this browser.</p>
+            </div>
+            <div class="score-ring" id="scoreRing">
+              <svg viewBox="0 0 120 120">
+                <circle class="ring-track" cx="60" cy="60" r="50"></circle>
+                <circle class="ring-value" id="ringValue" cx="60" cy="60" r="50"></circle>
+              </svg>
+              <div><strong id="checkScore">0%</strong><span>ready</span></div>
+            </div>
+          </div>
+
+          <div class="check-grid" id="checkGrid">
+            <label class="check-item"><input type="checkbox" data-check><span class="fake-check"><i class="bi bi-check"></i></span><div><b>Contact information is complete</b><small>Email, phone/location and relevant links are correct.</small></div></label>
+            <label class="check-item"><input type="checkbox" data-check><span class="fake-check"><i class="bi bi-check"></i></span><div><b>Summary is specific</b><small>It identifies your role, skills and professional focus.</small></div></label>
+            <label class="check-item"><input type="checkbox" data-check><span class="fake-check"><i class="bi bi-check"></i></span><div><b>Experience shows impact</b><small>Bullets describe actions, outcomes or measurable results.</small></div></label>
+            <label class="check-item"><input type="checkbox" data-check><span class="fake-check"><i class="bi bi-check"></i></span><div><b>Projects are meaningful</b><small>They explain what you built, how and why it matters.</small></div></label>
+            <label class="check-item"><input type="checkbox" data-check><span class="fake-check"><i class="bi bi-check"></i></span><div><b>Skills are supported</b><small>Important skills appear naturally in projects or experience.</small></div></label>
+            <label class="check-item"><input type="checkbox" data-check><span class="fake-check"><i class="bi bi-check"></i></span><div><b>Formatting is consistent</b><small>Dates, headings, spacing and typography follow one system.</small></div></label>
+            <label class="check-item"><input type="checkbox" data-check><span class="fake-check"><i class="bi bi-check"></i></span><div><b>Links work correctly</b><small>Portfolio, GitHub and LinkedIn links open successfully.</small></div></label>
+            <label class="check-item"><input type="checkbox" data-check><span class="fake-check"><i class="bi bi-check"></i></span><div><b>It fits the target role</b><small>The most relevant evidence is easy to find for this job.</small></div></label>
+          </div>
+
+          <div class="checklist-footer">
+            <span id="checkMessage">Start checking your CV.</span>
+            <button class="reset-btn" id="resetChecklist"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta section-tight">
+      <div class="container-xl">
+        <div class="cta-card reveal">
+          <div class="cta-glow"></div>
+          <div class="cta-content">
+            <div class="eyebrow"><span class="eyebrow-dot"></span> NEXT STEP</div>
+            <h2>Your experience matters.<br><span>Make sure your CV shows it.</span></h2>
+            <p>Use this guide as your final pass before you build, edit or submit your CV.</p>
+            <button class="btn btn-primary-glow" id="finishGuideBtn">Mark guide complete <i class="bi bi-check2"></i></button>
+          </div>
+          <div class="cta-symbol"><i class="bi bi-arrow-up-right"></i></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- DETAIL MODAL -->
+  <div class="modal fade" id="guideModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content custom-modal">
+        <button type="button" class="modal-close" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+        <div class="modal-eyebrow">PRACTICAL EXAMPLE</div>
+        <h3 id="modalTitle">Personal Information</h3>
+        <p id="modalText"></p>
+        <div class="modal-example" id="modalExample"></div>
+        <div class="modal-tip"><i class="bi bi-lightbulb"></i><span id="modalTip"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="guideToast" class="toast custom-toast" role="alert">
+      <div class="toast-body"><i class="bi bi-stars"></i><span id="toastText">Nice work.</span></div>
+    </div>
+  </div>
+
+
+
+     <!-- ================= TSPARTICLES ================= -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@tsparticles/tsparticles@3/tsparticles.bundle.min.js">
+    </script>
+    
+    <!-- ================= BOOTSTRAP JS ================= -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- ================= AOS ================= -->
+    <script
+        src="https://unpkg.com/aos@2.3.4/dist/aos.js">
+    </script>
+
+    <!-- ================= CUSTOM JS ================= -->
+    <script src="cvguide.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 700,
+            once: true
+        });
+    </script>
+
+</body>
+
+</html>
