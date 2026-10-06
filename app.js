@@ -3530,44 +3530,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-/* =========================================================
-   CVPILOT PREMIUM LOADER
-========================================================= */
-
+/**
+ * ============================================================================
+ * CVPILOT PREMIUM LOADER LIFECYCLE CONTROLLER
+ * Evaluates visit persistence using SessionStorage to guarantee the premium 
+ * introduction sequences fire exactly ONCE per session lifecycle.
+ * ============================================================================
+ */
 document.addEventListener("DOMContentLoaded", () => {
+    const loader = document.getElementById("cvpilotLoader");
 
-  const loader = document.getElementById("cvpilotLoader");
+    // Exit gracefully to avoid console errors if loader is not defined on current page view
+    if (!loader) return;
 
-  const letters = document.querySelectorAll(
-    ".loader-logo span"
-  );
+    // Evaluate storage signature to determine if visitor is new or returning within current tab session
+    if (sessionStorage.getItem("cvpilot_loader_shown") === null) {
+        
+        // Scenario A: First time visit. Allow full CSS typography animation to execute completely.
+        setTimeout(() => {
+            // Injects pre-styled '.loaded' class to kick off the smooth CSS transition exit curve
+            loader.classList.add("loaded");
+            
+            // Log flag in local Session memory to prevent loops upon routing back to home page
+            sessionStorage.setItem("cvpilot_loader_shown", "true");
+        }, 3500); // 3.5 Seconds runtime: perfect padding to let the typing finish and breathe
 
-  if (!loader) return;
-
-
-  /* =========================
-     LETTER REVEAL
-  ========================= */
-
-  letters.forEach((letter, index) => {
-
-    setTimeout(() => {
-
-      letter.classList.add("show");
-
-    }, 120 + (index * 90));
-
-  });
+    } else {
+        // Scenario B: Returning visit. Immediately cull element representation to maximize snappy UX.
+        loader.style.display = "none";
+    }
+});
 
 
-  /* =========================
-     HIDE LOADER
-  ========================= */
+/**
+ * ============================================================================
+ * CVPILOT FOOTER - SMOOTH BACK TO TOP SCROLL
+ * Intercepts the footer anchor link click to create a premium, smooth 
+ * scrolling experience back to the absolute top of the page.
+ * ============================================================================
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    const backToTopBtn = document.querySelector(".cvp-footer__top-link");
 
-  setTimeout(() => {
+    // Exit early if the button element is not found on the current page view
+    if (!backToTopBtn) return;
 
-    loader.classList.add("loaded");
+    backToTopBtn.addEventListener("click", (event) => {
+        // Prevent the default abrupt jumping behavior of the anchor link
+        event.preventDefault();
 
-  }, 1200);
-
+        // Perform a premium, smooth scroll directly to the absolute top coordinates
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
 });
