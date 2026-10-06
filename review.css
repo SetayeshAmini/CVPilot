@@ -2613,3 +2613,6 @@ body > *:not(#particles-background) {
 .ai-scanner-wrapper {
     padding-top: 90px; 
 }
+html {
+    scroll-behavior: smooth;
+}

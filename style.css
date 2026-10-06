@@ -4788,3 +4788,7 @@ h2{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:clamp(31px,4.2
 main.hero {
     padding-top: 90px; 
 }
+
+html {
+    scroll-behavior: smooth;
+}

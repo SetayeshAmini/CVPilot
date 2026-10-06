@@ -3560,3 +3560,29 @@ document.addEventListener("DOMContentLoaded", () => {
         loader.style.display = "none";
     }
 });
+
+
+/**
+ * ============================================================================
+ * CVPILOT FOOTER - SMOOTH BACK TO TOP SCROLL
+ * Intercepts the footer anchor link click to create a premium, smooth 
+ * scrolling experience back to the absolute top of the page.
+ * ============================================================================
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    const backToTopBtn = document.querySelector(".cvp-footer__top-link");
+
+    // Exit early if the button element is not found on the current page view
+    if (!backToTopBtn) return;
+
+    backToTopBtn.addEventListener("click", (event) => {
+        // Prevent the default abrupt jumping behavior of the anchor link
+        event.preventDefault();
+
+        // Perform a premium, smooth scroll directly to the absolute top coordinates
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+});

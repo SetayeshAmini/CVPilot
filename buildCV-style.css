@@ -2147,3 +2147,7 @@ main.buildcv-page {
     padding-top: 90px; 
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
